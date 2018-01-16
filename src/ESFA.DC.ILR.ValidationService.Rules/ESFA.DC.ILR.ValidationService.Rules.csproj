@@ -40,7 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LongExtensions.cs" />
+    <Compile Include="Extensions\MessageLearnerExtensions.cs" />
+    <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
+      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
+      <Name>ESFA.DC.ILR.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
