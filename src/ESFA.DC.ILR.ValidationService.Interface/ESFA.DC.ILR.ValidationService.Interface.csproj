@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDateTimeProvider.cs" />
     <Compile Include="IRule.cs" />
+    <Compile Include="IValidationDataService.cs" />
     <Compile Include="IValidationErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

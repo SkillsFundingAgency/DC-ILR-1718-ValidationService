@@ -79,6 +79,7 @@
     <Compile Include="Extensions\MessageLearnerExtensionTests.cs" />
     <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensionTests.cs" />
     <Compile Include="Learner\ULN\ULN_02RuleTests.cs" />
+    <Compile Include="Learner\ULN\ULN_03RuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +89,10 @@
     <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
       <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
       <Name>ESFA.DC.ILR.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
+      <Project>{991F0564-9702-4B47-8B5F-7C5794563F05}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.ExternalData</Name>
     </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.Interface\ESFA.DC.ILR.ValidationService.Interface.csproj">
       <Project>{513C4F05-55F4-4AEF-B3EB-427C024DA043}</Project>
