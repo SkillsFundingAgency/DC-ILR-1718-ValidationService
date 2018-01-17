@@ -40,7 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorHandler\Model\ValidationError.cs" />
+    <Compile Include="ErrorHandler\ValidationErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.Interface\ESFA.DC.ILR.ValidationService.Interface.csproj">
+      <Project>{513C4F05-55F4-4AEF-B3EB-427C024DA043}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
