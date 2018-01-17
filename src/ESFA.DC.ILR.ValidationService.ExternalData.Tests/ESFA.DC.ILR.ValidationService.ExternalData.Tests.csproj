@@ -6,11 +6,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{754EEC2F-826D-46CC-80C0-A0A006CA7CE9}</ProjectGuid>
+    <ProjectGuid>{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ESFA.DC.ILR.ValidationService.Rules.Tests</RootNamespace>
-    <AssemblyName>ESFA.DC.ILR.ValidationService.Rules.Tests</AssemblyName>
+    <RootNamespace>ESFA.DC.ILR.ValidationService.ExternalData.Tests</RootNamespace>
+    <AssemblyName>ESFA.DC.ILR.ValidationService.ExternalData.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -62,9 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\LongExtensionTests.cs" />
-    <Compile Include="Extensions\MessageLearnerExtensionTests.cs" />
-    <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensionTests.cs" />
+    <Compile Include="FileDataService\FileDataServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +73,9 @@
       <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
       <Name>ESFA.DC.ILR.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.Rules\ESFA.DC.ILR.ValidationService.Rules.csproj">
-      <Project>{621B61D1-339D-4910-8C86-8A64AF8822F5}</Project>
-      <Name>ESFA.DC.ILR.ValidationService.Rules</Name>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
+      <Project>{991f0564-9702-4b47-8b5f-7c5794563f05}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.ExternalData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
