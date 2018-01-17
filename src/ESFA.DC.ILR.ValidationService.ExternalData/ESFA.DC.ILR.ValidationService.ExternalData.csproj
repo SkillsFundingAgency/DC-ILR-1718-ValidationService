@@ -42,6 +42,10 @@
   <ItemGroup>
     <Compile Include="FileDataService\FileDataService.cs" />
     <Compile Include="FileDataService\Interface\IFileDataService.cs" />
+    <Compile Include="LARS\Model\AnnualValue.cs" />
+    <Compile Include="LARS\Model\FrameworkAim.cs" />
+    <Compile Include="LARS\Model\LearningDelivery.cs" />
+    <Compile Include="LARS\Model\LearningDeliveryCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +54,6 @@
       <Name>ESFA.DC.ILR.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
