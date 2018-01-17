@@ -6,6 +6,12 @@ namespace ESFA.DC.ILR.Model
     public partial class MessageLearnerLearningDelivery
     {
         [XmlIgnore]
+        public long? AimSeqNumberNullable
+        {
+            get { return aimSeqNumberFieldSpecified ? (long?)aimSeqNumberField : null;  }
+        }
+
+        [XmlIgnore]
         public DateTime? LearnStartDateNullable
         {
             get { return learnStartDateFieldSpecified ? (DateTime?)learnStartDateField : null; }

@@ -7,6 +7,30 @@ namespace ESFA.DC.ILR.Model.Tests
     public class MessageLearnerLearningDeliveryTests
     {
         [Fact]
+        public void AimSeqNumber_Specified_False()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery();
+
+            learningDelivery.LearnActEndDateSpecified = false;
+            learningDelivery.AimSeqNumber = 1234;
+
+            learningDelivery.AimSeqNumberNullable.Should().BeNull();
+        }
+
+        [Fact]
+        public void AimSeqNumber_Specified_True()
+        {
+            var aimSeqNumber = 1234;
+            var learningDelivery = new MessageLearnerLearningDelivery();
+
+            learningDelivery.AimSeqNumberSpecified = true;
+            learningDelivery.AimSeqNumber = aimSeqNumber;
+
+            learningDelivery.AimSeqNumberNullable.Should().Be(aimSeqNumber);
+            learningDelivery.AimSeqNumberNullable.Should().NotBeNull();
+        }
+
+        [Fact]
         public void LearnStartEndDate_Specified_False()
         {
             var learningDelivery = new MessageLearnerLearningDelivery();
