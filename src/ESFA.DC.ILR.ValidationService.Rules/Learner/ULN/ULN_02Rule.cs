@@ -1,19 +1,19 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
-    public class ULN_02Rule : IRule<MessageLearner>
+    public class ULN_02Rule : AbstractRule, IRule<MessageLearner>
     {
-        private readonly IValidationErrorHandler _validationErrorHandler;
         private readonly IEnumerable<long> _fundModels = new long[] { 99, 10 };
 
         public ULN_02Rule(IValidationErrorHandler validationErrorHandler)
+            : base(validationErrorHandler)
         {
-            _validationErrorHandler = validationErrorHandler;
         }
 
         public void Validate(MessageLearner objectToValidate)

@@ -1,6 +1,7 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Extensions;
 using System;
 using System.Collections.Generic;
@@ -8,19 +9,18 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
-    public class ULN_03Rule : IRule<MessageLearner>
+    public class ULN_03Rule : AbstractRule, IRule<MessageLearner>
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
-        private readonly IValidationErrorHandler _validationErrorHandler;
 
         private readonly IEnumerable<long> _fundModels = new long[] { 25, 82, 35, 36, 81, 70 };
 
         public ULN_03Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
+            : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
             _validationDataService = validationDataService;
-            _validationErrorHandler = validationErrorHandler;
         }
 
         public void Validate(MessageLearner objectToValidate)

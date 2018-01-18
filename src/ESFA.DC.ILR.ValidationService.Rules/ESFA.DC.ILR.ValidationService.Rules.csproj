@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractRule.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Extensions\MessageLearnerExtensions.cs" />
     <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
