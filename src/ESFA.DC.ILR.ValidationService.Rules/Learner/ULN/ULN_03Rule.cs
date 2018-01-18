@@ -29,7 +29,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             {
                 if (ConditionMet(learningDelivery.FundModel, objectToValidate.ULN, _fileDataService.FilePreparationDate, _validationDataService.AcademicYearJanuaryFirst))
                 {
-                    _validationErrorHandler.Handle(RuleNameConstants.ULN_03, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.ULN_03, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }

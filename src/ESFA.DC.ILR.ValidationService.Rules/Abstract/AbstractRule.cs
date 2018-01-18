@@ -1,4 +1,5 @@
 ﻿using ESFA.DC.ILR.ValidationService.Interface;
+using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Abstract
 {
@@ -10,5 +11,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Abstract
         {
             _validationErrorHandler = validationErrorHandler;
         }
+
+        protected void HandleValidationError(string ruleName, string learnRefNumber = null, long? aimSequenceNumber = null, IEnumerable<string> errorMessageParameters = null)
+        {
+            _validationErrorHandler.Handle(ruleName, learnRefNumber, aimSequenceNumber, errorMessageParameters);
+        }        
     }
 }

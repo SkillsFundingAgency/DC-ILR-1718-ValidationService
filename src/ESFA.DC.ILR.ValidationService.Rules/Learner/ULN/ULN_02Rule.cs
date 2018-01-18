@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             {
                 if (ConditionMet(learningDelivery.FundModel, objectToValidate.ULN))
                 {
-                    _validationErrorHandler.Handle(RuleNameConstants.ULN_02, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.ULN_02, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
