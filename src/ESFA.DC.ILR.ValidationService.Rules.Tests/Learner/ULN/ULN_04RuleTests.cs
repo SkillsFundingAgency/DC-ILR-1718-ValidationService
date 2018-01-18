@@ -67,7 +67,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             rule.Validate(learner);
 
-            validationErrorHandlerMock.Verify(handle, Times.Exactly(1));
+            validationErrorHandlerMock.Verify(handle, Times.Once);
         }
     }
 }

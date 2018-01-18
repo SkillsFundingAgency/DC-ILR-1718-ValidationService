@@ -20,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
         {
             if (ConditionMet(objectToValidate.ULN, _dd01.Derive(objectToValidate.ULN)))
             {
-                HandleValidationError(RuleNameConstants.ULN_04);
+                HandleValidationError(RuleNameConstants.ULN_04, objectToValidate.LearnRefNumber);
             }
         }
 

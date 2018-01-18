@@ -49,6 +49,7 @@
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />
     <Compile Include="Learner\ULN\ULN_04Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_05Rule.cs" />
     <Compile Include="LearningDeliveryFAMTypeConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleNameConstants.cs" />
