@@ -41,11 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\AbstractRule.cs" />
+    <Compile Include="Derived\DD01.cs" />
+    <Compile Include="Derived\Interface\IDD01.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Extensions\MessageLearnerExtensions.cs" />
     <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_04Rule.cs" />
     <Compile Include="LearningDeliveryFAMTypeConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleNameConstants.cs" />

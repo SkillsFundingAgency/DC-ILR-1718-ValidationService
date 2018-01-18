@@ -5,12 +5,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Abstract
 {
     public abstract class AbstractRule
     {
-        protected readonly IValidationErrorHandler _validationErrorHandler;
+        private readonly IValidationErrorHandler _validationErrorHandler;
 
         public AbstractRule(IValidationErrorHandler validationErrorHandler)
         {
             _validationErrorHandler = validationErrorHandler;
-        }
+        }        
 
         protected void HandleValidationError(string ruleName, string learnRefNumber = null, long? aimSequenceNumber = null, IEnumerable<string> errorMessageParameters = null)
         {
