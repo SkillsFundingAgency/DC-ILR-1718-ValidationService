@@ -40,7 +40,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractRule.cs" />
+    <Compile Include="Derived\DD01.cs" />
+    <Compile Include="Derived\DD04.cs" />
+    <Compile Include="Derived\DD07.cs" />
+    <Compile Include="Derived\Interface\IDD01.cs" />
+    <Compile Include="Derived\Interface\IDD04.cs" />
+    <Compile Include="Derived\Interface\IDD07.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\LongExtensions.cs" />
+    <Compile Include="Extensions\MessageLearnerExtensions.cs" />
+    <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_02Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_03Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_04Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_05Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_06Rule.cs" />
+    <Compile Include="LearningDeliveryFAMTypeConstants.cs" />
+    <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_02Rule.cs" />
+    <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_03Rule.cs" />
+    <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_05Rule.cs" />
+    <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_12Rule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuleNameConstants.cs" />
+    <Compile Include="ValidationConstants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
+      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
+      <Name>ESFA.DC.ILR.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
+      <Project>{991F0564-9702-4B47-8B5F-7C5794563F05}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.ExternalData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.Interface\ESFA.DC.ILR.ValidationService.Interface.csproj">
+      <Project>{513C4F05-55F4-4AEF-B3EB-427C024DA043}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

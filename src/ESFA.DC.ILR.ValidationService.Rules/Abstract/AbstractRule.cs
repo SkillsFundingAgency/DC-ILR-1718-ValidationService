@@ -1,0 +1,20 @@
+﻿using ESFA.DC.ILR.ValidationService.Interface;
+using System.Collections.Generic;
+
+namespace ESFA.DC.ILR.ValidationService.Rules.Abstract
+{
+    public abstract class AbstractRule
+    {
+        private readonly IValidationErrorHandler _validationErrorHandler;
+
+        public AbstractRule(IValidationErrorHandler validationErrorHandler)
+        {
+            _validationErrorHandler = validationErrorHandler;
+        }        
+
+        protected void HandleValidationError(string ruleName, string learnRefNumber = null, long? aimSequenceNumber = null, IEnumerable<string> errorMessageParameters = null)
+        {
+            _validationErrorHandler.Handle(ruleName, learnRefNumber, aimSequenceNumber, errorMessageParameters);
+        }        
+    }
+}

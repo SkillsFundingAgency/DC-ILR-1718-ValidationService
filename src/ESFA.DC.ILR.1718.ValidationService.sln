@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.Service.Tests", "ESFA.DC.ILR.ValidationService.Service.Tests\ESFA.DC.ILR.ValidationService.Service.Tests.csproj", "{780816ED-CA62-43E3-87FB-784D1FF08500}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.ExternalData", "ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj", "{991F0564-9702-4B47-8B5F-7C5794563F05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.ExternalData.Tests", "ESFA.DC.ILR.ValidationService.ExternalData.Tests\ESFA.DC.ILR.ValidationService.ExternalData.Tests.csproj", "{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.Interface", "ESFA.DC.ILR.ValidationService.Interface\ESFA.DC.ILR.ValidationService.Interface.csproj", "{513C4F05-55F4-4AEF-B3EB-427C024DA043}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,18 @@ Global
 		{780816ED-CA62-43E3-87FB-784D1FF08500}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780816ED-CA62-43E3-87FB-784D1FF08500}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{780816ED-CA62-43E3-87FB-784D1FF08500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{991F0564-9702-4B47-8B5F-7C5794563F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{991F0564-9702-4B47-8B5F-7C5794563F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{991F0564-9702-4B47-8B5F-7C5794563F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{991F0564-9702-4B47-8B5F-7C5794563F05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513C4F05-55F4-4AEF-B3EB-427C024DA043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513C4F05-55F4-4AEF-B3EB-427C024DA043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513C4F05-55F4-4AEF-B3EB-427C024DA043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513C4F05-55F4-4AEF-B3EB-427C024DA043}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
