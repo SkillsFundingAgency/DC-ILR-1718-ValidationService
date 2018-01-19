@@ -19,5 +19,22 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Extensions
                 .Select(ld => (DateTime?)ld.LearnStartDate)
                 .FirstOrDefault();
         }
+
+        public static DateTime? BirthdayAt(this MessageLearner learner, int age)
+        {
+            return learner.DateOfBirthSpecified ? (DateTime?)learner.DateOfBirth.AddYears(age) : null;
+        }
+
+        public static int? AgeOn(this MessageLearner learner, DateTime reference)
+        {
+            if (!learner.DateOfBirthSpecified)
+            {
+                return null;
+            }
+
+            int age = reference.Year - learner.DateOfBirth.Year;
+
+            return reference < learner.DateOfBirth.AddYears(age) ? age - 1 : age;
+        }
     }
 }
