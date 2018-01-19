@@ -3,6 +3,7 @@
     public static class RuleNameConstants
     {
         public const string DateOfBirth_48 = "DateOfBirth_48";
+        public const string LearnStartDate_02 = "LearnStartDate_02";
         public const string ULN_02 = "ULN_02";
         public const string ULN_03 = "ULN_03";
         public const string ULN_04 = "ULN_04";
