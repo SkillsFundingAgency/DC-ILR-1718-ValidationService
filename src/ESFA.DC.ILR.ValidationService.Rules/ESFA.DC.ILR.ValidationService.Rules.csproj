@@ -52,6 +52,7 @@
     <Compile Include="Extensions\MessageLearnerExtensions.cs" />
     <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
+    <Compile Include="Learner\PMUKPRN\PMUKPRN_01Rule.cs" />
     <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01Rule.cs" />
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />

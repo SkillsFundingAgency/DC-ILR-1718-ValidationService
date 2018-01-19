@@ -9,6 +9,8 @@
         public const string LearnStartDate_05 = "LearnStartDate_05";
         public const string LearnStartDate_12 = "LearnStartDate_12";
 
+        public const string PMUKPRN_01 = "PMUKPRN_01";
+
         public const string PrevUKPRN_01 = "PrevUKPRN_01";
 
         public const string ULN_02 = "ULN_02";
