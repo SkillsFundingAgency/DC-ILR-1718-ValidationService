@@ -7,6 +7,7 @@
         public const string LearnStartDate_02 = "LearnStartDate_02";
         public const string LearnStartDate_03 = "LearnStartDate_03";
         public const string LearnStartDate_05 = "LearnStartDate_05";
+        public const string LearnStartDate_12 = "LearnStartDate_12";
 
         public const string ULN_02 = "ULN_02";
         public const string ULN_03 = "ULN_03";

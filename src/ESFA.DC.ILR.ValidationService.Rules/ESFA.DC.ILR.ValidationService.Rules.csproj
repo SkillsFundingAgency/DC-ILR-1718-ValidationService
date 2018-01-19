@@ -61,6 +61,7 @@
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_02Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_03Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_05Rule.cs" />
+    <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_12Rule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleNameConstants.cs" />
     <Compile Include="ValidationConstants.cs" />
