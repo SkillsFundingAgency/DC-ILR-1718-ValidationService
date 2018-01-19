@@ -90,6 +90,7 @@
     <Compile Include="Learner\ULN\ULN_06RuleTests.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_02RuleTests.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_03RuleTests.cs" />
+    <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_05RuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
