@@ -9,6 +9,8 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Interface
 
         IDictionary<string, LearningDelivery> LearningDeliveries { get; }
 
+        IEnumerable<long> UKPRNs { get; }
+
         void Populate(IEnumerable<long> ulns, IEnumerable<string> learnAimRefs);
     }
 }

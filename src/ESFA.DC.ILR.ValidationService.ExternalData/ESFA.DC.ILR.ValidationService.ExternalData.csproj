@@ -47,6 +47,8 @@
     <Compile Include="LARS\Model\FrameworkAim.cs" />
     <Compile Include="LARS\Model\LearningDelivery.cs" />
     <Compile Include="LARS\Model\LearningDeliveryCategory.cs" />
+    <Compile Include="Organisation\Interface\IOrganisationReferenceDataService.cs" />
+    <Compile Include="Organisation\OrganisationReferenceDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ULN\Interface\IULNReferenceDataService.cs" />
     <Compile Include="ULN\ULNReferenceDataService.cs" />
