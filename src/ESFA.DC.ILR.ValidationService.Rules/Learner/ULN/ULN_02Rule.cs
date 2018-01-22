@@ -34,9 +34,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
         {
-            var fam = learningDelivery.LearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.SOF);
-
-            return fam != null && fam == "1";
+            return learningDelivery.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.SOF, "1");
         }
     }
 }
