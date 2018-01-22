@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
-    public class ULN_06Rule : AbstractRule, IRule<MessageLearner>
+    public class ULN_07Rule : AbstractRule, IRule<MessageLearner>
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
 
         private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 82, 35, 36, 81, 70 };
 
-        public ULN_06Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
+        public ULN_07Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
@@ -37,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
                     learningDelivery.LearnPlanEndDateNullable,
                     learningDelivery.LearnActEndDateNullable))
                 {
-                    HandleValidationError(RuleNameConstants.ULN_06, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.ULN_07, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
@@ -65,7 +65,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
         {
             return ((learnPlanEndDate - learnStartDate).Value.TotalDays >= 5
                 || (learnActEndDate.HasValue && (learnActEndDate - learnStartDate).Value.TotalDays >= 5))
-                && (filePreparationDate - learnStartDate).Value.TotalDays <= 60;
+                && (filePreparationDate - learnStartDate).Value.TotalDays > 60;
         }
 
         public bool UlnConditionMet(long uln)

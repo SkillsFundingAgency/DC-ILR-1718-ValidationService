@@ -61,5 +61,50 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Extensions
 
             learningDelivery.LearningDeliveryFAMCodeForType("TypeTwo").Should().Be("CodeTwo");
         }
+
+        [Fact]
+        public void HasLearningDeliveryFAMCodeForType_True()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery
+            {
+                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+                   {
+                    new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                    new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                   }
+            };
+
+            learningDelivery.HasLearningDeliveryFAMCodeForType("TypeTwo", "CodeTwo").Should().BeTrue();
+        }
+
+        [Fact]
+        public void HasLearningDeliveryFAMCodeForType_FalseNull()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery
+            {
+                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+                {
+                    new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                    new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                }
+            };
+
+            learningDelivery.HasLearningDeliveryFAMCodeForType("Fiction", "CodeOne").Should().BeFalse();
+        }
+
+        [Fact]
+        public void HasLearningDeliveryFAMCodeForType_FalseMismatch()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery
+            {
+                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+                {
+                    new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                    new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                }
+            };
+
+            learningDelivery.HasLearningDeliveryFAMCodeForType("TypeOne", "CodeThree").Should().BeFalse();
+        }
     }
 }

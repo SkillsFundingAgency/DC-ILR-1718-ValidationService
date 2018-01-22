@@ -14,5 +14,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Extensions
 
             return learningDelivery.LearningDeliveryFAM.Where(ldfam => ldfam.LearnDelFAMType == famType).Select(ldfam => ldfam.LearnDelFAMCode).FirstOrDefault();
         }
+
+        public static bool HasLearningDeliveryFAMCodeForType(this MessageLearnerLearningDelivery learningDelivery, string famType, string famCode)
+        {
+            var fam = learningDelivery.LearningDeliveryFAMCodeForType(famType);
+
+            return fam != null && fam == famCode;
+        }
     }
 }
