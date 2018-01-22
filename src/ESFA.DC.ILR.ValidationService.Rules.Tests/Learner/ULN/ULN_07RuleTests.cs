@@ -90,6 +90,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         }
 
         [Fact]
+        public void FundModelConditionMet_False()
+        {
+            var rule = new ULN_07Rule(null, null, null);
+
+            rule.FundModelConditionMet(1, null).Should().BeFalse();
+        }
+
+        [Fact]
         public void FilePreparationDateMet_True()
         {
             var rule = new ULN_07Rule(null, null, null);

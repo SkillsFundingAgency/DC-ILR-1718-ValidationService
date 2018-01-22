@@ -89,6 +89,7 @@
     <Compile Include="Learner\ULN\ULN_03RuleTests.cs" />
     <Compile Include="Learner\ULN\ULN_04RuleTests.cs" />
     <Compile Include="Learner\ULN\ULN_05RuleTests.cs" />
+    <Compile Include="Learner\ULN\ULN_10RuleTests.cs" />
     <Compile Include="Learner\ULN\ULN_07RuleTests.cs" />
     <Compile Include="Learner\ULN\ULN_06RuleTests.cs" />
     <Compile Include="Learner\ULN\ULN_09RuleTests.cs" />
