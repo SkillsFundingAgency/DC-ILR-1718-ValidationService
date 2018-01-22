@@ -22,5 +22,6 @@
         public const string ULN_09 = "ULN_09";
         public const string ULN_10 = "ULN_10";
         public const string ULN_11 = "ULN_11";
+        public const string ULN_12 = "ULN_12";
     }
 }

@@ -76,5 +76,28 @@ namespace ESFA.DC.ILR.Model.Tests
 
             learner.PMUKPRNNullable.Should().BeNull();
         }
+
+        [Fact]
+        public void ULNNullable_Specified_True()
+        {
+            var learner = new MessageLearner();
+
+            learner.ULNSpecified = true;
+            learner.ULN = 1234;
+
+            learner.ULNNullable.Should().Be(1234);
+            learner.ULNNullable.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ULNNullable_Specified_False()
+        {
+            var learner = new MessageLearner();
+
+            learner.ULNSpecified = false;
+            learner.ULN = 1234;
+
+            learner.ULNNullable.Should().BeNull();
+        }
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="Learner\ULN\ULN_09Rule.cs" />
     <Compile Include="Learner\ULN\ULN_11Rule.cs" />
     <Compile Include="Learner\ULN\ULN_10Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_12Rule.cs" />
     <Compile Include="LearningDeliveryFAMTypeConstants.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_02Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_03Rule.cs" />

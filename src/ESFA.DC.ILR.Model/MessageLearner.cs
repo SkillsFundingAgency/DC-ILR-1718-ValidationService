@@ -22,5 +22,11 @@ namespace ESFA.DC.ILR.Model
         {
             get { return prevUKPRNFieldSpecified ? (long?)prevUKPRNField : null;  }
         }
+        
+        [XmlIgnore]
+        public long? ULNNullable
+        {
+            get { return uLNFieldSpecified ? (long?)uLNField : null; }
+        }
     }
 }
