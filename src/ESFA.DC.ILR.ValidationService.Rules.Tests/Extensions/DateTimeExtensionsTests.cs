@@ -23,7 +23,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Extensions
 
             while (date.Month == month)
             {
-                var result = date.LastFridayInMonth().Should().Be(expectedValue);
+                date.LastFridayInMonth().Should().Be(expectedValue);
                 date = date.AddDays(1);
             }
         }

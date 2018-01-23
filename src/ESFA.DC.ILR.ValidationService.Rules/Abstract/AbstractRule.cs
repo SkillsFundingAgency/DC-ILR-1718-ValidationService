@@ -7,7 +7,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Abstract
     {
         private readonly IValidationErrorHandler _validationErrorHandler;
 
-        public AbstractRule(IValidationErrorHandler validationErrorHandler)
+        protected AbstractRule(IValidationErrorHandler validationErrorHandler)
         {
             _validationErrorHandler = validationErrorHandler;
         }        

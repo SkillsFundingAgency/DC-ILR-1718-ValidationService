@@ -110,9 +110,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             {
                 FamilyName = "Not Null"
             };
-
-            var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-
+            
             var rule = new FamilyName_01Rule(null);
 
             rule.Validate(learner);            
@@ -132,9 +130,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                     }
                 }
             };
-
-            var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-
+            
             var rule = new FamilyName_01Rule(null);
 
             rule.Validate(learner);
