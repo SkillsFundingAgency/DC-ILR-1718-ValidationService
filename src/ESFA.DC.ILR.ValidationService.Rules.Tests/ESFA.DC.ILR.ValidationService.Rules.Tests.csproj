@@ -84,6 +84,7 @@
     <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensionTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01RuleTests.cs" />
+    <Compile Include="Learner\FamilyName\FamilyName_04RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_02RuleTests.cs" />
     <Compile Include="Learner\PMUKPRN\PMUKPRN_01RuleTests.cs" />
     <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01RuleTests.cs" />

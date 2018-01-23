@@ -6,6 +6,7 @@
 
         public const string FamilyName_01 = "FamilyName_01";
         public const string FamilyName_02 = "FamilyName_02";
+        public const string FamilyName_04 = "FamilyName_04";
 
         public const string LearnStartDate_02 = "LearnStartDate_02";
         public const string LearnStartDate_03 = "LearnStartDate_03";
