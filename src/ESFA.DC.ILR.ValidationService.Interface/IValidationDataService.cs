@@ -8,7 +8,7 @@ namespace ESFA.DC.ILR.ValidationService.Interface
         DateTime AcademicYearEnd { get; }
         DateTime AcademicYearJanuaryFirst { get; }
         DateTime AcademicYearStart { get; }
-        IEnumerable<long> ApprenticeProgTypes { get; }
+        IReadOnlyCollection<long> ApprenticeProgTypes { get; }
         DateTime ApprencticeProgAllowedStartDate { get; }
         DateTime ValidationStartDateTime { get; }
     }

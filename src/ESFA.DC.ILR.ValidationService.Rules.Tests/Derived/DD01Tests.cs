@@ -37,5 +37,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
 
             dd.Derive(1000000043).Should().Be("3");
         }
+
+        [Fact]
+        public void Derive_TemporaryULN()
+        {
+            var dd = new DD01();
+
+            dd.Derive(9999999999).Should().Be("Y");
+        }
     }
 }

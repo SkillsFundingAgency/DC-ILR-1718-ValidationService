@@ -5,11 +5,11 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Interface
 {
     public interface IReferenceDataCache
     {
-        IEnumerable<long> ULNs { get; }
+        IReadOnlyCollection<long> ULNs { get; }
 
-        IDictionary<string, LearningDelivery> LearningDeliveries { get; }
+        IReadOnlyDictionary<string, LearningDelivery> LearningDeliveries { get; }
 
-        IEnumerable<long> UKPRNs { get; }
+        IReadOnlyCollection<long> UKPRNs { get; }
 
         void Populate(IEnumerable<long> ulns, IEnumerable<string> learnAimRefs);
     }

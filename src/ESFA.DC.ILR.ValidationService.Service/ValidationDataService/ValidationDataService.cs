@@ -9,7 +9,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.ValidationDataService
         private readonly DateTime _academicYearEnd = new DateTime(2018, 7, 31);
         private readonly DateTime _academicYearJanuaryFirst = new DateTime(2018, 1, 1);
         private readonly DateTime _academicYearStart = new DateTime(2017, 8, 1);
-        private readonly IEnumerable<long> _apprenticeshipProgTypes = new HashSet<long>() { 2, 3, 20, 21, 2, 23, 25 };
+        private readonly IReadOnlyCollection<long> _apprenticeshipProgTypes = new HashSet<long>() { 2, 3, 20, 21, 2, 23, 25 };
         private readonly DateTime _apprenticeshipProgAllowedStartDate = new DateTime(2016, 08, 01);
         private readonly DateTime _validationStartDateTime;
 
@@ -24,7 +24,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.ValidationDataService
 
         public DateTime AcademicYearStart { get { return _academicYearStart; } }
 
-        public IEnumerable<long> ApprenticeProgTypes { get { return _apprenticeshipProgTypes; } }
+        public IReadOnlyCollection<long> ApprenticeProgTypes { get { return _apprenticeshipProgTypes; } }
 
         public DateTime ApprencticeProgAllowedStartDate { get { return _apprenticeshipProgAllowedStartDate; } }
 
