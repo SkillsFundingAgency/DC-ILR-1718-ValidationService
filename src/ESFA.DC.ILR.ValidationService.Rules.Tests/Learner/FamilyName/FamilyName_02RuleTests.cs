@@ -1,7 +1,7 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
@@ -14,6 +14,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 {
     public class FamilyName_02RuleTests
     {
+        public FamilyName_02Rule NewRule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new FamilyName_02Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
+        }
+
         [Fact]
         public void CrossLearningDeliveryConditionMet_True_FundModel10()
         {
@@ -29,7 +34,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 }
             };
 
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
             rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeTrue();
         }
@@ -55,7 +60,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
             
-            var rule = new FamilyName_02Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, null);
+            var rule = NewRule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object);
 
             rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeTrue();
         }
@@ -76,7 +81,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 }
             };
 
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
             rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeFalse();
         }
@@ -84,7 +89,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         [Fact]
         public void CrossLearningDeliveryConditionMet_False_Null()
         {
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
             rule.CrossLearningDeliveryConditionMet(null).Should().BeFalse();
         }
@@ -93,25 +98,25 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         [InlineData(11, null)]
         [InlineData(1000, null)]
         [InlineData(11, "   ")]
-        public void ConditionMet_True(long planLearnHours, string givenNames)
+        public void ConditionMet_True(long planLearnHours, string familyName)
         {
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
-            rule.ConditionMet(planLearnHours, givenNames).Should().BeTrue();
+            rule.ConditionMet(planLearnHours, familyName).Should().BeTrue();
         }        
 
         [Fact]
         public void ConditionMet_False_PlanLearnHours()
         {
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
             rule.ConditionMet(3, null).Should().BeFalse();
         }
 
         [Fact]
-        public void ConditionMet_False_GivenNames()
+        public void ConditionMet_False_FamilyName()
         {
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
             rule.ConditionMet(11, "Geoff").Should().BeFalse();
         }
@@ -139,7 +144,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new FamilyName_02Rule(null, validationErrorHandlerMock.Object);
+            var rule = NewRule(validationErrorHandler: validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -154,7 +159,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 PlanLearnHours = 8
             };
 
-            var rule = new FamilyName_02Rule(null, null);
+            var rule = NewRule();
 
             rule.Validate(learner);
         }

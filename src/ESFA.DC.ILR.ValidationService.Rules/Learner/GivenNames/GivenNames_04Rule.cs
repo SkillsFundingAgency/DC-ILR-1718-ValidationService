@@ -5,13 +5,13 @@ using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
+namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
 {
-    public class FamilyName_04Rule : AbstractRule, IRule<MessageLearner>
+    public class GivenNames_04Rule : AbstractRule, IRule<MessageLearner>
     {
         private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        public FamilyName_04Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public GivenNames_04Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
@@ -19,9 +19,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
 
         public void Validate(MessageLearner objectToValidate)
         {
-            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDelivery) && ConditionMet(objectToValidate.PlanLearnHours, objectToValidate.ULN, objectToValidate.FamilyName))
+            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDelivery) && ConditionMet(objectToValidate.PlanLearnHours, objectToValidate.ULN, objectToValidate.GivenNames))
             {
-                HandleValidationError(RuleNameConstants.FamilyName_04, objectToValidate.LearnRefNumber);
+                HandleValidationError(RuleNameConstants.GivenNames_04, objectToValidate.LearnRefNumber);
             }
         }
 
@@ -32,11 +32,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
                 || learningDeliveries.All(ld => ld.FundModel == 99 && _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
-        public bool ConditionMet(long planLearnHours, long uln, string familyName)
+        public bool ConditionMet(long planLearnHours, long uln, string givenNames)
         {
             return planLearnHours <= 10 
                 && uln != ValidationConstants.TemporaryULN 
-                && string.IsNullOrWhiteSpace(familyName);
+                && string.IsNullOrWhiteSpace(givenNames);
         }
     }
 }

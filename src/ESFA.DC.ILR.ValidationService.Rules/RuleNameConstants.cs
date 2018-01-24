@@ -10,6 +10,7 @@
 
         public const string GivenNames_01 = "GivenNames_01";
         public const string GivenNames_02 = "GivenNames_02";
+        public const string GivenNames_04 = "GivenNames_04";
 
         public const string LearnStartDate_02 = "LearnStartDate_02";
         public const string LearnStartDate_03 = "LearnStartDate_03";
