@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcademicYearCalendarService\AcademicYearCalendarService.cs" />
     <Compile Include="DateTimeProvider\DateTimeProvider.cs" />
     <Compile Include="ErrorHandler\Model\ValidationError.cs" />
     <Compile Include="ErrorHandler\ValidationErrorHandler.cs" />

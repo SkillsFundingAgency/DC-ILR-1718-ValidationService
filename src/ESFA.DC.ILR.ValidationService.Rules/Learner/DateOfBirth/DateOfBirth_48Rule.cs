@@ -2,7 +2,6 @@
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Extensions;
 using System;
 using System.Linq;
 
@@ -13,13 +12,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
         private readonly IDD04 _dd04;
         private readonly IDD07 _dd07;
         private readonly IValidationDataService _validationDataService;
+        private readonly IAcademicYearCalendarService _academicYearCalendarService;
 
-        public DateOfBirth_48Rule(IDD04 dd04, IDD07 dd07, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
+        public DateOfBirth_48Rule(IDD04 dd04, IDD07 dd07, IValidationDataService validationDataService, IAcademicYearCalendarService academicYearCalendarService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _dd04 = dd04;
             _dd07 = dd07;
             _validationDataService = validationDataService;
+            _academicYearCalendarService = academicYearCalendarService;
         }
 
         public void Validate(MessageLearner objectToValidate)
@@ -28,8 +29,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             {
                 return;
             }
-
-            var lastFridayJuneAcademicYearLearnerSixteen = BirthdayAt(objectToValidate.DateOfBirthNullable, 16).Value.LastFridayInJuneForDateInAcademicYear();
+            var sixteenthBirthday = BirthdayAt(objectToValidate.DateOfBirthNullable, 16);
+            var lastFridayJuneAcademicYearLearnerSixteen =  _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
 
             foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld.ProgType)))
             {

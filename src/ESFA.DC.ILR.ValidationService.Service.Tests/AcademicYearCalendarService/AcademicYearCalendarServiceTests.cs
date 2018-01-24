@@ -1,11 +1,10 @@
-﻿using ESFA.DC.ILR.ValidationService.Rules.Extensions;
-using FluentAssertions;
+﻿using FluentAssertions;
 using System;
 using Xunit;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Extensions
+namespace ESFA.DC.ILR.ValidationService.Service.Tests.AcademicYearCalendarService
 {
-    public class DateTimeExtensionsTests
+    public class AcademicYearCalendarServiceTests
     {
         [Theory]
         [InlineData(1, 2017, "2017-01-27")]
@@ -21,13 +20,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Extensions
             var date = new DateTime(year, month, 1);
             var expectedValue = DateTime.Parse(expectedDate);
 
+            var academicYearCalendarService = new Service.AcademicYearCalendarService.AcademicYearCalendarService();
+
             while (date.Month == month)
             {
-                date.LastFridayInMonth().Should().Be(expectedValue);
+                academicYearCalendarService.LastFridayInMonth(date).Should().Be(expectedValue);
                 date = date.AddDays(1);
             }
         }
-        
+
         [Theory]
         [InlineData("2017-1-1", "2017-6-30")]
         [InlineData("2017-8-31", "2017-6-30")]
@@ -37,7 +38,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Extensions
             var inputDateTime = DateTime.Parse(inputDate);
             var expectedDateTime = DateTime.Parse(expectedDate);
 
-            inputDateTime.LastFridayInJuneForDateInAcademicYear().Should().Be(expectedDateTime);
+            var academicYearCalendarService = new Service.AcademicYearCalendarService.AcademicYearCalendarService();
+
+            academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(inputDateTime).Should().Be(expectedDateTime);
         }
     }
 }
