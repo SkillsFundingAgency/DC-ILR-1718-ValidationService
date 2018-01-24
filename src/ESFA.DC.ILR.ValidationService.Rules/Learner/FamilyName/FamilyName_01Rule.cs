@@ -4,7 +4,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Linq;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
+namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
 {
     public class FamilyName_01Rule : AbstractRule, IRule<MessageLearner>
     {

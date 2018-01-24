@@ -5,7 +5,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
+namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
 {
     public class FamilyName_02Rule : AbstractRule, IRule<MessageLearner>
     {
@@ -19,7 +19,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
 
         public void Validate(MessageLearner objectToValidate)
         {
-            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDelivery) && ConditionMet(objectToValidate.PlanLearnHours, objectToValidate.GivenNames))
+            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDelivery) && ConditionMet(objectToValidate.PlanLearnHours, objectToValidate.FamilyName))
             {
                 HandleValidationError(RuleNameConstants.FamilyName_02, objectToValidate.LearnRefNumber);
             }
@@ -32,9 +32,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
                 || learningDeliveries.All(ld => ld.FundModel == 99 && _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
-        public bool ConditionMet(long planLearnHours, string givenNames)
+        public bool ConditionMet(long planLearnHours, string familyName)
         {
-            return planLearnHours > 10 && string.IsNullOrWhiteSpace(givenNames);
+            return planLearnHours > 10 && string.IsNullOrWhiteSpace(familyName);
         }
     }
 }

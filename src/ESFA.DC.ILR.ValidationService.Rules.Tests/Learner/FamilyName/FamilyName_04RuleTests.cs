@@ -1,7 +1,7 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
@@ -139,7 +139,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             {
                 PlanLearnHours = 3,
                 PlanLearnHoursSpecified = true,
-                GivenNames = null,
+                FamilyName = null,
                 ULN = 1,
                 ULNSpecified = true,
                 LearningDelivery = new MessageLearnerLearningDelivery[]
