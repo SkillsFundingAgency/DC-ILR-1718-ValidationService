@@ -29,7 +29,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
                 return;
             }
 
-            var lastFridayJuneAcademicYearLearnerSixteen = objectToValidate.BirthdayAt(16).Value.LastFridayInJuneForDateInAcademicYear();
+            var lastFridayJuneAcademicYearLearnerSixteen = BirthdayAt(objectToValidate.DateOfBirthNullable, 16).Value.LastFridayInJuneForDateInAcademicYear();
 
             foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld.ProgType)))
             {
@@ -61,6 +61,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             return dd04.HasValue
                 && dd04 >= apprenticeshipProgrammeAllowedStartDate
                 && dd04 <= lastFridayJuneAcademicYearLearnerSixteen;
-        }        
+        }
+
+        public DateTime? BirthdayAt(DateTime? dateOfBirth, int age)
+        {
+            return dateOfBirth?.AddYears(age);
+        }
     }
 }

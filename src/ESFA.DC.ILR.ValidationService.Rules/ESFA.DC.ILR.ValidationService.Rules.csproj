@@ -49,7 +49,6 @@
     <Compile Include="Derived\Interface\IDD07.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
-    <Compile Include="Extensions\MessageLearnerExtensions.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04Rule.cs" />

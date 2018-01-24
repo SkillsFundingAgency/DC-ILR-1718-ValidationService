@@ -13,7 +13,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Extensions
             return firstDayOfNextMonth.AddDays(-vector);
         }
 
-
         public static DateTime LastFridayInJuneForDateInAcademicYear(this DateTime dateTime)
         {
             if (dateTime.Month <= 8 && dateTime.Day <= 31)

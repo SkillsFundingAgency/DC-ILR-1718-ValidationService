@@ -80,7 +80,6 @@
     <Compile Include="Derived\DD07Tests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\LongExtensionTests.cs" />
-    <Compile Include="Extensions\MessageLearnerExtensionTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04RuleTests.cs" />
