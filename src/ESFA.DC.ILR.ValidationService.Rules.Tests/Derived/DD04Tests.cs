@@ -46,11 +46,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [Fact]
         public void EarliestLearningDeliveryLearnStartDateFor_NullLearningDelivery()
         {
-            var learner = new MessageLearner
-            {
-                LearningDelivery = null
-            };
-
             var dd04 = new DD04();
 
             dd04.EarliestLearningDeliveryLearnStartDateFor(null, 1, 1, 1, 1).Should().BeNull();
