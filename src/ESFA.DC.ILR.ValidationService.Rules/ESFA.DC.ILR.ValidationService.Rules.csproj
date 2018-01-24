@@ -50,7 +50,6 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Extensions\MessageLearnerExtensions.cs" />
-    <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04Rule.cs" />
@@ -73,6 +72,8 @@
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_05Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_12Rule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\Interface\IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\MessageLearnerLearningDeliveryLearningDeliveryFAMQueryService.cs" />
     <Compile Include="RuleNameConstants.cs" />
     <Compile Include="ValidationConstants.cs" />
   </ItemGroup>

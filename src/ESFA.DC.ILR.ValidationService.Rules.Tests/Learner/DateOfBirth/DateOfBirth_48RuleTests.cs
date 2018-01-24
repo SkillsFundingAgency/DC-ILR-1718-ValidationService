@@ -127,7 +127,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var validationDataServiceMock = new Mock<IValidationDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
-            dd04Mock.Setup(dd => dd.Derive(learner, learningDelivery)).Returns(new DateTime(2017, 1, 1));
+            dd04Mock.Setup(dd => dd.Derive(learner.LearningDelivery, learningDelivery)).Returns(new DateTime(2017, 1, 1));
             dd07Mock.Setup(dd => dd.Derive(1)).Returns("Y");
             validationDataServiceMock.SetupGet(vds => vds.ApprencticeProgAllowedStartDate).Returns(new DateTime(2016, 8, 1));
 

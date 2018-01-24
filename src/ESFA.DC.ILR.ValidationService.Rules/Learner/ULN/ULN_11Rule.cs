@@ -3,6 +3,7 @@ using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Extensions;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System;
 using System.Linq;
 
@@ -12,12 +13,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
+        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        public ULN_11Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
+        public ULN_11Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
             _validationDataService = validationDataService;
+            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
         public void Validate(MessageLearner objectToValidate)
@@ -25,7 +28,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld)))
             {
                 if (ConditionMet(learningDelivery.FundModel,
-                    learningDelivery.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.SOF, "1"),
+                    _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "1"),
                     objectToValidate.ULN,
                     _fileDataService.FilePreparationDate,
                     _validationDataService.AcademicYearJanuaryFirst,
@@ -76,7 +79,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
         {
-            return learningDelivery.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.LDM, "034");
+            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.LDM, "034");
         }
     }
 }

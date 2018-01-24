@@ -1,7 +1,7 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
-using ESFA.DC.ILR.ValidationService.Rules.Extensions;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +9,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
 {
     public class FamilyName_04Rule : AbstractRule, IRule<MessageLearner>
     {
-        public FamilyName_04Rule(IValidationErrorHandler validationErrorHandler)
+        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+
+        public FamilyName_04Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
+            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
         public void Validate(MessageLearner objectToValidate)
@@ -26,7 +29,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
         {
             return learningDeliveries != null
                 && (learningDeliveries.All(ld => ld.FundModel == 10)
-                || learningDeliveries.All(ld => ld.FundModel == 99 && ld.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.SOF, "108")));
+                || learningDeliveries.All(ld => ld.FundModel == 99 && _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
         public bool ConditionMet(long planLearnHours, long uln, string givenNames)

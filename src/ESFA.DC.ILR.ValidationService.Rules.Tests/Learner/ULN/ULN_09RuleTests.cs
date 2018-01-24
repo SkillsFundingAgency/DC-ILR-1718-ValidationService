@@ -1,10 +1,13 @@
 ﻿using ESFA.DC.ILR.Model;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
 
@@ -15,7 +18,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_True()
         {
-            var rule = new ULN_09Rule(null, null, null);
+            var rule = new ULN_09Rule(null, null, null, null);
 
             rule.ConditionMet(true, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 9999999999).Should().BeTrue();
         }
@@ -23,7 +26,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_False_FamTypeCode()
         {
-            var rule = new ULN_09Rule(null, null, null);
+            var rule = new ULN_09Rule(null, null, null, null);
 
             rule.ConditionMet(false, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 9999999999).Should().BeFalse();
         }
@@ -31,7 +34,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_False_Uln()
         {
-            var rule = new ULN_09Rule(null, null, null);
+            var rule = new ULN_09Rule(null, null, null, null);
 
             rule.ConditionMet(true, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 999999999).Should().BeFalse();
         }
@@ -39,7 +42,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_False_Dates()
         {
-            var rule = new ULN_09Rule(null, null, null);
+            var rule = new ULN_09Rule(null, null, null, null);
 
             rule.ConditionMet(true, new DateTime(2018, 1, 1), new DateTime(2018, 2, 1), 999999999).Should().BeFalse();
         }
@@ -56,11 +59,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             var fileDataServiceMock = new Mock<IFileDataService>();
             var validationDataServiceMock = new Mock<IValidationDataService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
 
             fileDataServiceMock.SetupGet(fds => fds.FilePreparationDate).Returns(new DateTime(2017, 1, 1));
             validationDataServiceMock.SetupGet(vds => vds.AcademicYearJanuaryFirst).Returns(new DateTime(2017, 1, 1));
+            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), "LDM", "034")).Returns(false);
 
-            var rule = new ULN_09Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, null);
+            var rule = new ULN_09Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, null);
 
             rule.Validate(learner);
         }
@@ -76,14 +81,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 {
                     new MessageLearnerLearningDelivery()
                     {
-                        LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
-                        {
-                            new MessageLearnerLearningDeliveryLearningDeliveryFAM()
-                            {
-                                LearnDelFAMType = "LDM",
-                                LearnDelFAMCode = "034"
-                            }
-                        }
+                        LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
                     }
                 }
             };
@@ -91,15 +89,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var fileDataServiceMock = new Mock<IFileDataService>();
             var validationDataServiceMock = new Mock<IValidationDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
 
             fileDataServiceMock.SetupGet(fds => fds.FilePreparationDate).Returns(new DateTime(2017, 1, 1));
             validationDataServiceMock.SetupGet(vds => vds.AcademicYearJanuaryFirst).Returns(new DateTime(2017, 1, 1));
+            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), "LDM", "034")).Returns(true);
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ULN_09", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new ULN_09Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = new ULN_09Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 

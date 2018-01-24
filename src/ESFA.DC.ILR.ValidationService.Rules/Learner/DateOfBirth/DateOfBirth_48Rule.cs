@@ -34,7 +34,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld.ProgType)))
             {
                 if (DD07ConditionMet(_dd07.Derive(learningDelivery.ProgType))
-                    && DD04ConditionMet(_dd04.Derive(objectToValidate, learningDelivery), _validationDataService.ApprencticeProgAllowedStartDate, lastFridayJuneAcademicYearLearnerSixteen))
+                    && DD04ConditionMet(_dd04.Derive(objectToValidate.LearningDelivery, learningDelivery), _validationDataService.ApprencticeProgAllowedStartDate, lastFridayJuneAcademicYearLearnerSixteen))
                 {
                     HandleValidationError(RuleNameConstants.DateOfBirth_48, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }

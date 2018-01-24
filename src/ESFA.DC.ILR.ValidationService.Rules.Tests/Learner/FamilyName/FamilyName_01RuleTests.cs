@@ -1,6 +1,7 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
 using System;
@@ -19,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 FundModel = 10
             };
 
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
         }
@@ -30,17 +31,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             var learningDelivery = new MessageLearnerLearningDelivery()
             {
                 FundModel = 99,
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
-                {
-                    new MessageLearnerLearningDeliveryLearningDeliveryFAM()
-                    {
-                        LearnDelFAMType = "SOF",
-                        LearnDelFAMCode = "108"
-                    }
-                }
+                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var rule = new FamilyName_01Rule(null);
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+
+            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "108")).Returns(true);
+            
+            var rule = new FamilyName_01Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, null);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
         }
@@ -53,7 +51,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 FundModel = 2
             };
 
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
@@ -61,7 +59,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         [Fact]
         public void ConditionMet_True_Null()
         {
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.ConditionMet(null).Should().BeTrue();
         }
@@ -69,7 +67,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         [Fact]
         public void ConditionMet_True_Whitespace()
         {
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.ConditionMet("    ").Should().BeTrue();
         }
@@ -77,7 +75,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         [Fact]
         public void ConditionMet_False()
         {
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.ConditionMet("Not Null or White Space").Should().BeFalse();
         }
@@ -96,7 +94,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new FamilyName_01Rule(validationErrorHandlerMock.Object);
+            var rule = new FamilyName_01Rule(null, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -111,7 +109,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 FamilyName = "Not Null"
             };
             
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.Validate(learner);            
         }
@@ -131,7 +129,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 }
             };
             
-            var rule = new FamilyName_01Rule(null);
+            var rule = new FamilyName_01Rule(null, null);
 
             rule.Validate(learner);
         }

@@ -43,8 +43,10 @@
     <Compile Include="ILR-2017-18.cs">
       <DependentUpon>ILR-2017-18.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
     <Compile Include="MessageLearner.cs" />
     <Compile Include="MessageLearnerLearningDelivery.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

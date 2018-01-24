@@ -2,7 +2,7 @@
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
-using ESFA.DC.ILR.ValidationService.Rules.Extensions;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +13,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
+        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 82, 35, 36, 81, 70 };
 
-        public ULN_07Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
+        public ULN_07Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
             _validationDataService = validationDataService;
+            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
         public void Validate(MessageLearner objectToValidate)
@@ -29,7 +31,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             {
                 if (ConditionMet(
                     learningDelivery.FundModel,
-                    learningDelivery.LearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.ADL),
+                    _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.ADL, "1"),
                     objectToValidate.ULN,
                     _fileDataService.FilePreparationDate,
                     _validationDataService.AcademicYearJanuaryFirst,
@@ -42,18 +44,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             }
         }
 
-        public bool ConditionMet(long fundModel, string adlFamCode, long uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst, DateTime? learnStartDate, DateTime? learnPlanEndDate, DateTime? learnActEndDate)
+        public bool ConditionMet(long fundModel, bool adlFamCodeOne, long uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst, DateTime? learnStartDate, DateTime? learnPlanEndDate, DateTime? learnActEndDate)
         {
-            return FundModelConditionMet(fundModel, adlFamCode)
+            return FundModelConditionMet(fundModel, adlFamCodeOne)
                 && FilePreparationDateConditionMet(filePreparationDate, academicYearJanuaryFirst)
                 && LearningDatesConditionMet(learnStartDate, learnPlanEndDate, learnActEndDate, filePreparationDate)
                 && UlnConditionMet(uln);
         }
 
-        public bool FundModelConditionMet(long fundModel, string adlFamCode)
+        public bool FundModelConditionMet(long fundModel, bool adlFamCodeOne)
         {
             return _fundModels.Contains(fundModel)
-                || (fundModel == 99 && adlFamCode == "1");
+                || (fundModel == 99 && adlFamCodeOne);
         }
 
         public bool FilePreparationDateConditionMet(DateTime filePreparationDate, DateTime academicYearJanuaryFirst)
@@ -75,8 +77,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
         {
-            return learningDelivery.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.LDM, "034")
-                || learningDelivery.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.ACT, "1");
+            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.LDM, "034")
+                || _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.ACT, "1");
         }        
     }
 }

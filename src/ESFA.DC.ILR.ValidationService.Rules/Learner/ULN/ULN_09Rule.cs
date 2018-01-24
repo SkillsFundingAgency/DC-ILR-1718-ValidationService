@@ -2,7 +2,7 @@
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
-using ESFA.DC.ILR.ValidationService.Rules.Extensions;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
@@ -11,19 +11,21 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
+        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        public ULN_09Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IValidationErrorHandler validationErrorHandler)
+        public ULN_09Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
             _validationDataService = validationDataService;
+            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
         public void Validate(MessageLearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDelivery)
             {
-                if (ConditionMet(learningDelivery.HasLearningDeliveryFAMCodeForType(LearningDeliveryFAMTypeConstants.LDM, "034"), _fileDataService.FilePreparationDate, _validationDataService.AcademicYearJanuaryFirst, objectToValidate.ULN))
+                if (ConditionMet(_messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.LDM, "034"), _fileDataService.FilePreparationDate, _validationDataService.AcademicYearJanuaryFirst, objectToValidate.ULN))
                 {
                     HandleValidationError(RuleNameConstants.ULN_09, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
