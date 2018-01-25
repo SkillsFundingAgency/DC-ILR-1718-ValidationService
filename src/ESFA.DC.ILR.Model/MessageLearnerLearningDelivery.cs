@@ -1,14 +1,22 @@
-﻿using System;
+﻿using ESFA.DC.ILR.Model.Interface;
+using System;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearningDelivery
+    public partial class MessageLearnerLearningDelivery : IMessageLearnerLearningDelivery
     {
         [XmlIgnore]
         public long? AimSeqNumberNullable
         {
             get { return aimSeqNumberFieldSpecified ? (long?)aimSeqNumberField : null;  }
+        }
+
+        [XmlIgnore]
+        public long? FundModelNullable
+        {
+            get { return fundModelFieldSpecified ? (long?)fundModelField : null; }
         }
 
         [XmlIgnore]
@@ -27,6 +35,11 @@ namespace ESFA.DC.ILR.Model
         public DateTime? LearnActEndDateNullable
         {
             get { return learnActEndDateFieldSpecified ? (DateTime?)learnActEndDateField : null; }
+        }
+
+        public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryFAM> LearningDeliveryFAMs
+        {
+            get { return learningDeliveryFAMField; }
         }
     }
 }

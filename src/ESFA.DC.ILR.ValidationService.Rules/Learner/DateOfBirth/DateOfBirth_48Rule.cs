@@ -29,6 +29,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             {
                 return;
             }
+
             var sixteenthBirthday = BirthdayAt(objectToValidate.DateOfBirthNullable, 16);
             var lastFridayJuneAcademicYearLearnerSixteen =  _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
 

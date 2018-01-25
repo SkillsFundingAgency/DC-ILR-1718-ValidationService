@@ -99,5 +99,19 @@ namespace ESFA.DC.ILR.Model.Tests
 
             learner.ULNNullable.Should().BeNull();
         }
+
+        [Fact]
+        public void LearningDeliveries()
+        {
+            var learner = new MessageLearner();
+
+            learner.LearningDelivery = new MessageLearnerLearningDelivery[]
+            {
+                new MessageLearnerLearningDelivery()
+            };
+
+            learner.LearningDeliveries.Should().BeSameAs(learner.LearningDelivery);
+            learner.LearningDeliveries.Should().HaveCount(1);
+        }    
     }
 }

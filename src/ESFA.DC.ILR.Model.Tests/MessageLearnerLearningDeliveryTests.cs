@@ -104,5 +104,42 @@ namespace ESFA.DC.ILR.Model.Tests
             learningDelivery.LearnActEndDateNullable.Should().Be(date);
             learningDelivery.LearnActEndDateNullable.Should().NotBeNull();
         }
+
+        [Fact]
+        public void FundModel_Specified_False()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery();
+
+            learningDelivery.FundModelSpecified = false;
+            learningDelivery.FundModel = 1234;
+
+            learningDelivery.FundModelNullable.Should().BeNull();
+        }
+
+        [Fact]
+        public void FundModel_Specified_True()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery();
+
+            learningDelivery.FundModelSpecified = true;
+            learningDelivery.FundModel = 1234;
+
+            learningDelivery.FundModelNullable.Should().Be(1234);
+            learningDelivery.FundModelNullable.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void LearningDeliveryFAMs()
+        {
+            var learningDelivery = new MessageLearnerLearningDelivery();
+
+            learningDelivery.LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            {
+                new MessageLearnerLearningDeliveryLearningDeliveryFAM()
+            };
+
+            learningDelivery.LearningDeliveryFAMs.Should().BeSameAs(learningDelivery.LearningDeliveryFAM);
+            learningDelivery.LearningDeliveryFAMs.Should().HaveCount(1);
+        }
     }
 }

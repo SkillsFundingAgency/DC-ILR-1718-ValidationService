@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ESFA.DC.ILR.Model.Interface;
+using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearner
+    public partial class MessageLearner : IMessageLearner
     {
         [XmlIgnore]
         public DateTime? DateOfBirthNullable
@@ -27,6 +29,12 @@ namespace ESFA.DC.ILR.Model
         public long? ULNNullable
         {
             get { return uLNFieldSpecified ? (long?)uLNField : null; }
+        }
+
+        [XmlIgnore]
+        public IReadOnlyCollection<IMessageLearnerLearningDelivery> LearningDeliveries
+        {
+            get { return learningDeliveryField; }
         }
     }
 }
