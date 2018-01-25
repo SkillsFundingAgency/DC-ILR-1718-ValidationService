@@ -4,6 +4,7 @@
     {
         public const string DateOfBirth_01 = "DateOfBirth_01";
         public const string DateOfBirth_02 = "DateOfBirth_02";
+        public const string DateOfBirth_03 = "DateOfBirth_03";
         public const string DateOfBirth_48 = "DateOfBirth_48";
 
         public const string FamilyName_01 = "FamilyName_01";
