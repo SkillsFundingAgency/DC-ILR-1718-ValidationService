@@ -6,7 +6,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query.Interface
 {
     public interface IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService
     {
-        string LearningDeliveryFAMCodeForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType);
         bool HasLearningDeliveryFAMCodeForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType, string famCode);
+        bool HasLearningDeliveryFAMType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType);
     }
 }

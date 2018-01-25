@@ -17,11 +17,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType && ldfam.LearnDelFAMCode == famCode);
         }
 
-        public string LearningDeliveryFAMCodeForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType)
+        public bool HasLearningDeliveryFAMType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType)
         {
-            return learningDeliveryFAMs?
-                .FirstOrDefault(ldfam => ldfam.LearnDelFAMType == famType)?
-                .LearnDelFAMCode;
-        }
+            if (learningDeliveryFAMs == null)
+            {
+                return false;
+            }
+
+            return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType);
+        }        
     }
 }
