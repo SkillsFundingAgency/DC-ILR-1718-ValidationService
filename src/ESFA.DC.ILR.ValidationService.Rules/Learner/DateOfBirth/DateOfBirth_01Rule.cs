@@ -12,7 +12,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
     {
         private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        private readonly IEnumerable<long> _allowedFundModels = new HashSet<long> { 25, 35, 36, 70, 81, 82 };
+        private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 35, 36, 70, 81, 82 };
 
         public DateOfBirth_01Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
@@ -35,7 +35,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
         {
             return !dateOfBirth.HasValue
                 && fundModel.HasValue
-                && _allowedFundModels.Contains(fundModel.Value);
+                && _fundModels.Contains(fundModel.Value);
         }
 
         public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)

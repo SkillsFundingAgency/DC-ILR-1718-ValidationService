@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.Model.Interface
 {
@@ -7,6 +8,8 @@ namespace ESFA.DC.ILR.Model.Interface
         long? AimSeqNumberNullable { get; }
 
         long? FundModelNullable { get; }
+
+        DateTime? LearnStartDateNullable { get; }
 
         IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryFAM> LearningDeliveryFAMs { get; }
     }
