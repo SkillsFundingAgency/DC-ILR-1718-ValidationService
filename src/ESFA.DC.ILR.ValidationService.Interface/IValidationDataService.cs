@@ -5,6 +5,7 @@ namespace ESFA.DC.ILR.ValidationService.Interface
 {
     public interface IValidationDataService
     {
+        DateTime AcademicYearAugustThirtyFirst { get; }
         DateTime AcademicYearEnd { get; }
         DateTime AcademicYearJanuaryFirst { get; }
         DateTime AcademicYearStart { get; }

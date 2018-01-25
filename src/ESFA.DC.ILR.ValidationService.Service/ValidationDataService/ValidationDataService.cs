@@ -6,6 +6,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.ValidationDataService
 {
     public class ValidationDataService : IValidationDataService
     {
+        private readonly DateTime _academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
         private readonly DateTime _academicYearEnd = new DateTime(2018, 7, 31);
         private readonly DateTime _academicYearJanuaryFirst = new DateTime(2018, 1, 1);
         private readonly DateTime _academicYearStart = new DateTime(2017, 8, 1);
@@ -17,6 +18,8 @@ namespace ESFA.DC.ILR.ValidationService.Service.ValidationDataService
         {
             _validationStartDateTime = dateTimeProvider != null ? dateTimeProvider.UtcNow : DateTime.UtcNow;
         }
+
+        public DateTime AcademicYearAugustThirtyFirst {  get { return _academicYearAugustThirtyFirst;  } }
 
         public DateTime AcademicYearEnd { get { return _academicYearEnd; } }
         
