@@ -23,15 +23,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         public void ConditionMet_True(long fundModel, int age)
         {
             var dateOfBirth = new DateTime(1988, 2, 10);
-            var learnStartDate= new DateTime(2017, 8, 1);
+            var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
 
-            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(age);
+            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, academicYearAugustThirtyFirst)).Returns(age);
 
             var rule = NewRule(dateTimeQueryService: dateTimeQueryServiceMock.Object);
 
-            rule.ConditionMet(dateOfBirth, learnStartDate, fundModel).Should().BeTrue();
+            rule.ConditionMet(dateOfBirth, academicYearAugustThirtyFirst, fundModel).Should().BeTrue();
         }
 
         [Fact]
@@ -62,15 +62,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         public void ConditionMet_False_Age()
         {
             var dateOfBirth = new DateTime(1988, 2, 10);
-            var learnStartDate = new DateTime(2017, 8, 1);
+            var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
 
-            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(4);
+            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, academicYearAugustThirtyFirst)).Returns(4);
 
             var rule = NewRule(dateTimeQueryService: dateTimeQueryServiceMock.Object);
 
-            rule.ConditionMet(dateOfBirth, learnStartDate, 10).Should().BeFalse();
+            rule.ConditionMet(dateOfBirth, academicYearAugustThirtyFirst, 10).Should().BeFalse();
         }
 
         [Fact]
@@ -89,8 +89,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
                     {
                         FundModelSpecified = true,
                         FundModel = 25,
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate
                     }
                 }
             };
