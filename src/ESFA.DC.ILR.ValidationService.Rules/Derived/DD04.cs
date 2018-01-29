@@ -3,22 +3,29 @@ using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using System.Linq;
 using System.Collections.Generic;
+using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Derived
 {
     public class DD04 : IDD04
     {
-        public DateTime? Derive(IEnumerable<MessageLearnerLearningDelivery> learningDeliveries, MessageLearnerLearningDelivery learningDelivery)
+        public DateTime? Derive(IEnumerable<IMessageLearnerLearningDelivery> learningDeliveries, IMessageLearnerLearningDelivery learningDelivery)
         {
-            return EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, learningDelivery.ProgType, learningDelivery.FworkCode, learningDelivery.PwayCode);
+            return EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, learningDelivery.ProgTypeNullable, learningDelivery.FworkCodeNullable, learningDelivery.PwayCodeNullable);
         }
 
-        public DateTime? EarliestLearningDeliveryLearnStartDateFor(IEnumerable<MessageLearnerLearningDelivery> learningDeliveries, long aimType, long progType, long fworkCode, long pwayCode)
+        public DateTime? EarliestLearningDeliveryLearnStartDateFor(IEnumerable<IMessageLearnerLearningDelivery> learningDeliveries, long? aimType, long? progType, long? fworkCode, long? pwayCode)
         {
             return learningDeliveries?
-                .OrderBy(ld => ld.LearnStartDate)
-                .FirstOrDefault(ld => ld.AimType == aimType && ld.ProgType == progType && ld.FworkCode == fworkCode && ld.PwayCode == pwayCode)?
-                .LearnStartDate;
+                .Where(ld => ld.LearnStartDateNullable.HasValue)
+                .OrderBy(ld => ld.LearnStartDateNullable)
+                .FirstOrDefault(
+                    ld => 
+                    ld.AimTypeNullable == aimType 
+                    && ld.ProgTypeNullable == progType 
+                    && ld.FworkCodeNullable == fworkCode 
+                    && ld.PwayCodeNullable == pwayCode)?
+                .LearnStartDateNullable;
         }
     }
 }

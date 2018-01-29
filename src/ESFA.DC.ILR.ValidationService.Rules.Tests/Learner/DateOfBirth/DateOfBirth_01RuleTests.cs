@@ -72,7 +72,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var rule = NewRule();
 
-            rule.ConditionMet(25, new DateTime(1988, 2, 10)).Should().BeFalse();
+            rule.ConditionMet(25, new DateTime(1988, 12, 25)).Should().BeFalse();
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var rule = NewRule();
 
-            rule.ConditionMet(null, new DateTime(1988, 2, 10)).Should().BeFalse();
+            rule.ConditionMet(null, new DateTime(1988, 12, 25)).Should().BeFalse();
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var rule = NewRule();
 
-            rule.ConditionMet(1, new DateTime(1988, 2, 10)).Should().BeFalse();
+            rule.ConditionMet(1, new DateTime(1988, 12, 25)).Should().BeFalse();
         }
 
         [Fact]
@@ -129,7 +129,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var learner = new MessageLearner()
             {
                 DateOfBirthSpecified = true,
-                DateOfBirth = new DateTime(1988, 2, 10),
+                DateOfBirth = new DateTime(1988, 12, 25),
                 LearningDelivery = new MessageLearnerLearningDelivery[]
                 {
                     new MessageLearnerLearningDelivery()

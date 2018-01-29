@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [InlineData(99, 3)]
         public void ConditionMet_True(long fundModel, int age)
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var learnStartDate= new DateTime(2017, 8, 1);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
@@ -63,13 +63,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var rule = NewRule();
 
-            rule.ConditionMet(new DateTime(1988, 2, 10), null, 10).Should().BeFalse();
+            rule.ConditionMet(new DateTime(1988, 12, 25), null, 10).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_Age()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var learnStartDate = new DateTime(2017, 8, 1);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
@@ -84,7 +84,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_Error()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var learnStartDate = new DateTime(2017, 8, 1);
 
             var learner = new MessageLearner()

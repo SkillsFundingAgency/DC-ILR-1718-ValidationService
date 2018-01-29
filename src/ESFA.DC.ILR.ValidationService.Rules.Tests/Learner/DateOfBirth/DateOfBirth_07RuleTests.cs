@@ -20,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void LearnerConditionMet_True()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
@@ -43,7 +43,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void LearnerConditionMet_False_DateOfBirth()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
@@ -93,7 +93,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_Error()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
             var learningDeliveryFams = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
             

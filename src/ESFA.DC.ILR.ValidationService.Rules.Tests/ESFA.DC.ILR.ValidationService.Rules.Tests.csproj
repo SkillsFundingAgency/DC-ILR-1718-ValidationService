@@ -86,6 +86,7 @@
     <Compile Include="Learner\DateOfBirth\DateOfBirth_06RuleTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_05RuleTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_07RuleTests.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_10RuleTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04RuleTests.cs" />

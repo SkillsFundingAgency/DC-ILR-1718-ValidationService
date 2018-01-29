@@ -14,10 +14,22 @@ namespace ESFA.DC.ILR.Model
         }
 
         [XmlIgnore]
+        public long? AimTypeNullable
+        {
+            get { return aimTypeFieldSpecified ? (long?)aimTypeField : null; }
+        }
+
+        [XmlIgnore]
         public long? FundModelNullable
         {
             get { return fundModelFieldSpecified ? (long?)fundModelField : null; }
         }
+
+        [XmlIgnore]
+        public long? FworkCodeNullable
+        {
+            get { return fworkCodeFieldSpecified ? (long?)fworkCodeField : null; }
+        }        
 
         [XmlIgnore]
         public DateTime? LearnStartDateNullable
@@ -37,6 +49,19 @@ namespace ESFA.DC.ILR.Model
             get { return learnActEndDateFieldSpecified ? (DateTime?)learnActEndDateField : null; }
         }
 
+        [XmlIgnore]
+        public long? ProgTypeNullable
+        {
+            get { return progTypeFieldSpecified ? (long?)progTypeField : null; }
+        }
+
+        [XmlIgnore]
+        public long? PwayCodeNullable
+        {
+            get { return pwayCodeFieldSpecified ? (long?)pwayCodeField : null; }
+        }
+
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryFAM> LearningDeliveryFAMs
         {
             get { return learningDeliveryFAMField; }

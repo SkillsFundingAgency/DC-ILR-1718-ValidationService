@@ -42,5 +42,20 @@ namespace ESFA.DC.ILR.ValidationService.Service.Tests.AcademicYearCalendarServic
 
             academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(inputDateTime).Should().Be(expectedDateTime);
         }
+
+        [Theory]
+        [InlineData("2017-1-1", "2016-9-1")]
+        [InlineData("2017-8-31", "2016-9-1")]
+        [InlineData("2017-9-1", "2017-9-1")]
+        [InlineData("2018-8-31", "2017-9-1")]
+        public void FirstSeptemberForDateInAcademicYear(string inputDate, string expectedDate)
+        {
+            var inputDateTime = DateTime.Parse(inputDate);
+            var expectedDateTime = DateTime.Parse(expectedDate);
+
+            var academicYearCalendarService = new Service.AcademicYearCalendarService.AcademicYearCalendarService();
+
+            academicYearCalendarService.FirstSeptemberForDateInAcademicYear(inputDateTime).Should().Be(expectedDateTime);
+        }        
     }
 }

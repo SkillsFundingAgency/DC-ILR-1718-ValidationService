@@ -32,7 +32,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         {
             var rule = new LearnStartDate_05Rule(null);
 
-            rule.ConditionMet(new DateTime(1988, 2, 10), new DateTime(2017, 8, 1)).Should().BeFalse();
+            rule.ConditionMet(new DateTime(1988, 12, 25), new DateTime(2017, 8, 1)).Should().BeFalse();
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         {
             var learner = new MessageLearner()
             {
-                DateOfBirth = new DateTime(1988, 2, 10),
+                DateOfBirth = new DateTime(1988, 12, 25),
                 DateOfBirthSpecified = true,
                 LearningDelivery = new MessageLearnerLearningDelivery[]
                 {

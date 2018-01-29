@@ -23,7 +23,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [InlineData(999)]
         public void ConditionMet_True(int age)
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearStart = new DateTime(2017, 8, 1);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
@@ -41,7 +41,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [InlineData(99)]
         public void ConditionMet_False(int age)
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearStart = new DateTime(2017, 8, 1);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
@@ -64,7 +64,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_Error()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearStart = new DateTime(2017, 8, 1);
 
             var learner = new MessageLearner()
@@ -95,7 +95,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_NoErrors()
         {
-            var dateOfBirth = new DateTime(1988, 2, 10);
+            var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearStart = new DateTime(2017, 8, 1);
 
             var learner = new MessageLearner()

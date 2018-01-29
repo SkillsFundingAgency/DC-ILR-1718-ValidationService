@@ -5,14 +5,24 @@ namespace ESFA.DC.ILR.ValidationService.Service.AcademicYearCalendarService
 {
     public class AcademicYearCalendarService : IAcademicYearCalendarService
     {
-        public DateTime LastFridayInJuneForDateInAcademicYear(DateTime dateTime)
+        public DateTime FirstSeptemberForDateInAcademicYear(DateTime dateTime)
         {
-            if (dateTime.Month <= 8 && dateTime.Day <= 31)
+            if (dateTime.Month > 8)
             {
-                return LastFridayInMonth(new DateTime(dateTime.Year, 6, 1));
+                return new DateTime(dateTime.Year, 9, 1);
             }
 
-            return LastFridayInMonth(new DateTime(dateTime.Year + 1, 6, 1));
+            return new DateTime(dateTime.Year - 1, 9, 1);
+        }
+
+        public DateTime LastFridayInJuneForDateInAcademicYear(DateTime dateTime)
+        {
+            if (dateTime.Month > 8)
+            {
+                return LastFridayInMonth(new DateTime(dateTime.Year + 1, 6, 1));
+            }
+
+            return LastFridayInMonth(new DateTime(dateTime.Year, 6, 1));
         }
 
         public DateTime LastFridayInMonth(DateTime dateTime)

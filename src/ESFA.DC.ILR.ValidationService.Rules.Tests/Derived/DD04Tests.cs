@@ -13,19 +13,29 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         {
             var earliestLearningDelivery = new MessageLearnerLearningDelivery()
             {
+                ProgTypeSpecified = true,
                 ProgType = 1,
+                FworkCodeSpecified = true,
                 FworkCode = 1,
+                PwayCodeSpecified = true,
                 PwayCode = 1,
+                AimTypeSpecified = true,
                 AimType = 1,
+                LearnStartDateSpecified = true,
                 LearnStartDate = new DateTime(2015, 1, 1)
             };
 
             var latestLearningDelivery = new MessageLearnerLearningDelivery()
             {
+                ProgTypeSpecified = true,
                 ProgType = 1,
+                FworkCodeSpecified = true,
                 FworkCode = 1,
+                PwayCodeSpecified = true,
                 PwayCode = 1,
+                AimTypeSpecified = true,
                 AimType = 1,
+                LearnStartDateSpecified = true,
                 LearnStartDate = new DateTime(2017, 1, 1)
             };
 
@@ -67,7 +77,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
 
             var dd04 = new DD04();
 
-            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 2);
+            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 2).Should().BeNull();
         }
 
         [Fact]
@@ -79,17 +89,26 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
             {
                 new MessageLearnerLearningDelivery()
                 {
+                    AimTypeSpecified = true,
                     AimType = 1,
+                    ProgTypeSpecified = true,
                     ProgType = 1,
+                    FworkCodeSpecified = true,
                     FworkCode = 1,
+                    PwayCodeSpecified = true,
                     PwayCode = 1,
+                    LearnStartDateSpecified = true,
                     LearnStartDate = learnStartDate
                 },
                 new MessageLearnerLearningDelivery()
                 {
+                    AimTypeSpecified = true,
                     AimType = 1,
+                    ProgTypeSpecified = true,
                     ProgType = 1,
+                    FworkCodeSpecified = true,
                     FworkCode = 1,
+                    PwayCodeSpecified = true,
                     PwayCode = 2,
                 }
             };
@@ -100,7 +119,43 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         }
 
         [Fact]
-        public void EarliestLearningDeliveryLearnStartDateFor_OrderedMatch()
+        public void EarliestLearningDeliveryLearnStartDateFor_NullLearningDeliveries()
+        {
+            var learnStartDate = new DateTime(2017, 1, 1);
+
+            var learningDeliveries = new MessageLearnerLearningDelivery[]
+            {
+                new MessageLearnerLearningDelivery()
+                {
+                    AimTypeSpecified = true,
+                    AimType = 1,
+                    ProgTypeSpecified = true,
+                    ProgType = 1,
+                    FworkCodeSpecified = true,
+                    FworkCode = 1,
+                    PwayCodeSpecified = true,
+                    PwayCode = 1,
+                },
+                new MessageLearnerLearningDelivery()
+                {
+                    AimTypeSpecified = true,
+                    AimType = 1,
+                    ProgTypeSpecified = true,
+                    ProgType = 1,
+                    FworkCodeSpecified = true,
+                    FworkCode = 1,
+                    PwayCodeSpecified = true,
+                    PwayCode = 2,
+                }
+            };
+
+            var dd04 = new DD04();
+
+            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 1).Should().BeNull();
+        }
+
+        [Fact]
+        public void EarliestLearningDeliveryLearnStartDateFor_OrderedMatch_WithNull()
         {
             var earliestLearnStartDate = new DateTime(2017, 1, 1);
             var latestLearnStartDate = new DateTime(2018, 1, 1);
@@ -109,26 +164,40 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
             {
                 new MessageLearnerLearningDelivery()
                 {
+                    AimTypeSpecified = true,
                     AimType = 1,
+                    ProgTypeSpecified = true,
                     ProgType = 1,
+                    FworkCodeSpecified = true,
                     FworkCode = 1,
+                    PwayCodeSpecified = true,
                     PwayCode = 1,
+                    LearnStartDateSpecified = true,
                     LearnStartDate = earliestLearnStartDate
                 },
                 new MessageLearnerLearningDelivery()
                 {
+                    AimTypeSpecified = true,
                     AimType = 1,
+                    ProgTypeSpecified = true,
                     ProgType = 1,
+                    FworkCodeSpecified = true,
                     FworkCode = 1,
+                    PwayCodeSpecified = true,
                     PwayCode = 1,
+                    LearnStartDateSpecified = true,
                     LearnStartDate = latestLearnStartDate
                 },
                 new MessageLearnerLearningDelivery()
                 {
+                    AimTypeSpecified = true,
                     AimType = 1,
+                    ProgTypeSpecified = true,
                     ProgType = 1,
+                    FworkCodeSpecified = true,
                     FworkCode = 1,
-                    PwayCode = 2,
+                    PwayCodeSpecified = true,
+                    PwayCode = 1,
                 }
             };
 
