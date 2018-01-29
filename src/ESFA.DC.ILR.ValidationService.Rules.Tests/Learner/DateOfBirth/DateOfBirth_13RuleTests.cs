@@ -5,65 +5,64 @@ using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
-    public class DateOfBirth_12RuleTests
+    public class DateOfBirth_13RuleTests
     {
-        private DateOfBirth_12Rule NewRule(IDateTimeQueryService dateTimeQueryService = null, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        private DateOfBirth_13Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            return new DateOfBirth_12Rule(dateTimeQueryService, messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
+            return new DateOfBirth_13Rule(validationDataService, dateTimeQueryService, messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
         }
 
         [Fact]
         public void ConditionMet_True()
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
-            var learnStartDate = new DateTime(2017, 6, 30);
+            var academicYearEnd = new DateTime(2017, 7, 31);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
 
-            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(18);
+            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, academicYearEnd)).Returns(15);
 
-            var rule = NewRule(dateTimeQueryServiceMock.Object);
+            var rule = NewRule(dateTimeQueryService: dateTimeQueryServiceMock.Object);
 
-            rule.ConditionMet(10, dateOfBirth, learnStartDate, true).Should().BeTrue();
+            rule.ConditionMet(99, dateOfBirth, academicYearEnd, true).Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False_LearningDeliveryFAM()
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
-            var learnStartDate = new DateTime(2017, 6, 30);           
+            var academicYearEnd = new DateTime(2017, 7, 31);
 
             var rule = NewRule();
 
-            rule.ConditionMet(10, dateOfBirth, learnStartDate, false).Should().BeFalse();
+            rule.ConditionMet(99, dateOfBirth, academicYearEnd, false).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_FundModel_Null()
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
-            var learnStartDate = new DateTime(2017, 6, 30);
+            var academicYearEnd = new DateTime(2017, 7, 31);
 
             var rule = NewRule();
 
-            rule.ConditionMet(null, dateOfBirth, learnStartDate, true).Should().BeFalse();
+            rule.ConditionMet(null, dateOfBirth, academicYearEnd, true).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_FundModel_Different()
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
-            var learnStartDate = new DateTime(2017, 6, 30);
+            var academicYearEnd = new DateTime(2017, 7, 31);
 
             var rule = NewRule();
 
-            rule.ConditionMet(11, dateOfBirth, learnStartDate, true).Should().BeFalse();
+            rule.ConditionMet(100, dateOfBirth, academicYearEnd, true).Should().BeFalse();
         }
 
         [Fact]
@@ -73,39 +72,29 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 
             var rule = NewRule();
 
-            rule.ConditionMet(10, null, learnStartDate, true).Should().BeFalse();
-        }
+            rule.ConditionMet(99, null, learnStartDate, true).Should().BeFalse();
+        }                
 
         [Fact]
-        public void ConditionMet_False_LearnStartDate_Null()
+        public void ConditionMet_False_Age_17()
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
-
-            var rule = NewRule();
-
-            rule.ConditionMet(10, dateOfBirth, null, true).Should().BeFalse();
-        }
-
-        [Fact]
-        public void ConditionMet_False_Age_19()
-        {
-            var dateOfBirth = new DateTime(2000, 1, 1);
-            var learnStartDate = new DateTime(2017, 6, 30);
+            var academicYearEnd = new DateTime(2017, 7, 31);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
 
-            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(19);
+            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, academicYearEnd)).Returns(17);
 
-            var rule = NewRule(dateTimeQueryServiceMock.Object);
+            var rule = NewRule(dateTimeQueryService: dateTimeQueryServiceMock.Object);
 
-            rule.ConditionMet(10, dateOfBirth, learnStartDate, true).Should().BeFalse();
+            rule.ConditionMet(10, dateOfBirth, academicYearEnd, true).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_Error()
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
-            var learnStartDate = new DateTime(2017, 6, 30);
+            var academicYearEnd = new DateTime(2017, 7, 31);
             var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
 
             var learner = new MessageLearner()
@@ -116,27 +105,27 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
                 {
                     new MessageLearnerLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate,
                         FundModelSpecified = true,
-                        FundModel = 10,
+                        FundModel = 99,
                         LearningDeliveryFAM = learningDeliveryFAMs
                     }
                 }
             };
 
+            var validationDataServiceMock = new Mock<IValidationDataService>();
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
             var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            
-            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(18);
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(true);
 
-            Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("DateOfBirth_12", null, null, null);
+            validationDataServiceMock.SetupGet(vds => vds.AcademicYearEnd).Returns(new DateTime(2017, 7, 31));
+            dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, academicYearEnd)).Returns(15);
+            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDeliveryFAMs, "SOF", "1")).Returns(true);
+
+            Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("DateOfBirth_13", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = NewRule(dateTimeQueryServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(validationDataServiceMock.Object, dateTimeQueryServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -158,20 +147,20 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
                 {
                     new MessageLearnerLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate,
                         FundModelSpecified = true,
-                        FundModel = 10,
+                        FundModel = 99,
                         LearningDeliveryFAM = learningDeliveryFAMs
                     }
                 }
             };
-            
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
-            
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(false);
 
-            var rule = NewRule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService: messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object);
+            var validationDataServiceMock = new Mock<IValidationDataService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+
+            validationDataServiceMock.SetupGet(vds => vds.AcademicYearEnd).Returns(new DateTime(2017, 7, 31));
+            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDeliveryFAMs, "SOF", "1")).Returns(false);
+
+            var rule = NewRule(validationDataServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryService: messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
         }
