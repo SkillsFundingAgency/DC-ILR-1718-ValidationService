@@ -90,6 +90,7 @@
     <Compile Include="Learner\DateOfBirth\DateOfBirth_14RuleTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_13RuleTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_12RuleTests.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_20RuleTests.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01RuleTests.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04RuleTests.cs" />
