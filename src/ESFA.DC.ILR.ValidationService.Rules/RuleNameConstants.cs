@@ -39,5 +39,9 @@
         public const string ULN_10 = "ULN_10";
         public const string ULN_11 = "ULN_11";
         public const string ULN_12 = "ULN_12";
+
+        public const string NINumber_01 = "NINumber_01";
+        public const string NINumber_02 = "NINumber_02";
+
     }
 }

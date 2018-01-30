@@ -94,6 +94,8 @@
     <Compile Include="Learner\GivenNames\GivenNames_04RuleTests.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_02RuleTests.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_01RuleTests.cs" />
+    <Compile Include="Learner\NINumber\NINumber_02Tests.cs" />
+    <Compile Include="Learner\NINumber\NINumber_01Tests.cs" />
     <Compile Include="Learner\PMUKPRN\PMUKPRN_01RuleTests.cs" />
     <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01RuleTests.cs" />
     <Compile Include="Learner\ULN\ULN_02RuleTests.cs" />
