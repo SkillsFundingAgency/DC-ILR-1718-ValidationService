@@ -157,7 +157,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 
             rule.Validate(learner);
 
-            validationErrorHandlerMock.Verify(handle, Times.Once);
+            validationErrorHandlerMock.Verify(handle, Times.Once);            
         }
 
         [Fact]
