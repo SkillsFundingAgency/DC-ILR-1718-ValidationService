@@ -8,6 +8,8 @@ namespace ESFA.DC.ILR.Model.Interface
         DateTime? DateOfBirthNullable { get; }
 
         string LearnRefNumber { get; }
+
+        long? ULNNullable { get; }
         
         IReadOnlyCollection<IMessageLearnerLearningDelivery> LearningDeliveries { get; }
     }
