@@ -56,6 +56,12 @@
     <Compile Include="Learner\DateOfBirth\DateOfBirth_04Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_03Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_10Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_20Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_14Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_12Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_13Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_23Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_24Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04Rule.cs" />

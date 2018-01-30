@@ -7,6 +7,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
 {
     public class MessageLearnerLearningDeliveryLearningDeliveryFAMQueryService : IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService
     {
+        public bool HasAnyLearningDeliveryFAMCodesForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType, IEnumerable<string> famCodes)
+        {
+            if (learningDeliveryFAMs == null || famCodes == null)
+            {
+                return false;
+            }
+
+            return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType && famCodes.Contains(ldfam.LearnDelFAMCode));            
+        }
+
         public bool HasLearningDeliveryFAMCodeForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType, string famCode)
         {
             if (learningDeliveryFAMs == null)

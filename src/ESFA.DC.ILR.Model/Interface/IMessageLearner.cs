@@ -10,6 +10,9 @@ namespace ESFA.DC.ILR.Model.Interface
         string LearnRefNumber { get; }
         string NINumber { get; }
         
+
+        long? ULNNullable { get; }
+        
         IReadOnlyCollection<IMessageLearnerLearningDelivery> LearningDeliveries { get; }
     }
 }
