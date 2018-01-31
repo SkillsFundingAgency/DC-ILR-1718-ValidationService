@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractModelTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
     <Compile Include="MessageLearnerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
