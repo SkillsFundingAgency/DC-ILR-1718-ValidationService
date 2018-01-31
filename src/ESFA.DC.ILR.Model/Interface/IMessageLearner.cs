@@ -9,7 +9,7 @@ namespace ESFA.DC.ILR.Model.Interface
 
         string LearnRefNumber { get; }
         string NINumber { get; }
-        
+        long? PriorAttainNullable { get; }
 
         long? ULNNullable { get; }
         

@@ -36,5 +36,11 @@ namespace ESFA.DC.ILR.Model
         {
             get { return learningDeliveryField; }
         }
+
+        [XmlIgnore]
+        public long?  PriorAttainNullable
+        {
+            get { return priorAttainFieldSpecified ? (long?) priorAttainField : null; }
+        }
     }
 }

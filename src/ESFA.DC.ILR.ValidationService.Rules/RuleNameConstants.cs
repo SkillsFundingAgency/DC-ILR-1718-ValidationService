@@ -49,5 +49,13 @@
         public const string NINumber_01 = "NINumber_01";
         public const string NINumber_02 = "NINumber_02";
 
+        public const string PriorAttain_01Rule = "PriorAttain_01";
+        public const string PriorAttain_02Rule = "PriorAttain_02";
+        public const string PriorAttain_03Rule = "PriorAttain_03";
+        public const string PriorAttain_04Rule = "PriorAttain_04";
+        public const string PriorAttain_05Rule = "PriorAttain_05";
+        public const string PriorAttain_06Rule = "PriorAttain_06";
+        public const string PriorAttain_07Rule = "PriorAttain_07";
+
     }
 }

@@ -69,10 +69,15 @@
     <Compile Include="Learner\GivenNames\GivenNames_04Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_02Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_01Rule.cs" />
-    <Compile Include="Learner\NiNumber\NINumber_02Rule.cs" />
-    <Compile Include="Learner\NiNumber\NINumber_01Rule.cs" />
+    <Compile Include="Learner\NINumber\NINumber_02Rule.cs" />
+    <Compile Include="Learner\NINumber\NINumber_01Rule.cs" />
     <Compile Include="Learner\PMUKPRN\PMUKPRN_01Rule.cs" />
     <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_03Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_07Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_05Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_04Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_01Rule.cs" />
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />
     <Compile Include="Learner\ULN\ULN_04Rule.cs" />
