@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 {
     /// <summary>
-    /// "LearningDelivery.LearnStartDate > 2016-07-31 and LearningDelivery.FundModel = 35 and 
-    //Learner.PriorAttain = (3, 4, 5, 10, 11, 12, 13, 97 or 98) and LearningDelivery.ProgType = 24"
+    /// LearningDelivery.LearnStartDate > 2016-07-31 and LearningDelivery.FundModel = 35 and 
+    //Learner.PriorAttain = (3, 4, 5, 10, 11, 12, 13, 97 or 98) and LearningDelivery.ProgType = 24
     /// </summary>
     public class PriorAttain_07Rule : AbstractRule, IRule<IMessageLearner>
 
@@ -36,7 +36,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
                                 learningDelivery.ProgTypeNullable,
                                 learningDelivery.LearnStartDateNullable))
                 {
-                    HandleValidationError(RuleNameConstants.PriorAttain_07Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.PriorAttain_07Rule, 
+                                        objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
 
