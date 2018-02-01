@@ -64,7 +64,9 @@
   <ItemGroup>
     <Compile Include="Abstract\AbstractModelTests.cs" />
     <Compile Include="MessageLearnerContactPreferenceTests.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatusTests.cs" />
     <Compile Include="MessageLearnerLearnerFAMTests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryAppFinRecordTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAMTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
     <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />
