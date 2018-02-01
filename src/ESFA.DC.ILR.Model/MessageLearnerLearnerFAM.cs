@@ -4,5 +4,9 @@ namespace ESFA.DC.ILR.Model
 {
     public partial class MessageLearnerLearnerFAM : IMessageLearnerLearnerFAM
     {
+        public long? LearnFAMCodeNullable
+        {
+            get { return learnFAMCodeFieldSpecified ? (long?)learnFAMCodeField : null; }
+        }
     }
 }

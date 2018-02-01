@@ -2,5 +2,7 @@
 {
     public interface IMessageLearnerLearnerFAM
     {
+        string LearnFAMType { get; }
+        long? LearnFAMCodeNullable { get; }
     }
 }
