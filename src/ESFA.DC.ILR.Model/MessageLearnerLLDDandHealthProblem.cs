@@ -2,7 +2,16 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public  partial class MessageLearnerLLDDandHealthProblem : IMessageLearnerLLDDAndHealthProblem
+    public partial class MessageLearnerLLDDandHealthProblem : IMessageLearnerLLDDAndHealthProblem
     {
+        public long? LLDDCatNullable
+        {
+            get { return lLDDCatFieldSpecified ? (long?)lLDDCatField : null; }
+        }
+
+        public long? PrimaryLLDDNullable
+        {
+            get { return primaryLLDDFieldSpecified ? (long?)primaryLLDDField : null; }
+        }
     }
 }

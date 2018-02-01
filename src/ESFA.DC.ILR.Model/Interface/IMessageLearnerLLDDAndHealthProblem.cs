@@ -2,5 +2,8 @@
 {
     public interface IMessageLearnerLLDDAndHealthProblem
     {
+        long? LLDDCatNullable { get; }
+
+        long? PrimaryLLDDNullable { get; }
     }
 }
