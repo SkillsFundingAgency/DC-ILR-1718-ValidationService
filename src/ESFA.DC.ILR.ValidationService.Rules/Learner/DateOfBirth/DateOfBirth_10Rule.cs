@@ -13,7 +13,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
         private readonly IDD07 _dd07;
         private readonly IAcademicYearCalendarService _academicYearCalendarService;
         private readonly IDateTimeQueryService _dateTimeQueryService;
-        private readonly IValidationErrorHandler _validationErrorHandler;
 
         private readonly DateTime _apprenticeshipProgrammeStartStart = new DateTime(2013, 8, 1);
         private readonly DateTime _apprenticeshipProgrammeStartEnd = new DateTime(2015, 8, 1);
@@ -25,7 +24,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             _dd07 = dd07;
             _academicYearCalendarService = academicYearCalendarService;
             _dateTimeQueryService = dateTimeQueryService;
-            _validationErrorHandler = validationErrorHandler;
         }
 
         public void Validate(IMessageLearner objectToValidate)

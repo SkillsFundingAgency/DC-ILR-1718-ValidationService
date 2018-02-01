@@ -49,6 +49,7 @@
     <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerFAM.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerHE.cs" />
+    <Compile Include="Interface\IMessageLearnerLearnerHELearnerHEFinancialSupport.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDelivery.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDeliveryAppFinRecord.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryHE.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="MessageLearnerLearnerFAM.cs" />
     <Compile Include="MessageLearnerLearnerHE.cs" />
+    <Compile Include="MessageLearnerLearnerHELearnerHEFinancialSupport.cs" />
     <Compile Include="MessageLearnerLearningDelivery.cs" />
     <Compile Include="MessageLearnerLearningDeliveryAppFinRecord.cs" />
     <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
