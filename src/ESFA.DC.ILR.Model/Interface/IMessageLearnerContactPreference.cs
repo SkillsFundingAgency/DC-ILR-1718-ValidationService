@@ -2,5 +2,7 @@
 {
     public interface IMessageLearnerContactPreference
     {
+        string ContPrefType { get; }
+        long? ContPrefCodeNullable { get; }
     }
 }
