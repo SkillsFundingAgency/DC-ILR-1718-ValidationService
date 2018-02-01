@@ -20,6 +20,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
     {
         private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _famQueryService;
+        private readonly HashSet<long> _excludeFundModels = new HashSet<long> { 10,25,82 };
+
 
         public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService famQueryService)
            : base(validationErrorHandler)
@@ -49,10 +51,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)
         {
 
-            var condition1 = learningDelivery.FundModelNullable.HasValue &&
-                            (learningDelivery.FundModelNullable.Value == 10 ||
-                            learningDelivery.FundModelNullable.Value == 25 ||
-                            learningDelivery.FundModelNullable.Value == 82);
+            var condition1 = learningDelivery.FundModelNullable.HasValue && _excludeFundModels.Contains(learningDelivery.FundModelNullable.Value);
 
             var condition2 = learningDelivery.FundModelNullable.HasValue &&
                             (learningDelivery.FundModelNullable.Value == 99

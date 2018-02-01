@@ -16,7 +16,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     public class PriorAttain_05Rule : AbstractRule, IRule<IMessageLearner>
 
     {
-        
+
+        private readonly HashSet<long> _validPriorAttainValues = new HashSet<long> { 4, 5, 10, 11, 12, 13 };
+
 
         public PriorAttain_05Rule(IValidationErrorHandler validationErrorHandler)
            : base(validationErrorHandler)
@@ -52,8 +54,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
         public bool PriorAttainConditionMet(long? priorAttain)
         {
-            var validPriorAttainValues = new List<long> { 4, 5, 10, 11, 12, 13 };
-            return priorAttain.HasValue && validPriorAttainValues.Contains(priorAttain.Value);
+            return priorAttain.HasValue && _validPriorAttainValues.Contains(priorAttain.Value);
         }
 
         public bool LearnStartDateConditionMet( DateTime? learnStartDate)
