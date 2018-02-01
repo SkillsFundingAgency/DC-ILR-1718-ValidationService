@@ -79,16 +79,19 @@ namespace ESFA.DC.ILR.Model
             get { return contactPreferenceField; }
         }
 
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerLearnerEmploymentStatus> LearnerEmploymentStatuses
         {
             get { return learnerEmploymentStatusField; }
         }
 
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerLearnerFAM> LearnerFAMs
         {
             get { return learnerFAMField; }
         }
 
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerLearnerHE> LearnerHEs
         {
             get { return learnerHEField; }
@@ -100,11 +103,13 @@ namespace ESFA.DC.ILR.Model
             get { return learningDeliveryField; }
         }
 
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerLLDDAndHealthProblem> LLDDAndHealthProblems
         {
             get { return lLDDandHealthProblemField; }
         }
 
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerProviderSpecLearnerMonitoring> ProviderSpecLearnerMonitorings
         {
             get { return providerSpecLearnerMonitoringField; }

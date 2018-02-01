@@ -8,6 +8,18 @@ namespace ESFA.DC.ILR.Model
     public partial class MessageLearnerLearningDelivery : IMessageLearnerLearningDelivery
     {
         [XmlIgnore]
+        public DateTime? AchDateNullable
+        {
+            get { return achDateFieldSpecified ? (DateTime?)achDateField : null; }
+        }
+
+        [XmlIgnore]
+        public long? AddHoursNullable
+        {
+            get { return addHoursFieldSpecified ? (long?)addHoursField : null; }
+        }
+
+        [XmlIgnore]
         public long? AimSeqNumberNullable
         {
             get { return aimSeqNumberFieldSpecified ? (long?)aimSeqNumberField : null;  }
@@ -17,6 +29,18 @@ namespace ESFA.DC.ILR.Model
         public long? AimTypeNullable
         {
             get { return aimTypeFieldSpecified ? (long?)aimTypeField : null; }
+        }
+
+        [XmlIgnore]
+        public long? CompStatusNullable
+        {
+            get { return compStatusFieldSpecified ? (long?)compStatusField : null; }
+        }
+
+        [XmlIgnore]
+        public long? EmpOutcomeNullable
+        {
+            get { return empOutcomeFieldSpecified ? (long?)empOutcomeField : null; }
         }
 
         [XmlIgnore]
@@ -50,6 +74,36 @@ namespace ESFA.DC.ILR.Model
         }
 
         [XmlIgnore]
+        public DateTime? OrigLearnStartDateNullable
+        {
+            get { return origLearnStartDateFieldSpecified ? (DateTime?)origLearnStartDateField : null; }
+        }
+
+        [XmlIgnore]
+        public long? OtherFundAdjNullable
+        {
+            get { return otherFundAdjFieldSpecified ? (long?)otherFundAdjField : null; }
+        }
+
+        [XmlIgnore]
+        public long? OutcomeNullable
+        {
+            get { return outcomeFieldSpecified ? (long?)outcomeField : null; }
+        }
+
+        [XmlIgnore]
+        public long? PartnerUKPRNNullable
+        {
+            get { return partnerUKPRNFieldSpecified ? (long?)partnerUKPRNField : null;  }
+        }
+
+        [XmlIgnore]
+        public long? PriorLearnFundAdjNullable
+        {
+            get { return priorLearnFundAdjFieldSpecified ? (long?)priorLearnFundAdjField : null; }
+        }
+
+        [XmlIgnore]
         public long? ProgTypeNullable
         {
             get { return progTypeFieldSpecified ? (long?)progTypeField : null; }
@@ -62,9 +116,41 @@ namespace ESFA.DC.ILR.Model
         }
 
         [XmlIgnore]
+        public long? StdCodeNullable
+        {
+            get { return stdCodeFieldSpecified ? (long?)stdCodeField : null; }
+        }
+
+        [XmlIgnore]
+        public long? WithdrawReasonNullable
+        {
+            get { return withdrawReasonFieldSpecified ? (long?)withdrawReasonField : null;  }
+        }
+                
+        public IReadOnlyCollection<IMessageLearnerLearningDeliveryAppFinRecord> AppFinRecords
+        {
+            get { return appFinRecordField; }
+        }
+
+        [XmlIgnore]
         public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryFAM> LearningDeliveryFAMs
         {
             get { return learningDeliveryFAMField; }
+        }
+
+        public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryHE> LearningDeliveryHEs
+        {
+            get { return learningDeliveryHEField; }
+        }
+
+        public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryWorkPlacement> LearningDeliveryWorkPlacements
+        {
+            get { return learningDeliveryWorkPlacementField; }
+        }
+
+        public IReadOnlyCollection<IMessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring> ProviderSpecDeliveryMonitorings
+        {
+            get { return providerSpecDeliveryMonitoringField; }
         }
     }
 }
