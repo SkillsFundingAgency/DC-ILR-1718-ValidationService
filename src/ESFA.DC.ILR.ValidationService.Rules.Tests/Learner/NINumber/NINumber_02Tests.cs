@@ -29,12 +29,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             rule.ConditionMet(niNumber,true).Should().BeTrue();
         }
 
+        [Fact]
         public void ConditionMet_False_NonNullNiNumber()
         {
             var rule = new NINumber_02Rule(null, null);
             rule.ConditionMet("NINUMBER", true).Should().BeFalse();
         }
 
+        [Fact]
         public void ConditionMet_False_NotApplicableFAM()
         {
             var rule = new NINumber_02Rule(null, null);
