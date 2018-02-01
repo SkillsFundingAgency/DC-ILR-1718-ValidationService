@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 {
     /// <summary>
-    /// "LearningDelivery.LearnStartDate > 2016-07-31 and LearningDelivery.FundModel = 35 and 
-    //Learner.PriorAttain = (3, 4, 5, 10, 11, 12, 13, 97 or 98) and LearningDelivery.ProgType = 24"
+    /// LearningDelivery.LearnStartDate > 2016-07-31 and LearningDelivery.FundModel = 35 and 
+    //Learner.PriorAttain = (3, 4, 5, 10, 11, 12, 13, 97 or 98) and LearningDelivery.ProgType = 24
     /// </summary>
     public class PriorAttain_07Rule : AbstractRule, IRule<IMessageLearner>
 
     {
         private readonly HashSet<long> _validPriorAttainValues = new HashSet<long> { 4, 5, 10, 11, 12, 13, 97, 98 };
+        private readonly DateTime _startConditionDate = new DateTime(2016, 7, 31);
 
 
         public PriorAttain_07Rule(IValidationErrorHandler validationErrorHandler)
@@ -35,7 +36,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
                                 learningDelivery.ProgTypeNullable,
                                 learningDelivery.LearnStartDateNullable))
                 {
-                    HandleValidationError(RuleNameConstants.PriorAttain_07Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.PriorAttain_07Rule, 
+                                        objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
 
@@ -59,7 +61,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
         public bool LearnStartDateConditionMet( DateTime? learnStartDate)
         {
-            return learnStartDate.HasValue && learnStartDate.Value > new DateTime(2016, 7, 31);
+     
+            return learnStartDate.HasValue && learnStartDate.Value > _startConditionDate;
         }
         public bool FundModelConditionMet(long? fundModel)
         {
