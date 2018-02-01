@@ -62,7 +62,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractModelTests.cs" />
+    <Compile Include="MessageLearnerContactPreferenceTests.cs" />
+    <Compile Include="MessageLearnerLearnerFAMTests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAMTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
+    <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />
     <Compile Include="MessageLearnerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

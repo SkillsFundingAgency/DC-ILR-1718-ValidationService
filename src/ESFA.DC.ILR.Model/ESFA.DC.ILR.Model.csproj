@@ -44,11 +44,31 @@
       <DependentUpon>ILR-2017-18.xsd</DependentUpon>
     </Compile>
     <Compile Include="Interface\IMessageLearner.cs" />
+    <Compile Include="Interface\IMessageLearnerContactPreference.cs" />
+    <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatus.cs" />
+    <Compile Include="Interface\IMessageLearnerLearnerFAM.cs" />
+    <Compile Include="Interface\IMessageLearnerLearnerHE.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDelivery.cs" />
+    <Compile Include="Interface\IMessageLearnerLearningDeliveryAppFinRecord.cs" />
+    <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryHE.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
+    <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryWorkPlacement.cs" />
+    <Compile Include="Interface\IMessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring.cs" />
+    <Compile Include="Interface\IMessageLearnerLLDDAndHealthProblem.cs" />
+    <Compile Include="Interface\IMessageLearnerProviderSpecLearnerMonitoring.cs" />
     <Compile Include="MessageLearner.cs" />
+    <Compile Include="MessageLearnerContactPreference.cs" />
+    <Compile Include="MessageLearnerEmploymentStatus.cs" />
+    <Compile Include="MessageLearnerLearnerFAM.cs" />
+    <Compile Include="MessageLearnerLearnerHE.cs" />
     <Compile Include="MessageLearnerLearningDelivery.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryAppFinRecord.cs" />
     <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryHE.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryWorkPlacement.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring.cs" />
+    <Compile Include="MessageLearnerLLDDandHealthProblem.cs" />
+    <Compile Include="MessageLearnerProviderSpecLearnerMonitoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
