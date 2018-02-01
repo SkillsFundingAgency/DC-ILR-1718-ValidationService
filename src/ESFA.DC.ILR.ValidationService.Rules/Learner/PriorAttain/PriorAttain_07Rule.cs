@@ -18,6 +18,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
     {
         private readonly HashSet<long> _validPriorAttainValues = new HashSet<long> { 4, 5, 10, 11, 12, 13, 97, 98 };
+        private readonly DateTime _startConditionDate = new DateTime(2016, 7, 31);
 
 
         public PriorAttain_07Rule(IValidationErrorHandler validationErrorHandler)
@@ -59,7 +60,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
         public bool LearnStartDateConditionMet( DateTime? learnStartDate)
         {
-            return learnStartDate.HasValue && learnStartDate.Value > new DateTime(2016, 7, 31);
+     
+            return learnStartDate.HasValue && learnStartDate.Value > _startConditionDate;
         }
         public bool FundModelConditionMet(long? fundModel)
         {
