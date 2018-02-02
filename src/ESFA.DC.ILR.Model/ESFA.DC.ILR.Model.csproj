@@ -46,8 +46,10 @@
     <Compile Include="Interface\IMessageLearner.cs" />
     <Compile Include="Interface\IMessageLearnerContactPreference.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatus.cs" />
+    <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerFAM.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerHE.cs" />
+    <Compile Include="Interface\IMessageLearnerLearnerHELearnerHEFinancialSupport.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDelivery.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDeliveryAppFinRecord.cs" />
     <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryHE.cs" />
@@ -58,9 +60,11 @@
     <Compile Include="Interface\IMessageLearnerProviderSpecLearnerMonitoring.cs" />
     <Compile Include="MessageLearner.cs" />
     <Compile Include="MessageLearnerContactPreference.cs" />
-    <Compile Include="MessageLearnerEmploymentStatus.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatus.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="MessageLearnerLearnerFAM.cs" />
     <Compile Include="MessageLearnerLearnerHE.cs" />
+    <Compile Include="MessageLearnerLearnerHELearnerHEFinancialSupport.cs" />
     <Compile Include="MessageLearnerLearningDelivery.cs" />
     <Compile Include="MessageLearnerLearningDeliveryAppFinRecord.cs" />
     <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />

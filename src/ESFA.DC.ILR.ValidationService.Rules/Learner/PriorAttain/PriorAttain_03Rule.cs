@@ -5,23 +5,18 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 {
-    /// <summary>
-    /// Learner.PriorAttain is not null and <> valid lookup on ILR_PriorAttain
-    /// </summary>
     public class PriorAttain_03Rule : AbstractRule, IRule<IMessageLearner>
-
     {
         private readonly IPriorAttainReferenceDataService _priorAttainReferenceDataService;
 
-        public PriorAttain_03Rule(IValidationErrorHandler validationErrorHandler, IPriorAttainReferenceDataService priorAttainReferenceDataService)
+        public PriorAttain_03Rule(IPriorAttainReferenceDataService priorAttainReferenceDataService, IValidationErrorHandler validationErrorHandler)
            : base(validationErrorHandler)
         {
             _priorAttainReferenceDataService = priorAttainReferenceDataService;
         }
 
         public void Validate(IMessageLearner objectToValidate)
-        {
-           
+        {           
             if (ConditionMet(objectToValidate.PriorAttainNullable))
             {
                 HandleValidationError(RuleNameConstants.PriorAttain_03Rule, objectToValidate.LearnRefNumber);
@@ -32,10 +27,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         {
             return priorAttain.HasValue &&
                     !_priorAttainReferenceDataService.Exists(priorAttain.Value);
-
-        }
-        
+        }        
     }
-
-
 }

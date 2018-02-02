@@ -2,5 +2,7 @@
 {
     public interface IMessageLearnerProviderSpecLearnerMonitoring
     {
+        string ProvSpecLearnMonOccur { get; }
+        string ProvSpecLearnMon { get; }
     }
 }
