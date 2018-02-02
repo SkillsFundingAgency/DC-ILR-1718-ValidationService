@@ -11,7 +11,7 @@ namespace ESFA.DC.ILR.Model
         }
 
 
-        public IReadOnlyCollection<IMessageLearnerDestinationandProgressionDPOutcome> DPOutcomes
+        public IReadOnlyCollection<IMessageLearnerDestinationAndProgressionDPOutcome> DPOutcomes
         {
             get { return dPOutcomeField; }
         }

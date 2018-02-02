@@ -68,6 +68,7 @@
     <Compile Include="MessageHeaderSourceTests.cs" />
     <Compile Include="MessageHeaderTests.cs" />
     <Compile Include="MessageLearnerContactPreferenceTests.cs" />
+    <Compile Include="MessageLearnerDestinationandProgressionDPOutcomeTests.cs" />
     <Compile Include="MessageLearnerDestinationandProgressionTests.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoringTests.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusTests.cs" />

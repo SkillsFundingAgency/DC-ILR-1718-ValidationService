@@ -6,6 +6,6 @@ namespace ESFA.DC.ILR.Model.Interface
     {
         string LearnRefNumber { get; }
         long? ULNNullable { get; }
-        IReadOnlyCollection<IMessageLearnerDestinationandProgressionDPOutcome> DPOutcomes { get; }
+        IReadOnlyCollection<IMessageLearnerDestinationAndProgressionDPOutcome> DPOutcomes { get; }
     }
 }
