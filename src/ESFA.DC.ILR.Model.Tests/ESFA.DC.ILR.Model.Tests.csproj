@@ -64,10 +64,13 @@
   <ItemGroup>
     <Compile Include="Abstract\AbstractModelTests.cs" />
     <Compile Include="MessageLearnerContactPreferenceTests.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoringTests.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusTests.cs" />
     <Compile Include="MessageLearnerLearnerFAMTests.cs" />
+    <Compile Include="MessageLearnerLearnerHELearnerHEFinancialSupportTests.cs" />
     <Compile Include="MessageLearnerLearnerHETests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryAppFinRecordTests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryHETests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAMTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
     <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />
