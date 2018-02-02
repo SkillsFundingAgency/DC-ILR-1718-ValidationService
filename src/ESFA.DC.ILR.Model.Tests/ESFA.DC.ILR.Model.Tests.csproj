@@ -75,6 +75,7 @@
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
     <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />
     <Compile Include="MessageLearnerTests.cs" />
+    <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

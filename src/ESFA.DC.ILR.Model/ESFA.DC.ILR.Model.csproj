@@ -43,8 +43,11 @@
     <Compile Include="ILR-2017-18.cs">
       <DependentUpon>ILR-2017-18.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IMessage.cs" />
+    <Compile Include="Interface\IMessageHeader.cs" />
     <Compile Include="Interface\IMessageLearner.cs" />
     <Compile Include="Interface\IMessageLearnerContactPreference.cs" />
+    <Compile Include="Interface\IMessageLearnerDestinationAndProgression.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatus.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerFAM.cs" />
@@ -58,8 +61,13 @@
     <Compile Include="Interface\IMessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring.cs" />
     <Compile Include="Interface\IMessageLearnerLLDDAndHealthProblem.cs" />
     <Compile Include="Interface\IMessageLearnerProviderSpecLearnerMonitoring.cs" />
+    <Compile Include="Interface\IMessageLearningProvider.cs" />
+    <Compile Include="Interface\IMessageSourceFile.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageHeader.cs" />
     <Compile Include="MessageLearner.cs" />
     <Compile Include="MessageLearnerContactPreference.cs" />
+    <Compile Include="MessageLearnerDestinationAndProgression.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatus.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="MessageLearnerLearnerFAM.cs" />
@@ -73,6 +81,8 @@
     <Compile Include="MessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring.cs" />
     <Compile Include="MessageLearnerLLDDandHealthProblem.cs" />
     <Compile Include="MessageLearnerProviderSpecLearnerMonitoring.cs" />
+    <Compile Include="MessageLearningProvider.cs" />
+    <Compile Include="MessageSourceFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
