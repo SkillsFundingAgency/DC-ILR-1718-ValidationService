@@ -2,5 +2,7 @@
 {
     public interface IMessageLearnerLearnerHELearnerHEFinancialSupport
     {
+        long? FINTYPENullable { get; }
+        long? FINAMOUNTNullable { get; }
     }
 }
