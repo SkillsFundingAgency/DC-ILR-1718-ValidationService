@@ -57,6 +57,7 @@
         public const string PriorAttain_06Rule = "PriorAttain_06";
         public const string PriorAttain_07Rule = "PriorAttain_07";
         public const string Accom_01Rule = "Accom_01";
+        public const string ALSCost_02Rule = "ALSCost_02";
 
     }
 }

@@ -51,14 +51,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)
         {
 
-            var condition1 = learningDelivery.FundModelNullable.HasValue && _excludeFundModels.Contains(learningDelivery.FundModelNullable.Value);
+            var fundModelConditionMet = learningDelivery.FundModelNullable.HasValue && _excludeFundModels.Contains(learningDelivery.FundModelNullable.Value);
 
-            var condition2 = learningDelivery.FundModelNullable.HasValue &&
+            var famTypeConditionMet = learningDelivery.FundModelNullable.HasValue &&
                             (learningDelivery.FundModelNullable.Value == 99
                             && _famQueryService.HasLearningDeliveryFAMCodeForType(
                             learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "108"));
 
-            return condition1 || condition2;
+            return fundModelConditionMet || famTypeConditionMet;
         }
     }
 
