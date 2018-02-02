@@ -1,5 +1,4 @@
 ﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.ValidationService.ExternalData.PriorAttain;
 using ESFA.DC.ILR.ValidationService.ExternalData.PriorAttain.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
@@ -13,41 +12,32 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
 {
     public class PriorAttain_03RuleTests
     {
-
-        private readonly IPriorAttainReferenceDataService  _priorAttainReferenceService = new PriorAttainReferenceDataService();
-
-        
-        [Theory]
-        [InlineData(100)]
-        [InlineData(29)]
-        [InlineData(90)]
-        public void ConditionMet_True(long attainValue)
+        private PriorAttain_03Rule NewRule(IPriorAttainReferenceDataService priorAttainReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            var rule = new PriorAttain_03Rule(null, _priorAttainReferenceService);
-            rule.ConditionMet(attainValue).Should().BeTrue();
-            
+            return new PriorAttain_03Rule(priorAttainReferenceDataService, validationErrorHandler);
         }
 
-        [Theory]
-        [InlineData(2)]
-        [InlineData(3)]
-        [InlineData(4)]
-        [InlineData(5)]
-        [InlineData(10)]
-        [InlineData(11)]
-        [InlineData(12)]
-        [InlineData(13)]
-        [InlineData(97)]
-        [InlineData(98)]
-        public void ConditionMet_False(long attainValue)
+        [Fact]
+        public void ConditionMet_True()
         {
-            var rule = new PriorAttain_03Rule(null, _priorAttainReferenceService);
-           
-            rule.ConditionMet(attainValue).Should().BeFalse();
+            var priorAttainReferenceDataServiceMock = new Mock<IPriorAttainReferenceDataService>();
 
+            priorAttainReferenceDataServiceMock.Setup(rds => rds.Exists(1)).Returns(false);
+
+            var rule = new PriorAttain_03Rule(priorAttainReferenceDataServiceMock.Object, null);
+            rule.ConditionMet(1).Should().BeTrue();            
         }
 
-       
+        [Fact]
+        public void ConditionMet_False()
+        {
+            var priorAttainReferenceDataServiceMock = new Mock<IPriorAttainReferenceDataService>();
+
+            priorAttainReferenceDataServiceMock.Setup(rds => rds.Exists(1)).Returns(true);
+
+            var rule = new PriorAttain_03Rule(priorAttainReferenceDataServiceMock.Object, null);
+            rule.ConditionMet(1).Should().BeFalse();
+        }       
 
         [Fact]
         public void Validate_Error()
@@ -58,11 +48,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                 PriorAttain = 100
             };
 
+            var priorAttainReferenceDataServiceMock = new Mock<IPriorAttainReferenceDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+
+            priorAttainReferenceDataServiceMock.Setup(rds => rds.Exists(100)).Returns(false);
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PriorAttain_03", null, null, null);
 
+            var rule = new PriorAttain_03Rule(priorAttainReferenceDataServiceMock.Object, validationErrorHandlerMock.Object);
 
-            var rule = new PriorAttain_03Rule(validationErrorHandlerMock.Object, _priorAttainReferenceService);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
@@ -76,14 +70,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                 PriorAttain = 11
             };
 
+            var priorAttainReferenceDataServiceMock = new Mock<IPriorAttainReferenceDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+            
+            priorAttainReferenceDataServiceMock.Setup(rds => rds.Exists(11)).Returns(true);
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PriorAttain_03", null, null, null);
 
+            var rule = new PriorAttain_03Rule(priorAttainReferenceDataServiceMock.Object, validationErrorHandlerMock.Object);
 
-            var rule = new PriorAttain_03Rule(validationErrorHandlerMock.Object, _priorAttainReferenceService);
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
-
     }
 }
