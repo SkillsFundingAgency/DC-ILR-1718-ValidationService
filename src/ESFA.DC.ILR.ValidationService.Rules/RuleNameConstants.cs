@@ -58,6 +58,11 @@
         public const string PriorAttain_07Rule = "PriorAttain_07";
         public const string Accom_01Rule = "Accom_01";
         public const string ALSCost_02Rule = "ALSCost_02";
+        public const string PlanLearnHours_01Rule = "PlanLearnHours_01";
+        public const string PlanLearnHours_02Rule = "PlanLearnHours_02";
+        public const string PlanLearnHours_03Rule = "PlanLearnHours_03";
+        public const string PlanLearnHours_04Rule = "PlanLearnHours_04";
+        public const string PlanLearnHours_05Rule = "PlanLearnHours_05";
 
     }
 }
