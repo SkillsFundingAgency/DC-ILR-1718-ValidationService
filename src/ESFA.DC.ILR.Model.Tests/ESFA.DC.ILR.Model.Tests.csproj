@@ -65,6 +65,7 @@
     <Compile Include="Abstract\AbstractModelTests.cs" />
     <Compile Include="EnumExtensionsTests.cs" />
     <Compile Include="MessageHeaderCollectionDetailsTests.cs" />
+    <Compile Include="MessageHeaderSourceTests.cs" />
     <Compile Include="MessageHeaderTests.cs" />
     <Compile Include="MessageLearnerContactPreferenceTests.cs" />
     <Compile Include="MessageLearnerDestinationandProgressionTests.cs" />
