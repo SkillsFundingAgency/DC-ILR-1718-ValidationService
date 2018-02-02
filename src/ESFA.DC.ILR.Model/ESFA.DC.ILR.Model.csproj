@@ -50,6 +50,7 @@
     <Compile Include="Interface\IMessageLearner.cs" />
     <Compile Include="Interface\IMessageLearnerContactPreference.cs" />
     <Compile Include="Interface\IMessageLearnerDestinationAndProgression.cs" />
+    <Compile Include="Interface\IMessageLearnerDestinationandProgressionDPOutcome.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatus.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="Interface\IMessageLearnerLearnerFAM.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="MessageLearner.cs" />
     <Compile Include="MessageLearnerContactPreference.cs" />
     <Compile Include="MessageLearnerDestinationAndProgression.cs" />
+    <Compile Include="MessageLearnerDestinationandProgressionDPOutcome.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatus.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
     <Compile Include="MessageLearnerLearnerFAM.cs" />

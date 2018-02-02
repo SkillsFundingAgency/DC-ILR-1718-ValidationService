@@ -2,5 +2,6 @@
 {
     public interface IMessageLearningProvider
     {
+        int UKPRN { get; }
     }
 }
