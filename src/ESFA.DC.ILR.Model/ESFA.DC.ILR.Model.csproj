@@ -45,6 +45,8 @@
     </Compile>
     <Compile Include="Interface\IMessage.cs" />
     <Compile Include="Interface\IMessageHeader.cs" />
+    <Compile Include="Interface\IMessageHeaderCollectionDetails.cs" />
+    <Compile Include="Interface\IMessageHeaderSource.cs" />
     <Compile Include="Interface\IMessageLearner.cs" />
     <Compile Include="Interface\IMessageLearnerContactPreference.cs" />
     <Compile Include="Interface\IMessageLearnerDestinationAndProgression.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="Interface\IMessageSourceFile.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageHeader.cs" />
+    <Compile Include="MessageHeaderCollectionDetails.cs" />
+    <Compile Include="MessageHeaderSource.cs" />
     <Compile Include="MessageLearner.cs" />
     <Compile Include="MessageLearnerContactPreference.cs" />
     <Compile Include="MessageLearnerDestinationAndProgression.cs" />

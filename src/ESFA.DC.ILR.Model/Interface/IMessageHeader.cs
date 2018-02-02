@@ -2,5 +2,7 @@
 {
     public interface IMessageHeader
     {
+        IMessageHeaderCollectionDetails CollectionDetailsEntity { get; }
+        IMessageHeaderSource SourceEntity { get; }
     }
 }
