@@ -68,6 +68,7 @@
     <Compile Include="MessageLearnerLearnerFAMTests.cs" />
     <Compile Include="MessageLearnerLearnerHETests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryAppFinRecordTests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryHETests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAMTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
     <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />

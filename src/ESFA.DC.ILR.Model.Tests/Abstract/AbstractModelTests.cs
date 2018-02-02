@@ -17,6 +17,11 @@ namespace ESFA.DC.ILR.Model.Tests.Abstract
             return 12345678910;
         }
 
+        protected decimal Decimal()
+        {
+            return 1.234M;
+        }
+
         protected T TestNullableSpecifiedTrue<TValue, TNullable>(Expression<Func<T, TValue>> propertyExpression, TValue value,  Expression<Func<T, bool>> specifiedPropertyExpression, Expression<Func<T, TNullable>> nullablePropertyExpression)
         {
             var modelObject = new T();
