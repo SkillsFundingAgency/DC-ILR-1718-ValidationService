@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 {
     public class FamilyName_02RuleTests
     {
-        public FamilyName_02Rule NewRule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        public FamilyName_02Rule NewRule(ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
         {
             return new FamilyName_02Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
         }
@@ -56,7 +56,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
             

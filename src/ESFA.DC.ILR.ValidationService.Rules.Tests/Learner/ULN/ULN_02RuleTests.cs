@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "1")).Returns(true);
 
@@ -39,7 +39,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "1")).Returns(false);
 
@@ -89,7 +89,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 }
             };
             
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "1")).Returns(false);
 
@@ -119,7 +119,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "1")).Returns(false);
 

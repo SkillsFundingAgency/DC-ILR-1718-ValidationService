@@ -23,7 +23,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(true);
 
@@ -40,7 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(false);
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "ACT", "1")).Returns(true);
@@ -58,7 +58,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(false);
             messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "ACT", "1")).Returns(false);
@@ -187,7 +187,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var fileDataMock = new Mock<IFileDataService>();
             var validationDataMock = new Mock<IValidationDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             fileDataMock.SetupGet(fd => fd.FilePreparationDate).Returns(new DateTime(2018, 6, 1));
             validationDataMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));
@@ -229,7 +229,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             var fileDataMock = new Mock<IFileDataService>();
             var validationDataMock = new Mock<IValidationDataService>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             fileDataMock.SetupGet(fd => fd.FilePreparationDate).Returns(new DateTime(2018, 1, 1));
             validationDataMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));

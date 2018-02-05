@@ -5,7 +5,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Query
 {
-    public class MessageLearnerLearningDeliveryLearningDeliveryFAMQueryService : IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService
+    public class LearningDeliveryFAMQueryService : ILearningDeliveryFAMQueryService
     {
         public bool HasAnyLearningDeliveryFAMCodesForType(IEnumerable<ILearningDeliveryFAM> learningDeliveryFAMs, string famType, IEnumerable<string> famCodes)
         {

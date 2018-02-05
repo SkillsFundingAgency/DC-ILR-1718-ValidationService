@@ -61,7 +61,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("NINumber_02", null, null, null);
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                                         It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), famType, famCode))
@@ -92,7 +92,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("NINumber_02", null, null, null);
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                                         It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1"))

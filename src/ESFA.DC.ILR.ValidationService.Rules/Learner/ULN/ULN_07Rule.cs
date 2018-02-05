@@ -13,11 +13,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 82, 35, 36, 81, 70 };
 
-        public ULN_07Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public ULN_07Rule(IFileDataService fileDataService, IValidationDataService validationDataService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;

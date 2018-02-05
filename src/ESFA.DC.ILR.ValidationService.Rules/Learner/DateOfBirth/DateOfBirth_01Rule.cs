@@ -10,11 +10,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
     public class DateOfBirth_01Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 35, 36, 70, 81, 82 };
 
-        public DateOfBirth_01Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public DateOfBirth_01Rule(ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;

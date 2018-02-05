@@ -59,7 +59,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             var fileDataServiceMock = new Mock<IFileDataService>();
             var validationDataServiceMock = new Mock<IValidationDataService>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             fileDataServiceMock.SetupGet(fds => fds.FilePreparationDate).Returns(new DateTime(2017, 1, 1));
             validationDataServiceMock.SetupGet(vds => vds.AcademicYearJanuaryFirst).Returns(new DateTime(2017, 1, 1));
@@ -89,7 +89,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var fileDataServiceMock = new Mock<IFileDataService>();
             var validationDataServiceMock = new Mock<IValidationDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             fileDataServiceMock.SetupGet(fds => fds.FilePreparationDate).Returns(new DateTime(2017, 1, 1));
             validationDataServiceMock.SetupGet(vds => vds.AcademicYearJanuaryFirst).Returns(new DateTime(2017, 1, 1));

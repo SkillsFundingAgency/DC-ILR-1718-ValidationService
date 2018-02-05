@@ -45,7 +45,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                 FundModelSpecified = fundModel.HasValue
             };
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, famType, famCode)).Returns(false);
 
@@ -69,7 +69,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                 FundModelSpecified = fundModel.HasValue
             };
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, famType, famCode)).Returns(famType=="SOF");
 
@@ -91,7 +91,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             learner.LearningDelivery = new MessageLearnerLearningDelivery[] { learningDelivery };
 
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PriorAttain_01", null, null, null);
@@ -116,7 +116,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             learner.LearningDelivery = new MessageLearnerLearningDelivery[] { learningDelivery };
 
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PriorAttain_01", null, null, null);

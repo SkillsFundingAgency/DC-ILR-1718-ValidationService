@@ -103,8 +103,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\DateTimeQueryService.cs" />
     <Compile Include="Query\Interface\IDateTimeQueryService.cs" />
-    <Compile Include="Query\Interface\IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService.cs" />
-    <Compile Include="Query\MessageLearnerLearningDeliveryLearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\Interface\ILearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\LearningDeliveryFAMQueryService.cs" />
     <Compile Include="RuleNameConstants.cs" />
     <Compile Include="ValidationConstants.cs" />
   </ItemGroup>

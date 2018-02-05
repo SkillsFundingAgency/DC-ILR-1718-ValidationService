@@ -13,9 +13,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
     public class NINumber_02Rule : AbstractRule, IRule<ILearner>
 
     {
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _famQueryService;
+        private readonly ILearningDeliveryFAMQueryService _famQueryService;
 
-        public NINumber_02Rule( IValidationErrorHandler validationErrorHandler, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService famQueryService)
+        public NINumber_02Rule( IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService famQueryService)
            : base(validationErrorHandler)
         {
             _famQueryService = famQueryService;

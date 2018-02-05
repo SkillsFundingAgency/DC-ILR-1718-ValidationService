@@ -12,9 +12,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        public ULN_11Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public ULN_11Rule(IFileDataService fileDataService, IValidationDataService validationDataService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;

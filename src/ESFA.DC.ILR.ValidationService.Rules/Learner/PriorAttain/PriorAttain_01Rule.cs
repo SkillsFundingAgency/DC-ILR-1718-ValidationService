@@ -16,11 +16,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     public class PriorAttain_01Rule : AbstractRule, IRule<ILearner>
 
     {
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _famQueryService;
+        private readonly ILearningDeliveryFAMQueryService _famQueryService;
         private readonly HashSet<long> _excludeFundModels = new HashSet<long> { 10,25,82 };
 
 
-        public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService famQueryService)
+        public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService famQueryService)
            : base(validationErrorHandler)
         {
             _famQueryService = famQueryService;
