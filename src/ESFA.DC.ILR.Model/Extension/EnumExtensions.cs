@@ -27,11 +27,10 @@ namespace ESFA.DC.ILR.Model.Extension
 
             if (attribute == null)
             {
-                return member.Name; // Fallback to the member name when there's no attribute
+                return member.Name;
             }
 
             return attribute.Name;
         }
-
     }
 }
