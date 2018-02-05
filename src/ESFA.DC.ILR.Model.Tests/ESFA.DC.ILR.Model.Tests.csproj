@@ -63,7 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\AbstractModelTests.cs" />
+    <Compile Include="EnumExtensionsTests.cs" />
+    <Compile Include="MessageHeaderCollectionDetailsTests.cs" />
+    <Compile Include="MessageHeaderSourceTests.cs" />
+    <Compile Include="MessageHeaderTests.cs" />
     <Compile Include="MessageLearnerContactPreferenceTests.cs" />
+    <Compile Include="MessageLearnerDestinationandProgressionDPOutcomeTests.cs" />
+    <Compile Include="MessageLearnerDestinationandProgressionTests.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoringTests.cs" />
     <Compile Include="MessageLearnerLearnerEmploymentStatusTests.cs" />
     <Compile Include="MessageLearnerLearnerFAMTests.cs" />
@@ -75,6 +81,8 @@
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
     <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />
     <Compile Include="MessageLearnerTests.cs" />
+    <Compile Include="MessageSourceFileTests.cs" />
+    <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
