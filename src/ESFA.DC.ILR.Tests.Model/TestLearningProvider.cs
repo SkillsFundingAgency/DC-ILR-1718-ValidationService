@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class LearningProvider : ILearningProvider
+    public class TestLearningProvider : ILearningProvider
     {
         public int UKPRN { get; set; }
     }

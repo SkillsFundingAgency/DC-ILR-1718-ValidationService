@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class DPOutcome : IDPOutcome
+    public class TestDPOutcome : IDPOutcome
     {
         public string OutType { get; set; }
 

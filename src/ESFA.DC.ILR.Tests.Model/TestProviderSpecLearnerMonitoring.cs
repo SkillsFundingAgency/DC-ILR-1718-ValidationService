@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class ProviderSpecLearnerMonitoring : IProviderSpecLearnerMonitoring
+    public class TestProviderSpecLearnerMonitoring : IProviderSpecLearnerMonitoring
     {
         public string ProvSpecLearnMonOccur { get; set; }
 

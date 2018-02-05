@@ -40,26 +40,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppFinRecord.cs" />
-    <Compile Include="CollectionDetails.cs" />
-    <Compile Include="ContactPreference.cs" />
-    <Compile Include="DPOutcome.cs" />
-    <Compile Include="EmploymentStatusMonitoring.cs" />
-    <Compile Include="Header.cs" />
-    <Compile Include="Learner.cs" />
-    <Compile Include="LearnerDestinationAndProgression.cs" />
-    <Compile Include="LearnerEmploymentStatus.cs" />
-    <Compile Include="LearnerFAM.cs" />
-    <Compile Include="LearnerHE.cs" />
-    <Compile Include="LearningDeliveryWorkPlacement.cs" />
-    <Compile Include="LearningProvider.cs" />
-    <Compile Include="LLDDAndHealthProblem.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="TestAppFinRecord.cs" />
+    <Compile Include="TestCollectionDetails.cs" />
+    <Compile Include="TestContactPreference.cs" />
+    <Compile Include="TestDPOutcome.cs" />
+    <Compile Include="TestEmploymentStatusMonitoring.cs" />
+    <Compile Include="TestHeader.cs" />
+    <Compile Include="TestLearner.cs" />
+    <Compile Include="TestLearnerDestinationAndProgression.cs" />
+    <Compile Include="TestLearnerEmploymentStatus.cs" />
+    <Compile Include="TestLearnerFAM.cs" />
+    <Compile Include="TestLearnerHE.cs" />
+    <Compile Include="TestLearnerHEFinancialSupport.cs" />
+    <Compile Include="TestLearningDelivery.cs" />
+    <Compile Include="TestLearningDeliveryFAM.cs" />
+    <Compile Include="TestLearningDeliveryHE.cs" />
+    <Compile Include="TestLearningDeliveryWorkPlacement.cs" />
+    <Compile Include="TestLearningProvider.cs" />
+    <Compile Include="TestLLDDAndHealthProblem.cs" />
+    <Compile Include="TestMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProviderSpecDeliveryMonitoring.cs" />
-    <Compile Include="ProviderSpecLearnerMonitoring.cs" />
-    <Compile Include="Source.cs" />
-    <Compile Include="SourceFile.cs" />
+    <Compile Include="TestProviderSpecDeliveryMonitoring.cs" />
+    <Compile Include="TestProviderSpecLearnerMonitoring.cs" />
+    <Compile Include="TestSource.cs" />
+    <Compile Include="TestSourceFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">

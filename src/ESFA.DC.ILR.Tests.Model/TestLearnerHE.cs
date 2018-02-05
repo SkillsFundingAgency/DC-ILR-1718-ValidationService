@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class LearnerHE : ILearnerHE
+    public class TestLearnerHE : ILearnerHE
     {
         public string UCASPERID { get; set; }
 

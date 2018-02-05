@@ -4,7 +4,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class LearnerEmploymentStatus : ILearnerEmploymentStatus
+    public class TestLearnerEmploymentStatus : ILearnerEmploymentStatus
     {
         public long? EmpStatNullable { get; set; }
 

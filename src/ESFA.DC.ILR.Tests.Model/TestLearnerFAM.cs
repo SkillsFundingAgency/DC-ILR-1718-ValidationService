@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class LearnerFAM : ILearnerFAM
+    public class TestLearnerFAM : ILearnerFAM
     {
         public string LearnFAMType { get; set; }
 

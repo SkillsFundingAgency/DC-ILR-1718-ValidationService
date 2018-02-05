@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class SourceFile : ISourceFile
+    public class TestSourceFile : ISourceFile
     {
         public string SourceFileName { get; set; }
 

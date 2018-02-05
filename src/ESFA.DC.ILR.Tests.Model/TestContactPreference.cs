@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class ContactPreference : IContactPreference
+    public class TestContactPreference : IContactPreference
     {
         public string ContPrefType { get; set; }
 

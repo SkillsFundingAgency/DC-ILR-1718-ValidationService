@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class LearnerDestinationAndProgression : ILearnerDestinationAndProgression
+    public class TestLearnerDestinationAndProgression : ILearnerDestinationAndProgression
     {
         public string LearnRefNumber { get; set; }
 

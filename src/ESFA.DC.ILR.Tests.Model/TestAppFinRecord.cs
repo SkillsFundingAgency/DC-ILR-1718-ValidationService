@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class AppFinRecord : IAppFinRecord
+    public class TestAppFinRecord : IAppFinRecord
     {
         public string AFinType { get; set; }
 

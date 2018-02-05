@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class CollectionDetails : ICollectionDetails
+    public class TestCollectionDetails : ICollectionDetails
     {
         public string CollectionString { get; set; }
 

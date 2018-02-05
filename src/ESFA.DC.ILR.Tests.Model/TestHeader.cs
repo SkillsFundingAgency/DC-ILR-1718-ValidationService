@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class Header : IHeader
+    public class TestHeader : IHeader
     {
         public ICollectionDetails CollectionDetailsEntity { get; set; }
 

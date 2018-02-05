@@ -3,7 +3,7 @@ using System;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class Source : ISource
+    public class TestSource : ISource
     {
         public string ProtectiveMarkingString { get; set; }
 

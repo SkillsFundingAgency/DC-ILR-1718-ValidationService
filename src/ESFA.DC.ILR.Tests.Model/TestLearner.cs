@@ -4,7 +4,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class Learner : ILearner
+    public class TestLearner : ILearner
     {
         public long? AccomNullable { get; set; }
 

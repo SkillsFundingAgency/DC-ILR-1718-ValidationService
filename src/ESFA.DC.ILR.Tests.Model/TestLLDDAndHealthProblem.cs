@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class LLDDAndHealthProblem : ILLDDAndHealthProblem
+    public class TestLLDDAndHealthProblem : ILLDDAndHealthProblem
     {
         public long? LLDDCatNullable { get; set; }
 

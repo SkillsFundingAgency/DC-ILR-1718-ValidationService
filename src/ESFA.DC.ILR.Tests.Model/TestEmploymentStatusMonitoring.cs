@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Tests.Model
 {
-    public class EmploymentStatusMonitoring : IEmploymentStatusMonitoring
+    public class TestEmploymentStatusMonitoring : IEmploymentStatusMonitoring
     {
         public string ESMType { get; set; }
 
