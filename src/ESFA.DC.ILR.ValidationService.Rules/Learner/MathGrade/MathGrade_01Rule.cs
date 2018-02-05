@@ -7,7 +7,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
     /// <summary>
     /// If the learner's learning aim is EFA funded, the GCSE maths qualification grade must be returned
     /// </summary>
-    public class MathGrade_01Rule : AbstractRule, IRule<IMessageLearner>
+    public class MathGrade_01Rule : AbstractRule, IRule<ILearner>
     {
         public MathGrade_01Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
@@ -15,7 +15,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
 
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)

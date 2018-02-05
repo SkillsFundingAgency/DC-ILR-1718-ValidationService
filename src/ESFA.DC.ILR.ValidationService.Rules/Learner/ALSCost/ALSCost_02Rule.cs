@@ -15,9 +15,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
     {
         
         private const string HnsFamCode = "HNS";
-        private readonly IMessageLearnerFAMQueryService _learnerFamQueryService;
+        private readonly ILearnerFAMQueryService _learnerFamQueryService;
 
-        public ALSCost_02Rule(IValidationErrorHandler validationErrorHandler,IMessageLearnerFAMQueryService learnerFamQueryService)
+        public ALSCost_02Rule(IValidationErrorHandler validationErrorHandler,ILearnerFAMQueryService learnerFamQueryService)
             : base(validationErrorHandler)
         {
             _learnerFamQueryService = learnerFamQueryService;

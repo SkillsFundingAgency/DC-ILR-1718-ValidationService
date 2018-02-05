@@ -17,14 +17,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
             var learnerFams = SetupLearnerFams();
 
             var codes = new long[] { 1,3 };
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasAnyLearnerFAMCodesForType(learnerFams, "FamC", codes).Should().BeTrue();
         }
         
         [Fact]
         public void HasAnyLearnerFAMCodesForType_NullFams()
         {
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasAnyLearnerFAMCodesForType(null, "FamB", It.IsAny<List<long>>()).Should().BeFalse();
         }
 
@@ -32,7 +32,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         public void HasAnyLearnerFAMCodesForType_False_CodesNull()
         {
             var learnerFams = SetupLearnerFams();
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
 
             queryService.HasAnyLearnerFAMCodesForType(learnerFams, "FamB", null).Should().BeFalse();
         }
@@ -42,7 +42,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         {
             var learnerFams = SetupLearnerFams();
 
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasAnyLearnerFAMCodesForType(learnerFams, "FamA", new long[] { 2, 3 }).Should().BeFalse();
         }
 
@@ -51,14 +51,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         {
             var learnerFams = SetupLearnerFams();
 
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasLearnerFAMCodeForType(learnerFams, "FamB", 2).Should().BeTrue();
         }
 
         [Fact]
         public void HasLearnerFAMCodeForType_NullLearnerFams()
         {
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasLearnerFAMCodeForType(null, "FamB", 2).Should().BeFalse();
         }
 
@@ -66,7 +66,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         public void HasLearnerFAMCodeForType_FalseMismatch()
         {
             var learnerFams = SetupLearnerFams();
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasLearnerFAMCodeForType(learnerFams, "FamA", 99999).Should().BeFalse();
         }
 
@@ -74,7 +74,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         public void HasLearnerFAMType_True()
         {
             var learnerFams = SetupLearnerFams();
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasLearnerFAMType(learnerFams, "FamA");
         }
 
@@ -82,14 +82,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         public void HasLearnerFAMType_False()
         {
             var learnerFams = SetupLearnerFams();
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasLearnerFAMType(learnerFams, "TYPENOTFOUND");
         }
 
         [Fact]
         public void HasLearnerFAMType_False_NullLearnerFams()
         {
-            var queryService = new MessageLearnerFAMQueryService();
+            var queryService = new LearnerFAMQueryService();
             queryService.HasLearnerFAMType(null, It.IsAny<string>());
         }
 

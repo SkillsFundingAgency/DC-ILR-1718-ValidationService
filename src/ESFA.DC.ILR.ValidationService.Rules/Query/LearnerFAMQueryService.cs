@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Model;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Query
 {
-    public class MessageLearnerFAMQueryService : IMessageLearnerFAMQueryService
+    public class LearnerFAMQueryService : ILearnerFAMQueryService
     {
-        public bool HasAnyLearnerFAMCodesForType(IEnumerable<IMessageLearnerLearnerFAM> learnerFams, string famType, IEnumerable<long> famCodes)
+        public bool HasAnyLearnerFAMCodesForType(IEnumerable<ILearnerFAM> learnerFams, string famType, IEnumerable<long> famCodes)
         {
             if (learnerFams == null || famCodes == null)
             {
@@ -17,7 +18,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             return learnerFams.Any(lfam => lfam.LearnFAMType == famType && famCodes.Contains(lfam.LearnFAMCodeNullable ?? 0));            
         }
 
-        public bool HasLearnerFAMCodeForType(IEnumerable<IMessageLearnerLearnerFAM> learnerFams, string famType, long famCode)
+        public bool HasLearnerFAMCodeForType(IEnumerable<ILearnerFAM> learnerFams, string famType, long famCode)
         {
             if (learnerFams == null)
             {
@@ -27,7 +28,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             return learnerFams.Any(ldfam => ldfam.LearnFAMType == famType && ldfam.LearnFAMCodeNullable.HasValue && ldfam.LearnFAMCodeNullable.Value == famCode);
         }
 
-        public bool HasLearnerFAMType(IEnumerable<IMessageLearnerLearnerFAM> learnerFams, string famType)
+        public bool HasLearnerFAMType(IEnumerable<ILearnerFAM> learnerFams, string famType)
         {
             if (learnerFams == null)
             {

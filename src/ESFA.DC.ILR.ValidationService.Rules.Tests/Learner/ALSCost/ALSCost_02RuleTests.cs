@@ -1,5 +1,4 @@
 ﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost;
 using ESFA.DC.ILR.ValidationService.Rules.Query;
@@ -17,7 +16,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         [Fact]
         public void ConditionMet_True()
         {
-            var learnerFamQueryService = new MessageLearnerFAMQueryService();
+            var learnerFamQueryService = new LearnerFAMQueryService();
             var learnerFams = new[]
             {
                 new MessageLearnerLearnerFAM()
@@ -34,9 +33,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         [InlineData(100,"HNS")]
         public void ConditionMet_False(long? alsCost,string famType)
         {
-            var learnerFamQueryService = new MessageLearnerFAMQueryService();
+            var learnerFamQueryService = new LearnerFAMQueryService();
 
-            var fams = new List<IMessageLearnerLearnerFAM>()
+            var fams = new List<MessageLearnerLearnerFAM>()
             {
                 new MessageLearnerLearnerFAM()
                 {
@@ -56,7 +55,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ALSCost_02", null, null, null);
             
-            var rule = new ALSCost_02Rule(validationErrorHandlerMock.Object, new MessageLearnerFAMQueryService());
+            var rule = new ALSCost_02Rule(validationErrorHandlerMock.Object, new LearnerFAMQueryService());
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
@@ -69,7 +68,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ALSCost_02", null, null, null);
             
-            var rule = new ALSCost_02Rule(validationErrorHandlerMock.Object, new MessageLearnerFAMQueryService());
+            var rule = new ALSCost_02Rule(validationErrorHandlerMock.Object, new LearnerFAMQueryService());
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
