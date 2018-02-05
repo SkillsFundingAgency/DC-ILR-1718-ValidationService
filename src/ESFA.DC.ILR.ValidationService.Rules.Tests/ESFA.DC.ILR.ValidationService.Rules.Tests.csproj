@@ -104,7 +104,9 @@
     <Compile Include="Learner\GivenNames\GivenNames_01RuleTests.cs" />
     <Compile Include="Learner\NINumber\NINumber_02Tests.cs" />
     <Compile Include="Learner\NINumber\NINumber_01Tests.cs" />
+    <Compile Include="Learner\PlanEEPHours\PlanEEPHours_01RuleTests.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHoursTestsBase.cs" />
+    <Compile Include="Learner\PlanLearnHours\PlanLearnHours_01RuleTests.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_05RuleTests.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_04RuleTests.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_03RuleTests.cs" />

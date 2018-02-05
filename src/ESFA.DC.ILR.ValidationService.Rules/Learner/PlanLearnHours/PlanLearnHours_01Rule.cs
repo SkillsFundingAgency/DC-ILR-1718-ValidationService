@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
     {
         private readonly IDD07 _dd07;
 
-        public PlanLearnHours_01Rule(IDD07 dd07, IValidationErrorHandler validationErrorHandler)
+        public PlanLearnHours_01Rule(IValidationErrorHandler validationErrorHandler, IDD07 dd07)
             : base(validationErrorHandler)
         {
             _dd07 = dd07;
@@ -23,24 +23,19 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
         public void Validate(ILearner objectToValidate)
         {
 
-            if (HasPlanLearnLearnHoursConditionMet(objectToValidate.PlanLearnHoursNullable))
+            if (ConditionMet(objectToValidate.PlanLearnHoursNullable))
             {
-                var areAllLearningAimsClosed = HasAllLearningAimsClosedExcludeConditionMet(objectToValidate.LearningDeliveries);
-
-                if (!areAllLearningAimsClosed)
+                if (!HasAllLearningAimsClosedExcludeConditionMet(objectToValidate.LearningDeliveries))
                 {
-                    foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(x => !Exclude(x)))
+                    //if there is any learning delivery not DD07 and fundmodel 70 then exclusion doesnt apply
+                    if (objectToValidate.LearningDeliveries==null || objectToValidate.LearningDeliveries.Any(x => !Exclude(x)))
                     {
-                        HandleValidationError(RuleNameConstants.PlanLearnHours_01Rule, objectToValidate.LearnRefNumber,learningDelivery.AimSeqNumberNullable);
+                        HandleValidationError(RuleNameConstants.PlanLearnHours_01Rule, objectToValidate.LearnRefNumber);
                     }
-                }
-                else
-                {
-                    HandleValidationError(RuleNameConstants.PlanLearnHours_01Rule, objectToValidate.LearnRefNumber);
                 }
             }
         }
-        public bool HasPlanLearnLearnHoursConditionMet(long? planLearnHoursNullable)
+        public bool ConditionMet(long? planLearnHoursNullable)
         {
             return !planLearnHoursNullable.HasValue ;
         }
@@ -49,14 +44,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
         {
 
             return HasLearningDeliveryDd07ExcludeConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable)) ||
-                   HasLearningDeliveryFamExcludeConditionMet(learningDelivery.FundModelNullable);
+                   HasLearningDeliveryFundModelExcludeConditionMet(learningDelivery.FundModelNullable);
         }
 
         public bool HasLearningDeliveryDd07ExcludeConditionMet(string dd07)
         {
             return dd07 == ValidationConstants.Y;
         }
-        public bool HasLearningDeliveryFamExcludeConditionMet(long? fundModelNullable)
+        public bool HasLearningDeliveryFundModelExcludeConditionMet(long? fundModelNullable)
         {
             return fundModelNullable.HasValue && fundModelNullable.Value == 70;
 

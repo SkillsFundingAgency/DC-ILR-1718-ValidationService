@@ -63,6 +63,6 @@
         public const string PlanLearnHours_03Rule = "PlanLearnHours_03";
         public const string PlanLearnHours_04Rule = "PlanLearnHours_04";
         public const string PlanLearnHours_05Rule = "PlanLearnHours_05";
-
+        public const string PlanEEPHours_01Rule = "PlanEEPHours_01";
     }
 }

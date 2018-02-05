@@ -73,6 +73,7 @@
     <Compile Include="Learner\GivenNames\GivenNames_01Rule.cs" />
     <Compile Include="Learner\NINumber\NINumber_02Rule.cs" />
     <Compile Include="Learner\NINumber\NINumber_01Rule.cs" />
+    <Compile Include="Learner\PlanEEPHours\PlanEEPHours_01Rule.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_05Rule.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_04Rule.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_03Rule.cs" />
