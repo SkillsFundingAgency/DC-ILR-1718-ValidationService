@@ -10,7 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours
     /// <summary>
     /// If the learner's learning aim is EFA funded, the Planned employability, enrichment and pastoral hours, must be returned
     /// </summary>
-    public class PlanEEPHours_01Rule : AbstractRule, IRule<IMessageLearner>
+    public class PlanEEPHours_01Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDD07 _dd07;
 
@@ -20,34 +20,33 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours
             _dd07 = dd07;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-
             if (!HasAllLearningAimsClosedExcludeConditionMet(objectToValidate.LearningDeliveries))
             {
                 foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld)))
                 {
                     if (ConditionMet(objectToValidate.PlanEEPHoursNullable, learningDelivery.FundModelNullable))
                     {
-                        HandleValidationError(RuleNameConstants.PlanEEPHours_01Rule, objectToValidate.LearnRefNumber,
-                            learningDelivery.AimSeqNumberNullable);
+                        HandleValidationError(RuleNameConstants.PlanEEPHours_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                     }
                 }
             }
-
         }
+
         public bool ConditionMet(long? planEepHoursNullable, long? fundModelNullable)
         {
             return !planEepHoursNullable.HasValue &&
-                    FundModelConditionMet(fundModelNullable) ;
+                    FundModelConditionMet(fundModelNullable);
         }
+
         public bool FundModelConditionMet(long? fundModelNullable)
         {
             return fundModelNullable.HasValue && 
                    (fundModelNullable.Value == 25 || fundModelNullable.Value == 82);
         }
 
-        public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
             return HasLearningDeliveryDd07ExcludeConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable)) ||
                    HasLearningDeliveryFundModelExcludeConditionMet(learningDelivery.FundModelNullable);
@@ -57,14 +56,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours
         {
             return dd07 == ValidationConstants.Y;
         }
+
         public bool HasLearningDeliveryFundModelExcludeConditionMet(long? fundModelNullable)
         {
-            return fundModelNullable.HasValue && fundModelNullable.Value == 70;
+            return fundModelNullable.HasValue 
+                && fundModelNullable.Value == 70;
         }
 
-        public bool HasAllLearningAimsClosedExcludeConditionMet(IReadOnlyCollection<IMessageLearnerLearningDelivery> learningDeliveries)
+        public bool HasAllLearningAimsClosedExcludeConditionMet(IReadOnlyCollection<ILearningDelivery> learningDeliveries)
         {
-            return learningDeliveries!=null && learningDeliveries.All(x => x.LearnActEndDateNullable.HasValue);
+            return learningDeliveries != null
+                && learningDeliveries.All(x => x.LearnActEndDateNullable.HasValue);
         }
     }
 }

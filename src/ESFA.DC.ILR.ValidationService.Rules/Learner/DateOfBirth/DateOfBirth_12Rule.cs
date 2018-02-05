@@ -7,21 +7,21 @@ using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_12Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_12Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDateTimeQueryService _dateTimeQueryService;
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
         private readonly IEnumerable<string> famCodes = new HashSet<string> { "1", "2" };
 
-        public DateOfBirth_12Rule(IDateTimeQueryService dateTimeQueryService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public DateOfBirth_12Rule(IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _dateTimeQueryService = dateTimeQueryService;
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {

@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearningDeliveryLearningDeliveryHE : IMessageLearnerLearningDeliveryLearningDeliveryHE
+    public partial class MessageLearnerLearningDeliveryLearningDeliveryHE : ILearningDeliveryHE
     {
         public long? SOC2000Nullable
         {

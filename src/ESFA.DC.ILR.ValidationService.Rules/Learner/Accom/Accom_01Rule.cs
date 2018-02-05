@@ -4,7 +4,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Accom
 {
-    public class Accom_01Rule :  AbstractRule, IRule<IMessageLearner>
+    public class Accom_01Rule :  AbstractRule, IRule<ILearner>
     {
         private const int AccomValue = 5;
         public Accom_01Rule(IValidationErrorHandler validationErrorHandler)
@@ -13,7 +13,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Accom
             
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (ConditionMet(objectToValidate.AccomNullable))
             {

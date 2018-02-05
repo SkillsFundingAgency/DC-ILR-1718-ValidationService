@@ -8,19 +8,19 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_01Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_01Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 35, 36, 70, 81, 82 };
 
-        public DateOfBirth_01Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public DateOfBirth_01Rule(ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld)))
             {
@@ -38,7 +38,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
                 && _fundModels.Contains(fundModel.Value);
         }
 
-        public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
             return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.LDM, "034");
         }

@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerDestinationandProgression : IMessageLearnerDestinationAndProgression
+    public partial class MessageLearnerDestinationandProgression : ILearnerDestinationAndProgression
     {
         public long? ULNNullable
         {
@@ -11,7 +11,7 @@ namespace ESFA.DC.ILR.Model
         }
 
 
-        public IReadOnlyCollection<IMessageLearnerDestinationAndProgressionDPOutcome> DPOutcomes
+        public IReadOnlyCollection<IDPOutcome> DPOutcomes
         {
             get { return dPOutcomeField; }
         }

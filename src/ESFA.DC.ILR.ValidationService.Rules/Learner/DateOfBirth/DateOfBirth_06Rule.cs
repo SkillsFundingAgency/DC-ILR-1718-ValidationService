@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_06Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_06Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IValidationDataService _validationDataService;
         private readonly IDateTimeQueryService _dateTimeQueryService;
@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             _dateTimeQueryService = dateTimeQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {

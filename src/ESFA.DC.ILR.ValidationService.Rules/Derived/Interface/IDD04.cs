@@ -6,6 +6,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Derived.Interface
 {
     public interface IDD04
     {
-        DateTime? Derive(IEnumerable<IMessageLearnerLearningDelivery> learningDeliveries, IMessageLearnerLearningDelivery learningDelivery);
+        DateTime? Derive(IEnumerable<ILearningDelivery> learningDeliveries, ILearningDelivery learningDelivery);
     }
 }

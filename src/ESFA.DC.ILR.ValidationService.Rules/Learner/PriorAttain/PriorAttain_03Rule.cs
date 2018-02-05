@@ -5,7 +5,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 {
-    public class PriorAttain_03Rule : AbstractRule, IRule<IMessageLearner>
+    public class PriorAttain_03Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IPriorAttainReferenceDataService _priorAttainReferenceDataService;
 
@@ -15,7 +15,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
             _priorAttainReferenceDataService = priorAttainReferenceDataService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {           
             if (ConditionMet(objectToValidate.PriorAttainNullable))
             {

@@ -7,11 +7,7 @@ using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
@@ -65,10 +61,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("NINumber_02", null, null, null);
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
-                                        It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), famType, famCode))
+                                        It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), famType, famCode))
                                         .Returns(famType=="ACT" && famCode=="1");
 
 
@@ -96,10 +92,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("NINumber_02", null, null, null);
 
-            var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
+            var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
-                                        It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), "ACT", "1"))
+                                        It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1"))
                                         .Returns(true);
 
 

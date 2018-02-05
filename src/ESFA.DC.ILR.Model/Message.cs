@@ -5,27 +5,27 @@ namespace ESFA.DC.ILR.Model
 {
     public partial class Message : IMessage
     {
-        public IReadOnlyCollection<IMessageLearner> Learners
+        public IReadOnlyCollection<ILearner> Learners
         {
             get { return learnerField; }
         }
 
-        public IReadOnlyCollection<IMessageLearnerDestinationAndProgression> LearnerDestinationAndProgressions
+        public IReadOnlyCollection<ILearnerDestinationAndProgression> LearnerDestinationAndProgressions
         {
             get { return learnerDestinationandProgressionField; }
         }
 
-        public IReadOnlyCollection<IMessageSourceFile> SourceFilesCollection
+        public IReadOnlyCollection<ISourceFile> SourceFilesCollection
         {
             get { return sourceFilesField; }
         }
 
-        public IMessageLearningProvider LearningProviderEntity
+        public ILearningProvider LearningProviderEntity
         {
             get { return learningProviderField; }
         }
 
-        public IMessageHeader HeaderEntity
+        public IHeader HeaderEntity
         {
             get { return headerField; }
         }

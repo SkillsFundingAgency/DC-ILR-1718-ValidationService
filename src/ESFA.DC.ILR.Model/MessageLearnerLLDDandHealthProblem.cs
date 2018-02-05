@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLLDDandHealthProblem : IMessageLearnerLLDDAndHealthProblem
+    public partial class MessageLearnerLLDDandHealthProblem : ILLDDAndHealthProblem
     {
         public long? LLDDCatNullable
         {

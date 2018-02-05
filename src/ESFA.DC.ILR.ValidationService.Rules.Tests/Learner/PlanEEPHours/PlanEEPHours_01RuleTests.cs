@@ -31,6 +31,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ConditionMet_False(long? planEepHours, long? fundModel )
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             rule.ConditionMet(10,82).Should().BeFalse();
         }
 
@@ -38,6 +39,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ExcludeConditionMet_AllAimsClosed_True()
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             var learningDelivers = new List<MessageLearnerLearningDelivery>()
             {
                 new MessageLearnerLearningDelivery()
@@ -59,6 +61,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ExcludeConditionMet_All_AimsClosed_False()
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             var learningDelivers = new List<MessageLearnerLearningDelivery>()
             {
                 new MessageLearnerLearningDelivery()
@@ -81,7 +84,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ExcludeConditionMet_True(long? fundModel, long? progType)
         {
             var learningDelivery = SetupLearningDelivery(fundModel, progType);
+
             var dd07Mock = new Mock<IDD07>();
+
             dd07Mock.Setup(dd => dd.Derive(progType)).Returns("Y");
 
             var rule = new PlanEEPHours_01Rule(null, dd07Mock.Object);
@@ -94,17 +99,20 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ExcludeConditionMet_False(long? fundModel, long? progType)
         {
             var learningDelivery = SetupLearningDelivery(fundModel, progType);
+
             var dd07Mock = new Mock<IDD07>();
             dd07Mock.Setup(dd => dd.Derive(progType)).Returns("N");
+
             var rule = new PlanEEPHours_01Rule(null, dd07Mock.Object);
+
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
-
 
         [Fact]
         public void ExcludeConditionDD07_False()
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             rule.HasLearningDeliveryDd07ExcludeConditionMet("").Should().BeFalse();
         }
 
@@ -112,14 +120,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ExcludeConditionDD07_True()
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             rule.HasLearningDeliveryDd07ExcludeConditionMet("Y").Should().BeTrue();
         }
-
 
         [Fact]
         public void ExcludeConditionFundModel_True()
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             rule.HasLearningDeliveryFundModelExcludeConditionMet(70).Should().BeTrue();
         }
 
@@ -127,9 +136,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         public void ExcludeConditionFundModel_False()
         {
             var rule = new PlanEEPHours_01Rule(null, null);
+
             rule.HasLearningDeliveryFundModelExcludeConditionMet(10).Should().BeFalse();
         }
-
 
         [Fact]
         public void Validate_Error()
@@ -143,7 +152,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
             dd07Mock.Setup(dd => dd.Derive(It.IsAny<long>())).Returns("N");
 
             var rule = new PlanEEPHours_01Rule(validationErrorHandlerMock.Object, dd07Mock.Object);
+
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
 
@@ -178,9 +189,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
                     }
                 }
             };
+
             return learner;
         }
-
 
         private MessageLearnerLearningDelivery SetupLearningDelivery(long? fundModel, long? progType)
         {
@@ -191,9 +202,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
                 ProgType = progType ?? 0,
                 ProgTypeSpecified = progType.HasValue
             };
+
             return learningDelivery;
         }
-
-
     }
 }

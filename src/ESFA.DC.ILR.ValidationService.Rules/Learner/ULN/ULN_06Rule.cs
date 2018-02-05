@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
@@ -9,15 +9,15 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
-    public class ULN_06Rule : AbstractRule, IRule<MessageLearner>
+    public class ULN_06Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        private readonly IEnumerable<long> _fundModels = new HashSet<long> { 25, 82, 35, 36, 81, 70 };
+        private readonly IEnumerable<long?> _fundModels = new HashSet<long?> { 25, 82, 35, 36, 81, 70 };
 
-        public ULN_06Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public ULN_06Rule(IFileDataService fileDataService, IValidationDataService validationDataService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
@@ -25,14 +25,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld)))
+            foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld)))
             {
                 if (ConditionMet(
-                    learningDelivery.FundModel,
-                    _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.ADL, "1"),
-                    objectToValidate.ULN,
+                    learningDelivery.FundModelNullable,
+                    _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ADL, "1"),
+                    objectToValidate.ULNNullable,
                     _fileDataService.FilePreparationDate,
                     _validationDataService.AcademicYearJanuaryFirst,
                     learningDelivery.LearnStartDateNullable,
@@ -44,7 +44,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             }
         }
 
-        public bool ConditionMet(long fundModel, bool adlFamCodeOne, long uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst, DateTime? learnStartDate, DateTime? learnPlanEndDate, DateTime? learnActEndDate)
+        public bool ConditionMet(long? fundModel, bool adlFamCodeOne, long? uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst, DateTime? learnStartDate, DateTime? learnPlanEndDate, DateTime? learnActEndDate)
         {
             return FundModelConditionMet(fundModel, adlFamCodeOne)
                 && FilePreparationDateConditionMet(filePreparationDate, academicYearJanuaryFirst)
@@ -52,7 +52,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
                 && UlnConditionMet(uln);
         }
 
-        public bool FundModelConditionMet(long fundModel, bool adlFamCodeOne)
+        public bool FundModelConditionMet(long? fundModel, bool adlFamCodeOne)
         {
             return _fundModels.Contains(fundModel)
                 || (fundModel == 99 && adlFamCodeOne);
@@ -70,15 +70,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
                 && (filePreparationDate - learnStartDate).Value.TotalDays <= 60;
         }
 
-        public bool UlnConditionMet(long uln)
+        public bool UlnConditionMet(long? uln)
         {
             return uln == ValidationConstants.TemporaryULN;
         }
 
-        public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
-            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.LDM, "034")
-                || _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.ACT, "1");
+            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.LDM, "034")
+                || _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1");
         }        
     }
 }

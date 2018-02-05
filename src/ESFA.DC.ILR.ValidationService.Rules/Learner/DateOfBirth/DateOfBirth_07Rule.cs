@@ -8,15 +8,15 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_07Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_07Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IValidationDataService _validationDataService;
         private readonly IDateTimeQueryService _dateTimeQueryService;
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long> _fundModels = new HashSet<long>() { 25, 82 };
 
-        public DateOfBirth_07Rule(IValidationDataService validationDataService, IDateTimeQueryService dateTimeQueryService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public DateOfBirth_07Rule(IValidationDataService validationDataService, IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _validationDataService = validationDataService;
@@ -24,7 +24,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (LearnerConditionMet(objectToValidate.DateOfBirthNullable, _validationDataService.AcademicYearAugustThirtyFirst))
             {

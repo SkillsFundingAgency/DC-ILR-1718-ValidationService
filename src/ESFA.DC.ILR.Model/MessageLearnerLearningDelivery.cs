@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearningDelivery : IMessageLearnerLearningDelivery
+    public partial class MessageLearnerLearningDelivery : ILearningDelivery
     {
         [XmlIgnore]
         public DateTime? AchDateNullable
@@ -127,28 +127,28 @@ namespace ESFA.DC.ILR.Model
             get { return withdrawReasonFieldSpecified ? (long?)withdrawReasonField : null;  }
         }
                 
-        public IReadOnlyCollection<IMessageLearnerLearningDeliveryAppFinRecord> AppFinRecords
+        public IReadOnlyCollection<IAppFinRecord> AppFinRecords
         {
             get { return appFinRecordField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryFAM> LearningDeliveryFAMs
+        public IReadOnlyCollection<ILearningDeliveryFAM> LearningDeliveryFAMs
         {
             get { return learningDeliveryFAMField; }
         }
 
-        public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryHE> LearningDeliveryHEs
+        public IReadOnlyCollection<ILearningDeliveryHE> LearningDeliveryHEs
         {
             get { return learningDeliveryHEField; }
         }
 
-        public IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryWorkPlacement> LearningDeliveryWorkPlacements
+        public IReadOnlyCollection<ILearningDeliveryWorkPlacement> LearningDeliveryWorkPlacements
         {
             get { return learningDeliveryWorkPlacementField; }
         }
 
-        public IReadOnlyCollection<IMessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring> ProviderSpecDeliveryMonitorings
+        public IReadOnlyCollection<IProviderSpecDeliveryMonitoring> ProviderSpecDeliveryMonitorings
         {
             get { return providerSpecDeliveryMonitoringField; }
         }

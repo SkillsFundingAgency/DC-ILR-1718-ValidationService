@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearner : IMessageLearner
+    public partial class MessageLearner : ILearner
     {
         [XmlIgnore]
         public long? AccomNullable
@@ -74,43 +74,43 @@ namespace ESFA.DC.ILR.Model
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerContactPreference> ContactPreferences
+        public IReadOnlyCollection<IContactPreference> ContactPreferences
         {
             get { return contactPreferenceField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerLearnerEmploymentStatus> LearnerEmploymentStatuses
+        public IReadOnlyCollection<ILearnerEmploymentStatus> LearnerEmploymentStatuses
         {
             get { return learnerEmploymentStatusField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerLearnerFAM> LearnerFAMs
+        public IReadOnlyCollection<ILearnerFAM> LearnerFAMs
         {
             get { return learnerFAMField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerLearnerHE> LearnerHEs
+        public IReadOnlyCollection<ILearnerHE> LearnerHEs
         {
             get { return learnerHEField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerLearningDelivery> LearningDeliveries
+        public IReadOnlyCollection<ILearningDelivery> LearningDeliveries
         {
             get { return learningDeliveryField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerLLDDAndHealthProblem> LLDDAndHealthProblems
+        public IReadOnlyCollection<ILLDDAndHealthProblem> LLDDAndHealthProblems
         {
             get { return lLDDandHealthProblemField; }
         }
 
         [XmlIgnore]
-        public IReadOnlyCollection<IMessageLearnerProviderSpecLearnerMonitoring> ProviderSpecLearnerMonitorings
+        public IReadOnlyCollection<IProviderSpecLearnerMonitoring> ProviderSpecLearnerMonitorings
         {
             get { return providerSpecLearnerMonitoringField; }
         }

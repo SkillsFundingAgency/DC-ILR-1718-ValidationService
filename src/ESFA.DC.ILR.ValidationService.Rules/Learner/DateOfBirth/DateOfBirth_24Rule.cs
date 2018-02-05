@@ -5,14 +5,14 @@ using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_24Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_24Rule : AbstractRule, IRule<ILearner>
     {
         public DateOfBirth_24Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {            
             if (ConditionMet(objectToValidate.ULNNullable, objectToValidate.DateOfBirthNullable))
             {

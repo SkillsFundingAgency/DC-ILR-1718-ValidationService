@@ -4,7 +4,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearnerEmploymentStatus : IMessageLearnerLearnerEmploymentStatus
+    public partial class MessageLearnerLearnerEmploymentStatus : ILearnerEmploymentStatus
     {
         public long? EmpStatNullable
         {
@@ -21,7 +21,7 @@ namespace ESFA.DC.ILR.Model
             get { return empIdFieldSpecified ? (long?)empIdField : null; }
         }
         
-        public IReadOnlyCollection<IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring> EmploymentStatusMonitorings
+        public IReadOnlyCollection<IEmploymentStatusMonitoring> EmploymentStatusMonitorings
         {
             get { return employmentStatusMonitoringField;  }
         }

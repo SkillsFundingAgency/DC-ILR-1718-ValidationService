@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearnerFAM : IMessageLearnerLearnerFAM
+    public partial class MessageLearnerLearnerFAM : ILearnerFAM
     {
         public long? LearnFAMCodeNullable
         {

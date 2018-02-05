@@ -44,29 +44,6 @@
     <Compile Include="ILR-2017-18.cs">
       <DependentUpon>ILR-2017-18.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IMessage.cs" />
-    <Compile Include="Interface\IMessageHeader.cs" />
-    <Compile Include="Interface\IMessageHeaderCollectionDetails.cs" />
-    <Compile Include="Interface\IMessageHeaderSource.cs" />
-    <Compile Include="Interface\IMessageLearner.cs" />
-    <Compile Include="Interface\IMessageLearnerContactPreference.cs" />
-    <Compile Include="Interface\IMessageLearnerDestinationAndProgression.cs" />
-    <Compile Include="Interface\IMessageLearnerDestinationAndProgressionDPOutcome.cs" />
-    <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatus.cs" />
-    <Compile Include="Interface\IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
-    <Compile Include="Interface\IMessageLearnerLearnerFAM.cs" />
-    <Compile Include="Interface\IMessageLearnerLearnerHE.cs" />
-    <Compile Include="Interface\IMessageLearnerLearnerHELearnerHEFinancialSupport.cs" />
-    <Compile Include="Interface\IMessageLearnerLearningDelivery.cs" />
-    <Compile Include="Interface\IMessageLearnerLearningDeliveryAppFinRecord.cs" />
-    <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryHE.cs" />
-    <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
-    <Compile Include="Interface\IMessageLearnerLearningDeliveryLearningDeliveryWorkPlacement.cs" />
-    <Compile Include="Interface\IMessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring.cs" />
-    <Compile Include="Interface\IMessageLearnerLLDDAndHealthProblem.cs" />
-    <Compile Include="Interface\IMessageLearnerProviderSpecLearnerMonitoring.cs" />
-    <Compile Include="Interface\IMessageLearningProvider.cs" />
-    <Compile Include="Interface\IMessageSourceFile.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MessageHeader.cs" />
     <Compile Include="MessageHeaderCollectionDetails.cs" />
@@ -97,6 +74,12 @@
     <None Include="ILR-2017-18.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
+      <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
+      <Name>ESFA.DC.ILR.Model.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

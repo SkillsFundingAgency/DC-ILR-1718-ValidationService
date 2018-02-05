@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearningDeliveryLearningDeliveryFAM : IMessageLearnerLearningDeliveryLearningDeliveryFAM
+    public partial class MessageLearnerLearningDeliveryLearningDeliveryFAM : ILearningDeliveryFAM
     {
         public DateTime? LearnDelFAMDateFromNullable
         {

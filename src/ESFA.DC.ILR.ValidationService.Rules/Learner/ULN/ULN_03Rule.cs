@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
@@ -9,15 +9,15 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
-    public class ULN_03Rule : AbstractRule, IRule<MessageLearner>
+    public class ULN_03Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IFileDataService _fileDataService;
         private readonly IValidationDataService _validationDataService;
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
 
-        private readonly IEnumerable<long> _fundModels = new long[] { 25, 82, 35, 36, 81, 70 };
+        private readonly IEnumerable<long?> _fundModels = new long?[] { 25, 82, 35, 36, 81, 70 };
 
-        public ULN_03Rule(IFileDataService fileDataService, IValidationDataService validationDataService, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public ULN_03Rule(IFileDataService fileDataService, IValidationDataService validationDataService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _fileDataService = fileDataService;
@@ -25,25 +25,27 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld)))
+            foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld)))
             {
-                if (ConditionMet(learningDelivery.FundModel, objectToValidate.ULN, _fileDataService.FilePreparationDate, _validationDataService.AcademicYearJanuaryFirst))
+                if (ConditionMet(learningDelivery.FundModelNullable, objectToValidate.ULNNullable, _fileDataService.FilePreparationDate, _validationDataService.AcademicYearJanuaryFirst))
                 {
                     HandleValidationError(RuleNameConstants.ULN_03, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
 
-        public bool ConditionMet(long fundModel, long uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst)
+        public bool ConditionMet(long? fundModel, long? uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst)
         {
-            return _fundModels.Contains(fundModel) && uln == ValidationConstants.TemporaryULN && filePreparationDate < academicYearJanuaryFirst;
+            return _fundModels.Contains(fundModel) 
+                && uln == ValidationConstants.TemporaryULN 
+                && filePreparationDate < academicYearJanuaryFirst;
         }
 
-        public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
-            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.ACT, "1");
+            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1");
         }
     }
 }

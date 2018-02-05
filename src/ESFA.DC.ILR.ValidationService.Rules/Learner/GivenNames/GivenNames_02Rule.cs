@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -7,34 +7,36 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
 {
-    public class GivenNames_02Rule : AbstractRule, IRule<MessageLearner>
+    public class GivenNames_02Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
-        public GivenNames_02Rule(IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public GivenNames_02Rule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+            _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDelivery) && ConditionMet(objectToValidate.PlanLearnHours, objectToValidate.GivenNames))
+            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDeliveries) && ConditionMet(objectToValidate.PlanLearnHoursNullable, objectToValidate.GivenNames))
             {
                 HandleValidationError(RuleNameConstants.GivenNames_02, objectToValidate.LearnRefNumber);
             }
         }
 
-        public bool CrossLearningDeliveryConditionMet(IEnumerable<MessageLearnerLearningDelivery> learningDeliveries)
+        public bool CrossLearningDeliveryConditionMet(IEnumerable<ILearningDelivery> learningDeliveries)
         {
             return learningDeliveries != null
-                && (learningDeliveries.All(ld => ld.FundModel == 10)
-                || learningDeliveries.All(ld => ld.FundModel == 99 && _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
+                && (learningDeliveries.All(ld => ld.FundModelNullable == 10)
+                || learningDeliveries.All(ld => ld.FundModelNullable == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
-        public bool ConditionMet(long planLearnHours, string givenNames)
+        public bool ConditionMet(long? planLearnHours, string givenNames)
         {
-            return planLearnHours > 10 && string.IsNullOrWhiteSpace(givenNames);
+            return planLearnHours.HasValue
+                && planLearnHours > 10
+                && string.IsNullOrWhiteSpace(givenNames);
         }
     }
 }

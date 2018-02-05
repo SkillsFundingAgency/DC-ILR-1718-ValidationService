@@ -1,11 +1,11 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PMUKPRN
 {
-    public class PMUKPRN_01Rule : AbstractRule, IRule<MessageLearner>
+    public class PMUKPRN_01Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IOrganisationReferenceDataService _organisationReferenceDataService;
 
@@ -15,10 +15,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PMUKPRN
             _organisationReferenceDataService = organisationReferenceDataService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (NullConditionMet(objectToValidate.PMUKPRNNullable) 
-                && LookupConditionMet(_organisationReferenceDataService.UkprnExists(objectToValidate.PMUKPRN)))
+                && LookupConditionMet(_organisationReferenceDataService.UkprnExists(objectToValidate.PMUKPRNNullable.Value)))
             {
                 HandleValidationError(RuleNameConstants.PMUKPRN_01, objectToValidate.LearnRefNumber);
             }

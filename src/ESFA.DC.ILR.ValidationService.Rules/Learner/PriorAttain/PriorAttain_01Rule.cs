@@ -13,20 +13,20 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     //(LearningDelivery.FundModel = 99 and  (LearningDeliveryFAM.LearnDelFAMType = SOF and LearningDeliveryFAM.LearnDelFAMCode = 108)).  
     //This rule is also not triggered by EFA funded learners (LearningDelivery.FundModel = 25 or 82)
     /// </summary>
-    public class PriorAttain_01Rule : AbstractRule, IRule<IMessageLearner>
+    public class PriorAttain_01Rule : AbstractRule, IRule<ILearner>
 
     {
-        private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _famQueryService;
+        private readonly ILearningDeliveryFAMQueryService _famQueryService;
         private readonly HashSet<long> _excludeFundModels = new HashSet<long> { 10,25,82 };
 
 
-        public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService famQueryService)
+        public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService famQueryService)
            : base(validationErrorHandler)
         {
             _famQueryService = famQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
            
             foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld)))
@@ -45,7 +45,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
             return !priorAttain.HasValue;
 
         }
-        public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
 
             var fundModelConditionMet = learningDelivery.FundModelNullable.HasValue && _excludeFundModels.Contains(learningDelivery.FundModelNullable.Value);
