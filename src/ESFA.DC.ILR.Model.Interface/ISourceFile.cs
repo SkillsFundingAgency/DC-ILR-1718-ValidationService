@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageSourceFile
+    public interface ISourceFile
     {
         string SourceFileName { get; }
         DateTime FilePreparationDate { get; }

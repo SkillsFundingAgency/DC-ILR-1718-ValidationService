@@ -1,6 +1,6 @@
 ﻿namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearnerFAM
+    public interface ILearnerFAM
     {
         string LearnFAMType { get; }
         long? LearnFAMCodeNullable { get; }

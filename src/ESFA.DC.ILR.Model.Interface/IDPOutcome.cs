@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerDestinationAndProgressionDPOutcome
+    public interface IDPOutcome
     {
         string OutType { get; }
         long? OutCodeNullable { get; }

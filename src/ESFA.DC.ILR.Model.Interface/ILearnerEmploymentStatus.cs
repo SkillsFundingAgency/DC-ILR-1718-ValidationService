@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearnerEmploymentStatus
+    public interface ILearnerEmploymentStatus
     {
         long? EmpStatNullable { get; }
         DateTime? DateEmpStatAppNullable { get; }
         long? EmpIdNullable { get; }        
 
-        IReadOnlyCollection<IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring> EmploymentStatusMonitorings { get; }
+        IReadOnlyCollection<IEmploymentStatusMonitoring> EmploymentStatusMonitorings { get; }
     }
 }

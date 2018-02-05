@@ -4,10 +4,10 @@ namespace ESFA.DC.ILR.Model.Interface
 {
     public interface IMessage
     {
-        IMessageHeader HeaderEntity { get; }        
-        IReadOnlyCollection<IMessageSourceFile> SourceFilesCollection { get; }
-        IMessageLearningProvider LearningProviderEntity { get; }
-        IReadOnlyCollection<IMessageLearner> Learners { get; }
-        IReadOnlyCollection<IMessageLearnerDestinationAndProgression> LearnerDestinationAndProgressions { get; }        
+        IHeader HeaderEntity { get; }        
+        IReadOnlyCollection<ISourceFile> SourceFilesCollection { get; }
+        ILearningProvider LearningProviderEntity { get; }
+        IReadOnlyCollection<ILearner> Learners { get; }
+        IReadOnlyCollection<ILearnerDestinationAndProgression> LearnerDestinationAndProgressions { get; }        
     }
 }

@@ -7,7 +7,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
 {
     public class MessageLearnerLearningDeliveryLearningDeliveryFAMQueryService : IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService
     {
-        public bool HasAnyLearningDeliveryFAMCodesForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType, IEnumerable<string> famCodes)
+        public bool HasAnyLearningDeliveryFAMCodesForType(IEnumerable<ILearningDeliveryFAM> learningDeliveryFAMs, string famType, IEnumerable<string> famCodes)
         {
             if (learningDeliveryFAMs == null || famCodes == null)
             {
@@ -17,7 +17,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType && famCodes.Contains(ldfam.LearnDelFAMCode));            
         }
 
-        public bool HasLearningDeliveryFAMCodeForType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType, string famCode)
+        public bool HasLearningDeliveryFAMCodeForType(IEnumerable<ILearningDeliveryFAM> learningDeliveryFAMs, string famType, string famCode)
         {
             if (learningDeliveryFAMs == null)
             {
@@ -27,7 +27,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType && ldfam.LearnDelFAMCode == famCode);
         }
 
-        public bool HasLearningDeliveryFAMType(IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM> learningDeliveryFAMs, string famType)
+        public bool HasLearningDeliveryFAMType(IEnumerable<ILearningDeliveryFAM> learningDeliveryFAMs, string famType)
         {
             if (learningDeliveryFAMs == null)
             {

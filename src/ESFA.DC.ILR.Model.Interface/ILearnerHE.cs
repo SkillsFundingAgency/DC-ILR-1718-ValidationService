@@ -2,10 +2,10 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearnerHE
+    public interface ILearnerHE
     {
         string UCASPERID { get; }
         long? TTACCOMNullable { get; }
-        IReadOnlyCollection<IMessageLearnerLearnerHELearnerHEFinancialSupport> LearnerHEFinancialSupports { get; }
+        IReadOnlyCollection<ILearnerHEFinancialSupport> LearnerHEFinancialSupports { get; }
     }
 }

@@ -8,7 +8,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
     /// <summary>
     /// If returned, the sum of the Planned learning hours and the Planned employability, enrichment and pastoral hours must be greater than zero
     /// </summary>
-    public class PlanLearnHours_03Rule : AbstractRule, IRule<IMessageLearner>
+    public class PlanLearnHours_03Rule : AbstractRule, IRule<ILearner>
     {
         private readonly HashSet<long> _fundModels = new HashSet<long> { 25, 82};
 
@@ -18,7 +18,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
 
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {

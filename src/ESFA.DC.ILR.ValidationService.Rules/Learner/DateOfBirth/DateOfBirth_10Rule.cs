@@ -7,7 +7,7 @@ using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_10Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_10Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDD04 _dd04;
         private readonly IDD07 _dd07;
@@ -26,7 +26,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             _dateTimeQueryService = dateTimeQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (LearnerNullConditionMet(objectToValidate.DateOfBirthNullable))
             {

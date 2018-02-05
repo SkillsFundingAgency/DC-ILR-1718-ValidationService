@@ -1,6 +1,6 @@
 ﻿namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearnerHELearnerHEFinancialSupport
+    public interface ILearnerHEFinancialSupport
     {
         long? FINTYPENullable { get; }
         long? FINAMOUNTNullable { get; }

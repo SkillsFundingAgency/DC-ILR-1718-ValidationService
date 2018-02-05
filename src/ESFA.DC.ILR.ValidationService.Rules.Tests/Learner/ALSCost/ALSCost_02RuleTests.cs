@@ -28,7 +28,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         [InlineData(100,"HNS")]
         public void ConditionMet_False(long? alsCost,string famType)
         {
-            var fams = new List<IMessageLearnerLearnerFAM>()
+            var fams = new List<ILearnerFAM>()
             {
                 new MessageLearnerLearnerFAM()
                 {
@@ -41,7 +41,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         [Fact]
         public void HasAnyHnsLearnerFam_False()
         {
-            var fams = new List<IMessageLearnerLearnerFAM>()
+            var fams = new List<ILearnerFAM>()
             {
                 new MessageLearnerLearnerFAM()
                 {
@@ -59,7 +59,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         [Fact]
         public void HasAnyHnsLearnerFam_True()
         {
-            var fams = new List<IMessageLearnerLearnerFAM>()
+            var fams = new List<ILearnerFAM>()
             {
                 new MessageLearnerLearnerFAM()
                 {

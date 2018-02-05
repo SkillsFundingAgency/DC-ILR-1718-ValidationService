@@ -173,7 +173,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new Mock<IMessageLearner>();
+            var learner = new Mock<ILearner>();
             learner.SetupGet(x => x.NINumber).Returns("AZ123456C");
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -189,7 +189,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [Fact]
         public void Validate_Error()
         {
-            var learner = new Mock<IMessageLearner>();
+            var learner = new Mock<ILearner>();
             learner.SetupGet(x => x.NINumber).Returns("AO123456X");
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();

@@ -1,6 +1,6 @@
 ﻿namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearningDeliveryLearningDeliveryHE
+    public interface ILearningDeliveryHE
     {
         string NUMHUS { get; }
         string SSN { get; }

@@ -1,6 +1,6 @@
 ﻿namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLLDDAndHealthProblem
+    public interface ILLDDAndHealthProblem
     {
         long? LLDDCatNullable { get; }
 

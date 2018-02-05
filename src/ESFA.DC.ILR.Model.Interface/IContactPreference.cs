@@ -1,6 +1,6 @@
 ﻿namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerContactPreference
+    public interface IContactPreference
     {
         string ContPrefType { get; }
         long? ContPrefCodeNullable { get; }

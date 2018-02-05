@@ -10,7 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
     /// If the learner is on an apprenticeship funded through a contract for services with the employer, then the NI Number must be returned
     /// (LearningDelivery.LearnDelFAMType = ACT and LearningDelivery.LearnDelFAMCode = 1) and Learner.NINumber is null
     /// </summary>
-    public class NINumber_02Rule : AbstractRule, IRule<IMessageLearner>
+    public class NINumber_02Rule : AbstractRule, IRule<ILearner>
 
     {
         private readonly IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService _famQueryService;
@@ -21,7 +21,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
             _famQueryService = famQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {

@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearnerHELearnerHEFinancialSupport : IMessageLearnerLearnerHELearnerHEFinancialSupport
+    public partial class MessageLearnerLearnerHELearnerHEFinancialSupport : ILearnerHEFinancialSupport
     {
         public long? FINTYPENullable
         {

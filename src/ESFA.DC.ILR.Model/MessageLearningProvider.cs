@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearningProvider : IMessageLearningProvider
+    public partial class MessageLearningProvider : ILearningProvider
     {
     }
 }

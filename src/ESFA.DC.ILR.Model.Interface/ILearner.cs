@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearner
+    public interface ILearner
     {
         long? AccomNullable { get; }
         string AddLine1 { get; }
@@ -33,12 +33,12 @@ namespace ESFA.DC.ILR.Model.Interface
         string Sex { get; }
         string TelNo { get; }
 
-        IReadOnlyCollection<IMessageLearnerContactPreference> ContactPreferences { get; }
-        IReadOnlyCollection<IMessageLearnerLearnerFAM> LearnerFAMs { get; }
-        IReadOnlyCollection<IMessageLearnerLearningDelivery> LearningDeliveries { get; }
-        IReadOnlyCollection<IMessageLearnerLLDDAndHealthProblem> LLDDAndHealthProblems { get; }
-        IReadOnlyCollection<IMessageLearnerProviderSpecLearnerMonitoring> ProviderSpecLearnerMonitorings { get; }
-        IReadOnlyCollection<IMessageLearnerLearnerEmploymentStatus> LearnerEmploymentStatuses { get; }
-        IReadOnlyCollection<IMessageLearnerLearnerHE> LearnerHEs { get; }
+        IReadOnlyCollection<IContactPreference> ContactPreferences { get; }
+        IReadOnlyCollection<ILearnerFAM> LearnerFAMs { get; }
+        IReadOnlyCollection<ILearningDelivery> LearningDeliveries { get; }
+        IReadOnlyCollection<ILLDDAndHealthProblem> LLDDAndHealthProblems { get; }
+        IReadOnlyCollection<IProviderSpecLearnerMonitoring> ProviderSpecLearnerMonitorings { get; }
+        IReadOnlyCollection<ILearnerEmploymentStatus> LearnerEmploymentStatuses { get; }
+        IReadOnlyCollection<ILearnerHE> LearnerHEs { get; }
     }
 }

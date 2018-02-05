@@ -10,7 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
     /// <summary>
     /// Learner.ALSCost not null and LearnerFAM.LearnFAMType not HNS
     /// </summary>
-    public class ALSCost_02Rule : AbstractRule, IRule<IMessageLearner>
+    public class ALSCost_02Rule : AbstractRule, IRule<ILearner>
     {
         
         private const string HnsFamCode = "HNS";
@@ -21,7 +21,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
             
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (ConditionMet(objectToValidate.ALSCostNullable,objectToValidate.LearnerFAMs))
             {
@@ -29,12 +29,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
             }
             
         }
-        public bool ConditionMet(long? aLsCostNullable, IReadOnlyCollection<IMessageLearnerLearnerFAM> learnerFams)
+        public bool ConditionMet(long? aLsCostNullable, IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
             return aLsCostNullable.HasValue && !HasAnyHnsLearnerFam(learnerFams);
         }
         ///TODO: Not sure if this Learner FAM will be used elsewhere as well - If it is then this can be extracted out as a query service of its own like learning delivery fam service
-        public bool HasAnyHnsLearnerFam(IReadOnlyCollection<IMessageLearnerLearnerFAM> learnerFams)
+        public bool HasAnyHnsLearnerFam(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
             return learnerFams!=null && learnerFams.Any(x => x.LearnFAMType == HnsFamCode);
         }

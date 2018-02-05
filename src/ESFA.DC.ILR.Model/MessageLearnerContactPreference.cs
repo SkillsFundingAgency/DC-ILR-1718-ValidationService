@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerContactPreference : IMessageLearnerContactPreference
+    public partial class MessageLearnerContactPreference : IContactPreference
     {
         public long? ContPrefCodeNullable
         {

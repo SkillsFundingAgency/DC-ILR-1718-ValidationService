@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring : IMessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring
+    public partial class MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring : IEmploymentStatusMonitoring
     {
         public long? ESMCodeNullable
         {

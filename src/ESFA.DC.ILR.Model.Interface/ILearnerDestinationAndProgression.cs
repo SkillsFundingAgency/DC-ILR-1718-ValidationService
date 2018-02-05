@@ -2,10 +2,10 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerDestinationAndProgression
+    public interface ILearnerDestinationAndProgression
     {
         string LearnRefNumber { get; }
         long? ULNNullable { get; }
-        IReadOnlyCollection<IMessageLearnerDestinationAndProgressionDPOutcome> DPOutcomes { get; }
+        IReadOnlyCollection<IDPOutcome> DPOutcomes { get; }
     }
 }

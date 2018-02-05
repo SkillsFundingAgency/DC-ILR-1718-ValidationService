@@ -2,14 +2,14 @@
 
 namespace ESFA.DC.ILR.Model
 {
-    public partial class MessageHeader : IMessageHeader
+    public partial class MessageHeader : IHeader
     {
-        public IMessageHeaderCollectionDetails CollectionDetailsEntity
+        public ICollectionDetails CollectionDetailsEntity
         {
             get { return collectionDetailsField; }
         }
 
-        public IMessageHeaderSource SourceEntity
+        public ISource SourceEntity
         {
             get { return sourceField; }
         }

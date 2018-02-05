@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearningDeliveryAppFinRecord
+    public interface IAppFinRecord
     {
         string AFinType { get; }
         long? AFinCodeNullable { get; }

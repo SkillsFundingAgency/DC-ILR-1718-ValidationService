@@ -64,7 +64,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
-                                        It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), famType, famCode))
+                                        It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), famType, famCode))
                                         .Returns(famType=="ACT" && famCode=="1");
 
 
@@ -95,7 +95,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             var famQueryService = new Mock<IMessageLearnerLearningDeliveryLearningDeliveryFAMQueryService>();
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
-                                        It.IsAny<IEnumerable<IMessageLearnerLearningDeliveryLearningDeliveryFAM>>(), "ACT", "1"))
+                                        It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1"))
                                         .Returns(true);
 
 

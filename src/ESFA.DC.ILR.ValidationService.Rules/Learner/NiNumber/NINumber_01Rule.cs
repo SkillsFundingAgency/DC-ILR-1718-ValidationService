@@ -11,7 +11,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
     /// the second character must not be D, F, I, O, Q, U or V and characters 
     /// 3 to 8 must be numeric and character 9 must be A, B, C, D or space
     /// </summary>
-    public class NINumber_01Rule : AbstractRule, IRule<IMessageLearner>
+    public class NINumber_01Rule : AbstractRule, IRule<ILearner>
 
     {
         private readonly Regex _regex = new Regex("^[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z]{1}[0-9]{6}[A-D]{0,1}$", RegexOptions.Compiled);
@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
             
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (ConditionMet(objectToValidate.NINumber))
             {

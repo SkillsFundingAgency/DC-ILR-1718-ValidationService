@@ -6,7 +6,7 @@ using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_13Rule : AbstractRule, IRule<IMessageLearner>
+    public class DateOfBirth_13Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IValidationDataService _validationDataService;
         private readonly IDateTimeQueryService _dateTimeQueryService;
@@ -20,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {

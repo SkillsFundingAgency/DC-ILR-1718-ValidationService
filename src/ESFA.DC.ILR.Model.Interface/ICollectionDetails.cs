@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageHeaderCollectionDetails
+    public interface ICollectionDetails
     {
         string CollectionString { get; }
         string YearString { get; }

@@ -1,6 +1,6 @@
 ﻿namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerProviderSpecLearnerMonitoring
+    public interface IProviderSpecLearnerMonitoring
     {
         string ProvSpecLearnMonOccur { get; }
         string ProvSpecLearnMon { get; }

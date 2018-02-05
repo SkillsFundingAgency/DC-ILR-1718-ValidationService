@@ -10,7 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
     /// <summary>
     /// The Planned learning hours must be returned unless the learner is undertaking an apprenticeship
     /// </summary>
-    public class PlanLearnHours_01Rule : AbstractRule, IRule<IMessageLearner>
+    public class PlanLearnHours_01Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDD07 _dd07;
 
@@ -20,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
             _dd07 = dd07;
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
 
             if (HasPlanLearnLearnHoursConditionMet(objectToValidate.PlanLearnHoursNullable))
@@ -45,7 +45,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
             return !planLearnHoursNullable.HasValue ;
         }
 
-        public bool Exclude(IMessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
 
             return HasLearningDeliveryDd07ExcludeConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable)) ||
@@ -62,7 +62,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
 
         }
 
-        public bool HasAllLearningAimsClosedExcludeConditionMet(IReadOnlyCollection<IMessageLearnerLearningDelivery> learningDeliveries)
+        public bool HasAllLearningAimsClosedExcludeConditionMet(IReadOnlyCollection<ILearningDelivery> learningDeliveries)
         {
             return learningDeliveries!=null && learningDeliveries.All(x => x.LearnActEndDateNullable.HasValue);
         }

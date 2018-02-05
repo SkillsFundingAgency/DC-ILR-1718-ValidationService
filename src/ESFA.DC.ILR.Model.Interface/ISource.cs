@@ -2,7 +2,7 @@
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageHeaderSource
+    public interface ISource
     {
         string ProtectiveMarkingString { get; }
         int UKPRN { get; }

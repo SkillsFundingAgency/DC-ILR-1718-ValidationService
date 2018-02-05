@@ -8,7 +8,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     /// <summary>
     /// If the prior attainment is level 4 or above, then the learner must not be on an Adult skills funded intermediate or advanced apprenticeship
     /// </summary>
-    public class PriorAttain_04Rule : AbstractRule, IRule<IMessageLearner>
+    public class PriorAttain_04Rule : AbstractRule, IRule<ILearner>
 
     {
 
@@ -19,7 +19,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         {
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
            
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)

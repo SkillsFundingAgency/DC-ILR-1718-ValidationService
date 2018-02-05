@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.Model.Interface
 {
-    public interface IMessageLearnerLearningDelivery
+    public interface ILearningDelivery
     {
         DateTime? AchDateNullable { get; }
         long? AddHoursNullable { get; }
@@ -32,10 +32,10 @@ namespace ESFA.DC.ILR.Model.Interface
         string SWSupAimId { get; }
         long? WithdrawReasonNullable { get; }
 
-        IReadOnlyCollection<IMessageLearnerLearningDeliveryAppFinRecord> AppFinRecords { get; }
-        IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryFAM> LearningDeliveryFAMs { get; }
-        IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryHE> LearningDeliveryHEs { get; }
-        IReadOnlyCollection<IMessageLearnerLearningDeliveryLearningDeliveryWorkPlacement> LearningDeliveryWorkPlacements { get; }
-        IReadOnlyCollection<IMessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring> ProviderSpecDeliveryMonitorings { get; }        
+        IReadOnlyCollection<IAppFinRecord> AppFinRecords { get; }
+        IReadOnlyCollection<ILearningDeliveryFAM> LearningDeliveryFAMs { get; }
+        IReadOnlyCollection<ILearningDeliveryHE> LearningDeliveryHEs { get; }
+        IReadOnlyCollection<ILearningDeliveryWorkPlacement> LearningDeliveryWorkPlacements { get; }
+        IReadOnlyCollection<IProviderSpecDeliveryMonitoring> ProviderSpecDeliveryMonitorings { get; }        
     }
 }

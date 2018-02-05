@@ -10,7 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     /// LearningDelivery.LearnStartDate > 2016-07-31 and LearningDelivery.FundModel = 35 and 
     //Learner.PriorAttain = (3, 4, 5, 10, 11, 12, 13, 97 or 98) and LearningDelivery.ProgType = 24
     /// </summary>
-    public class PriorAttain_07Rule : AbstractRule, IRule<IMessageLearner>
+    public class PriorAttain_07Rule : AbstractRule, IRule<ILearner>
 
     {
         private readonly HashSet<long> _validPriorAttainValues = new HashSet<long> { 4, 5, 10, 11, 12, 13, 97, 98 };
@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         {
         }
 
-        public void Validate(IMessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
            
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
