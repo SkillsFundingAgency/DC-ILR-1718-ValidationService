@@ -1,5 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
@@ -15,19 +15,24 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_11RuleTests
     {
+        private ULN_11Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_11Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
+        }
+
         [Fact]
         public void Exclude_True()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "LDM", "034")).Returns(true);
 
-            var rule = new ULN_11Rule(null, null, learningDeliveryFAMQueryServiceMock.Object, null);
+            var rule = NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
         }
@@ -35,16 +40,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Exclude_False()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(false);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "LDM", "034")).Returns(false);
 
-            var rule = new ULN_11Rule(null, null, learningDeliveryFAMQueryServiceMock.Object, null);
+            var rule = NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
@@ -52,125 +57,96 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void FundModelConditionMet_True()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.FundModelConditionMet(99).Should().BeTrue();
+            NewRule().FundModelConditionMet(99).Should().BeTrue();
         }
 
         [Fact]
         public void FundModelConditionMet_False()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.FundModelConditionMet(98).Should().BeFalse();
+            NewRule().FundModelConditionMet(98).Should().BeFalse();
         }
         
         [Fact]
         public void FAMConditionMet_True()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.FAMConditionMet(true).Should().BeTrue();            
+            NewRule().FAMConditionMet(true).Should().BeTrue();            
         }
 
         [Fact]
         public void FAMConditionMet_False()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.FAMConditionMet(false).Should().BeFalse();
+            NewRule().FAMConditionMet(false).Should().BeFalse();
         }
 
         [Fact]
         public void FilePreparationDateMet_True()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.FilePreparationDateConditionMet(new DateTime(2030, 1, 1), new DateTime(2018, 1, 1)).Should().BeTrue();
+            NewRule().FilePreparationDateConditionMet(new DateTime(2030, 1, 1), new DateTime(2018, 1, 1)).Should().BeTrue();
         }
 
         [Fact]
         public void FilePreparationDateMet_False()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.FilePreparationDateConditionMet(new DateTime(2010, 1, 1), new DateTime(2018, 1, 1)).Should().BeFalse();
+            NewRule().FilePreparationDateConditionMet(new DateTime(2010, 1, 1), new DateTime(2018, 1, 1)).Should().BeFalse();
         }
 
         [Fact]
         public void LearningDatesConditionMet_True_LearnPlanEndDate()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2018, 1, 6), null, new DateTime(2018, 6, 1)).Should().BeTrue();
+            NewRule().LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2018, 1, 6), null, new DateTime(2018, 6, 1)).Should().BeTrue();
         }
 
         [Fact]
         public void LearningDatesConditionMet_True_LearnStartDate()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2017, 1, 6), new DateTime(2018, 1, 6), new DateTime(2018, 6, 1)).Should().BeTrue();
+            NewRule().LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2017, 1, 6), new DateTime(2018, 1, 6), new DateTime(2018, 6, 1)).Should().BeTrue();
         }
 
         [Fact]
         public void LearningDatesConditionMet_False()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2017, 1, 6), new DateTime(2017, 1, 6), new DateTime(2017, 12, 31)).Should().BeFalse();
+            NewRule().LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2017, 1, 6), new DateTime(2017, 1, 6), new DateTime(2017, 12, 31)).Should().BeFalse();
         }
 
         [Fact]
         public void LearningDatesConditionMet_FilePreparationDate_False()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2018, 1, 6), new DateTime(2018, 1, 6), new DateTime(2018, 1, 1)).Should().BeFalse();
+            NewRule().LearningDatesConditionMet(new DateTime(2018, 1, 1), new DateTime(2018, 1, 6), new DateTime(2018, 1, 6), new DateTime(2018, 1, 1)).Should().BeFalse();
         }
 
         [Fact]
         public void UlnConditionMet_True()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.UlnConditionMet(9999999999).Should().BeTrue();
+            NewRule().UlnConditionMet(9999999999).Should().BeTrue();
         }
 
         [Fact]
         public void UlnConditionMet_False()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.UlnConditionMet(1).Should().BeFalse();
+            NewRule().UlnConditionMet(1).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_True()
         {
-            var rule = new ULN_11Rule(null, null, null, null);
-
-            rule.ConditionMet(99, true, 9999999999, new DateTime(2018, 6, 1), new DateTime(2018, 1, 1), new DateTime(2018, 1, 2), new DateTime(2017, 1, 7), new DateTime(2018, 1, 7)).Should().BeTrue();
+            NewRule().ConditionMet(99, true, 9999999999, new DateTime(2018, 6, 1), new DateTime(2018, 1, 1), new DateTime(2018, 1, 2), new DateTime(2017, 1, 7), new DateTime(2018, 1, 7)).Should().BeTrue();
         }
 
         [Fact]
         public void Validate_Errors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 9999999999,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 9999999999,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {                       
-                        FundModel = 99,
-                        LearnStartDate = new DateTime(2018, 1, 2),
-                        LearnStartDateSpecified = true,
-                        LearnPlanEndDate = new DateTime(2017, 1, 7),
-                        LearnPlanEndDateSpecified = true,
-                        LearnActEndDate = new DateTime(2018, 1, 7),
-                        LearnActEndDateSpecified = true,
-                        LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                        FundModelNullable = 99,
+                        LearnStartDateNullable = new DateTime(2018, 1, 2),
+                        LearnPlanEndDateNullable = new DateTime(2017, 1, 7),
+                        LearnActEndDateNullable = new DateTime(2018, 1, 7),
+                        LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                     }
                 }
             };
@@ -188,7 +164,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new ULN_11Rule(fileDataMock.Object, validationDataMock.Object, learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(fileDataMock.Object, validationDataMock.Object, learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -198,20 +174,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_NoErrors_FundModel()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 9999999999,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 9999999999,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 100,
-                        LearnStartDate = new DateTime(2018, 1, 2),
-                        LearnStartDateSpecified = true,
-                        LearnPlanEndDate = new DateTime(2017, 1, 7),
-                        LearnPlanEndDateSpecified = true,
-                        LearnActEndDate = new DateTime(2018, 1, 7),
-                        LearnActEndDateSpecified = true,
+                        FundModelNullable = 100,
+                        LearnStartDateNullable = new DateTime(2018, 1, 2),
+                        LearnPlanEndDateNullable = new DateTime(2017, 1, 7),
+                        LearnActEndDateNullable = new DateTime(2018, 1, 7),
                     }
                 }
             };

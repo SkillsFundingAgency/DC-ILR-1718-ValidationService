@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
@@ -12,44 +12,39 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_48RuleTests
     {
+        private DateOfBirth_48Rule NewRule(IDD04 dd04 = null, IDD07 dd07 = null, IValidationDataService validationDataService = null, IAcademicYearCalendarService academicYearCalendarService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_48Rule(dd04, dd07, validationDataService, academicYearCalendarService, validationErrorHandler);
+        }
+
         [Fact]
         public void Exclude_True()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.Exclude(25).Should().BeTrue();
+            NewRule().Exclude(25).Should().BeTrue();
         }
 
         [Fact]
         public void Exclude_False()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.Exclude(24).Should().BeFalse();
+            NewRule().Exclude(24).Should().BeFalse();
         }
 
         [Fact]
         public void LearnerConditionMet_True()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.LearnerConditionMet(new DateTime(2018, 1, 1)).Should().BeTrue();
+            NewRule().LearnerConditionMet(new DateTime(2018, 1, 1)).Should().BeTrue();
         }
 
         [Fact]
         public void LearnerConditionMet_False()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.LearnerConditionMet(null).Should().BeFalse();
+            NewRule().LearnerConditionMet(null).Should().BeFalse();
         }
 
         [Fact]
         public void DD04ConditionMet_True()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.DD04ConditionMet(new DateTime(2017, 12, 1), new DateTime(2017, 8, 1), new DateTime(2018, 6, 1)).Should().BeTrue();
+            NewRule().DD04ConditionMet(new DateTime(2017, 12, 1), new DateTime(2017, 8, 1), new DateTime(2018, 6, 1)).Should().BeTrue();
         }
 
         [Theory]
@@ -57,25 +52,19 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [InlineData(2019, 1, 1)]
         public void DD04ConditionMet_False(int year, int month, int day)
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.DD04ConditionMet(new DateTime(year, month, day), new DateTime(2017, 8, 1), new DateTime(2018, 6, 1)).Should().BeFalse();
+            NewRule().DD04ConditionMet(new DateTime(year, month, day), new DateTime(2017, 8, 1), new DateTime(2018, 6, 1)).Should().BeFalse();
         }
 
         [Fact]
         public void DD04ConditionMet_Null()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.DD04ConditionMet(null, new DateTime(2017, 8, 1), new DateTime(2018, 6, 1)).Should().BeFalse();
+            NewRule().DD04ConditionMet(null, new DateTime(2017, 8, 1), new DateTime(2018, 6, 1)).Should().BeFalse();
         }
 
         [Fact]
         public void DD07ConditionMet_True()
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.DD07ConditionMet("Y").Should().BeTrue();
+            NewRule().DD07ConditionMet("Y").Should().BeTrue();
         }
 
         [Theory]
@@ -83,9 +72,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [InlineData("AnythingElse")]
         public void DD07ConditionMet_False(string dd07)
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.DD07ConditionMet(dd07).Should().BeFalse();
+            NewRule().DD07ConditionMet(dd07).Should().BeFalse();
         }
 
         [Theory]
@@ -97,50 +84,39 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [InlineData("1996-2-29", 4, "2000-2-29")]
         public void BirthdayAt(string dateOfBirth, int age, string birthday)
         {
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-            
-            rule.BirthdayAt(DateTime.Parse(dateOfBirth), age).Should().Be(DateTime.Parse(birthday));
+            NewRule().BirthdayAt(DateTime.Parse(dateOfBirth), age).Should().Be(DateTime.Parse(birthday));
         }
 
         [Fact]
         public void BirthdayAt_DateOfBirthNull()
         {
-            var rule = new DateOfBirth_48Rule(null,null,  null, null, null);
-
-            rule.BirthdayAt(null, 30).Should().BeNull();
+            NewRule().BirthdayAt(null, 30).Should().BeNull();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
-            {
-                DateOfBirthSpecified = false
-            };
+            var learner = new TestLearner();
 
-            var rule = new DateOfBirth_48Rule(null, null, null, null, null);
-
-            rule.Validate(learner);
+            NewRule().Validate(learner);
         }
 
         [Fact]
         public void Validate_Error()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                ProgType = 1,
-                AimType = 1,
-                LearnStartDate = new DateTime(2017, 1, 1),
-                LearnStartDateSpecified = true
+                ProgTypeNullable = 1,
+                AimTypeNullable = 1,
+                LearnStartDateNullable = new DateTime(2017, 1, 1),
             };
 
             var dateOfBirth = new DateTime(2002, 1, 1);
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirth = dateOfBirth,
-                DateOfBirthSpecified = true,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
                     learningDelivery
                 }
@@ -152,7 +128,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var academicYearCalendarServiceMock = new Mock<IAcademicYearCalendarService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
-            dd04Mock.Setup(dd => dd.Derive(learner.LearningDelivery, learningDelivery)).Returns(new DateTime(2017, 1, 1));
+            dd04Mock.Setup(dd => dd.Derive(learner.LearningDeliveries, learningDelivery)).Returns(new DateTime(2017, 1, 1));
             dd07Mock.Setup(dd => dd.Derive(1)).Returns("Y");
             validationDataServiceMock.SetupGet(vds => vds.ApprencticeProgAllowedStartDate).Returns(new DateTime(2016, 8, 1));
             academicYearCalendarServiceMock.Setup(aycs => aycs.LastFridayInJuneForDateInAcademicYear(dateOfBirth.AddYears(16))).Returns(new DateTime(2018, 6, 29));

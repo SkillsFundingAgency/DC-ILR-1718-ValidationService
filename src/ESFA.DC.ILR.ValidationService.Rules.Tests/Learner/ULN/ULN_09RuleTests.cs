@@ -1,5 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
@@ -15,46 +15,42 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_09RuleTests
     {
+        private ULN_09Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_09Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
+        }
+
         [Fact]
         public void ConditionMet_True()
         {
-            var rule = new ULN_09Rule(null, null, null, null);
-
-            rule.ConditionMet(true, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 9999999999).Should().BeTrue();
+            NewRule().ConditionMet(true, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 9999999999).Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False_FamTypeCode()
         {
-            var rule = new ULN_09Rule(null, null, null, null);
-
-            rule.ConditionMet(false, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 9999999999).Should().BeFalse();
+            NewRule().ConditionMet(false, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 9999999999).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_Uln()
         {
-            var rule = new ULN_09Rule(null, null, null, null);
-
-            rule.ConditionMet(true, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 999999999).Should().BeFalse();
+            NewRule().ConditionMet(true, new DateTime(2018, 2, 1), new DateTime(2018, 1, 1), 999999999).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_Dates()
         {
-            var rule = new ULN_09Rule(null, null, null, null);
-
-            rule.ConditionMet(true, new DateTime(2018, 1, 1), new DateTime(2018, 2, 1), 999999999).Should().BeFalse();
+            NewRule().ConditionMet(true, new DateTime(2018, 1, 1), new DateTime(2018, 2, 1), 999999999).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 1,
-                ULNSpecified = true,
-                LearningDelivery = new MessageLearnerLearningDelivery[] { }
+                ULNNullable = 1,
+                LearningDeliveries = new TestLearningDelivery[] { }
             };
 
             var fileDataServiceMock = new Mock<IFileDataService>();
@@ -73,15 +69,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 9999999999,
-                ULNSpecified = true,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 9999999999,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                        LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                     }
                 }
             };

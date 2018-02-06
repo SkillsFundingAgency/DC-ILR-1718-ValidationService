@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Rules.Derived;
 using FluentAssertions;
 using System;
@@ -11,37 +11,27 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [Fact]
         public void Derive()
         {
-            var earliestLearningDelivery = new MessageLearnerLearningDelivery()
+            var earliestLearningDelivery = new TestLearningDelivery()
             {
-                ProgTypeSpecified = true,
-                ProgType = 1,
-                FworkCodeSpecified = true,
-                FworkCode = 1,
-                PwayCodeSpecified = true,
-                PwayCode = 1,
-                AimTypeSpecified = true,
-                AimType = 1,
-                LearnStartDateSpecified = true,
-                LearnStartDate = new DateTime(2015, 1, 1)
+                ProgTypeNullable = 1,
+                FworkCodeNullable = 1,
+                PwayCodeNullable = 1,
+                AimTypeNullable = 1,
+                LearnStartDateNullable = new DateTime(2015, 1, 1)
             };
 
-            var latestLearningDelivery = new MessageLearnerLearningDelivery()
+            var latestLearningDelivery = new TestLearningDelivery()
             {
-                ProgTypeSpecified = true,
-                ProgType = 1,
-                FworkCodeSpecified = true,
-                FworkCode = 1,
-                PwayCodeSpecified = true,
-                PwayCode = 1,
-                AimTypeSpecified = true,
-                AimType = 1,
-                LearnStartDateSpecified = true,
-                LearnStartDate = new DateTime(2017, 1, 1)
+                ProgTypeNullable = 1,
+                FworkCodeNullable = 1,
+                PwayCodeNullable = 1,
+                AimTypeNullable = 1,
+                LearnStartDateNullable = new DateTime(2017, 1, 1)
             };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
                     latestLearningDelivery,
                     earliestLearningDelivery
@@ -50,7 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
 
             var dd04 = new DD04();
 
-            dd04.Derive(learner.LearningDelivery, latestLearningDelivery).Should().Be(new DateTime(2015, 1, 1));
+            dd04.Derive(learner.LearningDeliveries, latestLearningDelivery).Should().Be(new DateTime(2015, 1, 1));
         }
 
         [Fact]
@@ -64,14 +54,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [Fact]
         public void EarliestLearningDeliveryLearnStartDateFor_NoMatch()
         {
-            var learningDeliveries = new MessageLearnerLearningDelivery[]
+            var learningDeliveries = new TestLearningDelivery[]
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimType = 1,
-                    ProgType = 1,
-                    FworkCode = 1,
-                    PwayCode = 1,
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
                 }
             };            
 
@@ -85,31 +75,22 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         {
             var learnStartDate = new DateTime(2017, 1, 1);
 
-            var learningDeliveries = new MessageLearnerLearningDelivery[]
+            var learningDeliveries = new TestLearningDelivery[]
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 1,
-                    LearnStartDateSpecified = true,
-                    LearnStartDate = learnStartDate
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                    LearnStartDateNullable = learnStartDate
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 2,
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 2,
                 }
             };
 
@@ -123,29 +104,21 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         {
             var learnStartDate = new DateTime(2017, 1, 1);
 
-            var learningDeliveries = new MessageLearnerLearningDelivery[]
+            var learningDeliveries = new TestLearningDelivery[]
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 1,
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 2,
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 2,
                 }
             };
 
@@ -160,44 +133,30 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
             var earliestLearnStartDate = new DateTime(2017, 1, 1);
             var latestLearnStartDate = new DateTime(2018, 1, 1);
 
-            var learningDeliveries = new MessageLearnerLearningDelivery[]
+            var learningDeliveries = new TestLearningDelivery[]
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 1,
-                    LearnStartDateSpecified = true,
-                    LearnStartDate = earliestLearnStartDate
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                    LearnStartDateNullable = earliestLearnStartDate
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 1,
-                    LearnStartDateSpecified = true,
-                    LearnStartDate = latestLearnStartDate
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                    LearnStartDateNullable = latestLearnStartDate
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    AimTypeSpecified = true,
-                    AimType = 1,
-                    ProgTypeSpecified = true,
-                    ProgType = 1,
-                    FworkCodeSpecified = true,
-                    FworkCode = 1,
-                    PwayCodeSpecified = true,
-                    PwayCode = 1,
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
                 }
             };
 
