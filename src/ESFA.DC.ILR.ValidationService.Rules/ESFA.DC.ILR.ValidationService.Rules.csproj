@@ -71,6 +71,7 @@
     <Compile Include="Learner\GivenNames\GivenNames_04Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_02Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_01Rule.cs" />
+    <Compile Include="Learner\MathGrade\MathGrade_01Rule.cs" />
     <Compile Include="Learner\NINumber\NINumber_02Rule.cs" />
     <Compile Include="Learner\NINumber\NINumber_01Rule.cs" />
     <Compile Include="Learner\PlanEEPHours\PlanEEPHours_01Rule.cs" />
@@ -105,7 +106,9 @@
     <Compile Include="Query\DateTimeQueryService.cs" />
     <Compile Include="Query\Interface\IDateTimeQueryService.cs" />
     <Compile Include="Query\Interface\ILearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\Interface\ILearnerFAMQueryService.cs" />
     <Compile Include="Query\LearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\LearnerFAMQueryService.cs" />
     <Compile Include="RuleNameConstants.cs" />
     <Compile Include="ValidationConstants.cs" />
   </ItemGroup>

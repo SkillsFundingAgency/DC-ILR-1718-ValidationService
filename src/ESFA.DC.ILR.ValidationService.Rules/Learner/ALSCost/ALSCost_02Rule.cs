@@ -3,6 +3,7 @@ using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using System.Collections.Generic;
 using System.Linq;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
 {
@@ -14,11 +15,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
     {
         
         private const string HnsFamCode = "HNS";
+        private readonly ILearnerFAMQueryService _learnerFamQueryService;
 
-        public ALSCost_02Rule(IValidationErrorHandler validationErrorHandler)
+        public ALSCost_02Rule(IValidationErrorHandler validationErrorHandler,ILearnerFAMQueryService learnerFamQueryService)
             : base(validationErrorHandler)
         {
-            
+            _learnerFamQueryService = learnerFamQueryService;
         }
 
         public void Validate(ILearner objectToValidate)
@@ -31,12 +33,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
         }
         public bool ConditionMet(long? aLsCostNullable, IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
-            return aLsCostNullable.HasValue && !HasAnyHnsLearnerFam(learnerFams);
+            return aLsCostNullable.HasValue && !_learnerFamQueryService.HasLearnerFAMType(learnerFams,HnsFamCode);
         }
-        ///TODO: Not sure if this Learner FAM will be used elsewhere as well - If it is then this can be extracted out as a query service of its own like learning delivery fam service
-        public bool HasAnyHnsLearnerFam(IReadOnlyCollection<ILearnerFAM> learnerFams)
-        {
-            return learnerFams!=null && learnerFams.Any(x => x.LearnFAMType == HnsFamCode);
-        }
+        
     }
 }
