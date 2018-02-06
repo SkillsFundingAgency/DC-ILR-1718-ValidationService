@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
-    public class DateOfBirth_48Rule : AbstractRule, IRule<MessageLearner>
+    public class DateOfBirth_48Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDD04 _dd04;
         private readonly IDD07 _dd07;
@@ -23,7 +23,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             _academicYearCalendarService = academicYearCalendarService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (!LearnerConditionMet(objectToValidate.DateOfBirthNullable))
             {
@@ -33,17 +33,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             var sixteenthBirthday = BirthdayAt(objectToValidate.DateOfBirthNullable, 16);
             var lastFridayJuneAcademicYearLearnerSixteen =  _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
 
-            foreach (var learningDelivery in objectToValidate.LearningDelivery.Where(ld => !Exclude(ld.ProgType)))
+            foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld.ProgTypeNullable)))
             {
-                if (DD07ConditionMet(_dd07.Derive(learningDelivery.ProgType))
-                    && DD04ConditionMet(_dd04.Derive(objectToValidate.LearningDelivery, learningDelivery), _validationDataService.ApprencticeProgAllowedStartDate, lastFridayJuneAcademicYearLearnerSixteen))
+                if (DD07ConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable))
+                    && DD04ConditionMet(_dd04.Derive(objectToValidate.LearningDeliveries, learningDelivery), _validationDataService.ApprencticeProgAllowedStartDate, lastFridayJuneAcademicYearLearnerSixteen))
                 {
                     HandleValidationError(RuleNameConstants.DateOfBirth_48, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
 
-        public bool Exclude(long progType)
+        public bool Exclude(long? progType)
         {
             return progType == 25;
         }
