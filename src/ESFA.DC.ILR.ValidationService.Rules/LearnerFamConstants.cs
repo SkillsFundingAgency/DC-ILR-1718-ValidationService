@@ -10,6 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules
     {
         public const string EDF_FamType = "EDF";
         public const string MCF_FamType = "MCF";
+        public const string ECF_FamType = "ECF";
 
     }
 }

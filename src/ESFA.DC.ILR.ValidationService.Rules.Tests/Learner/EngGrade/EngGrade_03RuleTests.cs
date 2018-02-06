@@ -1,6 +1,7 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
@@ -10,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
+namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
 {
-    public class MathGrade_03RuleTests
+    public class EngGrade_03RuleTests
     {
         [Theory]
         [InlineData("D")]
@@ -59,16 +60,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
         public void ConditionMet_False(string mathGrade)
         {
             var learnerFamQueryService = new Mock<ILearnerFAMQueryService>();
-            learnerFamQueryService.Setup(x=> x.HasLearnerFAMCodeForType(It.IsAny<IEnumerable<ILearnerFAM>>(),"EDF",1))
+            learnerFamQueryService.Setup(x=> x.HasLearnerFAMCodeForType(It.IsAny<IEnumerable<ILearnerFAM>>(),"EDF",2))
                                     .Returns(true);
 
-            var rule = new MathGrade_03Rule(null, learnerFamQueryService.Object);
+            var rule = new EngGrade_03Rule(null,learnerFamQueryService.Object);
             var learnerFams = new[]
             {
                 new TestLearnerFAM
                 {
                     LearnFAMType = "EDF",
-                    LearnFAMCodeNullable = 1
+                    LearnFAMCodeNullable = 2
                 },
                 new TestLearnerFAM
                 {
@@ -87,13 +88,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             var learner = SetupLearner("D");
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("MathGrade_03", null, null, null);
+            Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("EngGrade_03", null, null, null);
 
             var learnerFamQueryService = new Mock<ILearnerFAMQueryService>();
             learnerFamQueryService.Setup(x => x.HasLearnerFAMCodeForType(It.IsAny<IEnumerable<ILearnerFAM>>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(false);
 
-            var rule = new MathGrade_03Rule(validationErrorHandlerMock.Object, learnerFamQueryService.Object);
+            var rule = new EngGrade_03Rule(validationErrorHandlerMock.Object, learnerFamQueryService.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
@@ -104,22 +105,22 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             var learner = SetupLearner("FF");
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("MathGrade_03", null, null, null);
+            Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("EngGrade_03", null, null, null);
 
             var learnerFamQueryService = new Mock<ILearnerFAMQueryService>();
             learnerFamQueryService.Setup(x => x.HasLearnerFAMCodeForType(It.IsAny<IEnumerable<ILearnerFAM>>(), It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(true);
 
-            var rule = new MathGrade_03Rule(validationErrorHandlerMock.Object, learnerFamQueryService.Object);
+            var rule = new EngGrade_03Rule(validationErrorHandlerMock.Object, learnerFamQueryService.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
-        private static TestLearner SetupLearner(string mathGrade)
+        private static TestLearner SetupLearner(string engGrade)
         {
             var learner = new TestLearner()
             {
-                MathGrade = mathGrade,
+                EngGrade = engGrade,
                 LearnerFAMs = new []
                 {
                     new TestLearnerFAM() 

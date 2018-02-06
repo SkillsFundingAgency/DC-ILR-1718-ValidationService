@@ -4,7 +4,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
+namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
 {
     /// <summary>
     /// Learner.LearnFAMType = MCF and Learner.LearnFAMCode = 2, 3 or 4 and Learner.MathGrade <> "NONE"

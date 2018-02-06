@@ -102,6 +102,9 @@
     <Compile Include="Learner\GivenNames\GivenNames_04RuleTests.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_02RuleTests.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_01RuleTests.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_01RuleTests.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_03RuleTests.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_04RuleTests.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_04RuleTests.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_03RuleTests.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_01RuleTests.cs" />

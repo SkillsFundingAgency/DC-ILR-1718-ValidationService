@@ -4,7 +4,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
+namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
 {
     /// <summary>
     /// Learner.MathGrade = D, DD, DE, E, EE, EF, F, FF, FG, G, GG, N, or U and there is no LearnerFAM record where Learner.LearnFAMType = EDF and Learner.LearnFAMCode = 1
