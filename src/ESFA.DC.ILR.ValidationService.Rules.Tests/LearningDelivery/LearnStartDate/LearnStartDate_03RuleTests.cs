@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate;
@@ -12,51 +12,54 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
 {
     public class LearnStartDate_03RuleTests
     {
+        private LearnStartDate_03Rule NewRule(IDD07 dd07 = null, IValidationDataService validationDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LearnStartDate_03Rule(dd07, validationDataService, validationErrorHandler);
+        }
+
         [Fact]
         public void ConditionMet_True()
-        {
-            var rule = new LearnStartDate_03Rule(null, null, null);
-
-            rule.ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 1, "N").Should().BeTrue();
+        {            
+            NewRule().ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 1, "N").Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False_LearnStartDate()
         {
-            var rule = new LearnStartDate_03Rule(null, null, null);
-
-            rule.ConditionMet(new DateTime(2017, 1, 1), new DateTime(2018, 7, 31), 1, "N").Should().BeFalse();
+            NewRule().ConditionMet(new DateTime(2017, 1, 1), new DateTime(2018, 7, 31), 1, "N").Should().BeFalse();
+        }
+        
+        [Fact]
+        public void ConditionMet_False_LearnStartDate_Null()
+        {
+            NewRule().ConditionMet(null, new DateTime(2018, 7, 31), 1, "N").Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_ProgType()
         {
-            var rule = new LearnStartDate_03Rule(null, null, null);
-
-            rule.ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 24, "N").Should().BeFalse();
+            NewRule().ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 24, "N").Should().BeFalse();
         }
 
 
         [Fact]
         public void ConditionMet_False_DD07()
         {
-            var rule = new LearnStartDate_03Rule(null, null, null);
-
-            rule.ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 24, "Y").Should().BeFalse();
+            NewRule().ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 24, "Y").Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearnStartDate = new DateTime(2015, 1, 1),
-                ProgType = 24
+                LearnStartDateNullable = new DateTime(2015, 1, 1),
+                ProgTypeNullable = 24
             };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
                     learningDelivery
                 }
@@ -68,7 +71,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
             validationDataServiceMock.SetupGet(vd => vd.AcademicYearEnd).Returns(new DateTime(2017, 8, 1));
             dd07Mock.Setup(dd => dd.Derive(24)).Returns("Y");
 
-            var rule = new LearnStartDate_03Rule(dd07Mock.Object, validationDataServiceMock.Object, null);
+            var rule = NewRule(dd07Mock.Object, validationDataServiceMock.Object);
 
             rule.Validate(learner);
         }
@@ -76,15 +79,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         [Fact]
         public void Validate_Errors()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearnStartDate = new DateTime(2019, 1, 1),
-                ProgType = 1
+                LearnStartDateNullable = new DateTime(2019, 1, 1),
+                ProgTypeNullable = 1
             };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
                     learningDelivery,
                 }

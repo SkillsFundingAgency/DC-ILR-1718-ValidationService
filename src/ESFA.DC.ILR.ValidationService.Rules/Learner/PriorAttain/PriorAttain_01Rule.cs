@@ -14,21 +14,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     //This rule is also not triggered by EFA funded learners (LearningDelivery.FundModel = 25 or 82)
     /// </summary>
     public class PriorAttain_01Rule : AbstractRule, IRule<ILearner>
-
     {
-        private readonly ILearningDeliveryFAMQueryService _famQueryService;
-        private readonly HashSet<long> _excludeFundModels = new HashSet<long> { 10,25,82 };
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFamQueryService;
+        private readonly HashSet<long> _excludeFundModels = new HashSet<long> { 10, 25 ,82 };
 
-
-        public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService famQueryService)
+        public PriorAttain_01Rule(IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService learningDeliveryFamQueryService)
            : base(validationErrorHandler)
         {
-            _famQueryService = famQueryService;
+            _learningDeliveryFamQueryService = learningDeliveryFamQueryService;
         }
 
         public void Validate(ILearner objectToValidate)
-        {
-           
+        {           
             foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld)))
             {
                 if (ConditionMet(objectToValidate.PriorAttainNullable))
@@ -36,28 +33,24 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
                     HandleValidationError(RuleNameConstants.PriorAttain_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
-
-        }
-        
+        }        
 
         public bool ConditionMet(long? priorAttain)
         {
             return !priorAttain.HasValue;
-
         }
+
         public bool Exclude(ILearningDelivery learningDelivery)
         {
-
-            var fundModelConditionMet = learningDelivery.FundModelNullable.HasValue && _excludeFundModels.Contains(learningDelivery.FundModelNullable.Value);
+            var fundModelConditionMet = learningDelivery.FundModelNullable.HasValue
+                && _excludeFundModels.Contains(learningDelivery.FundModelNullable.Value);
 
             var famTypeConditionMet = learningDelivery.FundModelNullable.HasValue &&
                             (learningDelivery.FundModelNullable.Value == 99
-                            && _famQueryService.HasLearningDeliveryFAMCodeForType(
+                            && _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(
                             learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "108"));
 
             return fundModelConditionMet || famTypeConditionMet;
         }
     }
-
-
 }

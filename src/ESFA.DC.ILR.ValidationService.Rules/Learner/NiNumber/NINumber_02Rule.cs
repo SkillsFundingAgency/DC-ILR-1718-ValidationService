@@ -2,7 +2,6 @@
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
 {
@@ -11,14 +10,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
     /// (LearningDelivery.LearnDelFAMType = ACT and LearningDelivery.LearnDelFAMCode = 1) and Learner.NINumber is null
     /// </summary>
     public class NINumber_02Rule : AbstractRule, IRule<ILearner>
-
     {
-        private readonly ILearningDeliveryFAMQueryService _famQueryService;
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFamQueryService;
 
-        public NINumber_02Rule( IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService famQueryService)
+        public NINumber_02Rule(IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService learningDeliveryFamQueryService)
            : base(validationErrorHandler)
         {
-            _famQueryService = famQueryService;
+            _learningDeliveryFamQueryService = learningDeliveryFamQueryService;
         }
 
         public void Validate(ILearner objectToValidate)
@@ -26,20 +24,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
                 if (ConditionMet(objectToValidate.NINumber, 
-                                _famQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs,LearningDeliveryFAMTypeConstants.ACT,"1")))
+                                _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1")))
                 {
                     HandleValidationError(RuleNameConstants.NINumber_02, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
-                }
-                
-            }
-
-           
+                }                
+            }           
         }
 
         public bool ConditionMet(string niNumber, bool hasApplicableFam)
         {
-            return string.IsNullOrWhiteSpace(niNumber) && hasApplicableFam;
-                    
+            return string.IsNullOrWhiteSpace(niNumber) 
+                && hasApplicableFam;                    
         }
     }
 }
