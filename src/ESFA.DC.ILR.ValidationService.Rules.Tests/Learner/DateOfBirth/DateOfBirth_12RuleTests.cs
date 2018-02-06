@@ -126,17 +126,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             };
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             
             dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(18);
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(true);
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("DateOfBirth_12", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = NewRule(dateTimeQueryServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(dateTimeQueryServiceMock.Object, learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -167,11 +167,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
                 }
             };
             
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
             
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(false);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(false);
 
-            var rule = NewRule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService: messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
         }

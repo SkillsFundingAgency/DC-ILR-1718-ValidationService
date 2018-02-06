@@ -13,9 +13,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_14RuleTests
     {
-        private DateOfBirth_14Rule NewRule(IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        private DateOfBirth_14Rule NewRule(IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            return new DateOfBirth_14Rule(dateTimeQueryService, messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
+            return new DateOfBirth_14Rule(dateTimeQueryService, learningDeliveryFAMQueryService, validationErrorHandler);
         }
 
         [Theory]
@@ -128,17 +128,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             };
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             
             dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(17);
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDeliveryFAMs, "LDM", "034")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDeliveryFAMs, "LDM", "034")).Returns(true);
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("DateOfBirth_14", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = NewRule(dateTimeQueryServiceMock.Object, messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(dateTimeQueryServiceMock.Object, learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -169,11 +169,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
                 }
             };
             
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
             
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDeliveryFAMs, "LDM", "034")).Returns(false);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDeliveryFAMs, "LDM", "034")).Returns(false);
 
-            var rule = NewRule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService: messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
         }

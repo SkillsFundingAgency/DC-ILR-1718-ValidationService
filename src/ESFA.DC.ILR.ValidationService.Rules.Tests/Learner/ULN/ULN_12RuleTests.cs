@@ -55,11 +55,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDelivery = new MessageLearnerLearningDelivery[] { }                
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(false);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(false);
 
-            var rule = new ULN_12Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, null);
+            var rule = new ULN_12Rule(learningDeliveryFAMQueryServiceMock.Object, null);
 
             rule.Validate(learner);
         }
@@ -80,15 +80,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             };
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(true);
             
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ULN_12", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new ULN_12Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = new ULN_12Rule(learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 

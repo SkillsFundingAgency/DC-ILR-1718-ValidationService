@@ -9,12 +9,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
 {
     public class FamilyName_02Rule : AbstractRule, IRule<MessageLearner>
     {
-        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
-        public FamilyName_02Rule(ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public FamilyName_02Rule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+            _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
         public void Validate(MessageLearner objectToValidate)
@@ -29,7 +29,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
         {
             return learningDeliveries != null
                 && (learningDeliveries.All(ld => ld.FundModel == 10)
-                || learningDeliveries.All(ld => ld.FundModel == 99 && _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
+                || learningDeliveries.All(ld => ld.FundModel == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
         public bool ConditionMet(long planLearnHours, string familyName)

@@ -11,15 +11,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
     public class DateOfBirth_14Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDateTimeQueryService _dateTimeQueryService;
-        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long?> _fundModels = new HashSet<long?> { 35, 81 };
         
-        public DateOfBirth_14Rule(IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public DateOfBirth_14Rule(IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _dateTimeQueryService = dateTimeQueryService;
-            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+            _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
         public void Validate(ILearner objectToValidate)
@@ -30,7 +30,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
                     learningDelivery.FundModelNullable,
                     objectToValidate.DateOfBirthNullable,
                     learningDelivery.LearnStartDateNullable,
-                    _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.LDM, "034")))
+                    _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.LDM, "034")))
                 {
                     HandleValidationError(RuleNameConstants.DateOfBirth_14, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }

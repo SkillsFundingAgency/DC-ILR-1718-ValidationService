@@ -34,11 +34,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
             };
 
-            var messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "108")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "108")).Returns(true);
             
-            var rule = new FamilyName_01Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceMock.Object, null);
+            var rule = new FamilyName_01Rule(learningDeliveryFAMQueryServiceMock.Object, null);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
         }

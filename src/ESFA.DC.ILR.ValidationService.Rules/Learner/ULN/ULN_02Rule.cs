@@ -9,14 +9,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
     public class ULN_02Rule : AbstractRule, IRule<MessageLearner>
     {
-        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long> _fundModels = new long[] { 99, 10 };
 
-        public ULN_02Rule(ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
+        public ULN_02Rule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+            _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
         public void Validate(MessageLearner objectToValidate)
@@ -37,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
         {
-            return _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "1");
+            return _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "1");
         }
     }
 }

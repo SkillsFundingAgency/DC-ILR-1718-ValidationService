@@ -12,16 +12,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
     {
         private readonly IValidationDataService _validationDataService;
         private readonly IDateTimeQueryService _dateTimeQueryService;
-        private readonly ILearningDeliveryFAMQueryService _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+        private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
         private readonly IEnumerable<long?> _fundModels = new HashSet<long?>() { 25, 82 };
 
-        public DateOfBirth_20Rule(IValidationDataService validationDataService, IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler) 
+        public DateOfBirth_20Rule(IValidationDataService validationDataService, IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler) 
             : base(validationErrorHandler)
         {
             _validationDataService = validationDataService;
             _dateTimeQueryService = dateTimeQueryService;
-            _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = messageLearnerLearningDeliveryLearningDeliveryFAMQueryService;
+            _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
         public void Validate(ILearner objectToValidate)
@@ -32,7 +32,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
                     learningDelivery.FundModelNullable,
                     objectToValidate.DateOfBirthNullable,
                     _validationDataService.AcademicYearAugustThirtyFirst,
-                    _messageLearnerLearningDeliveryLearningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "107")))
+                    _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "107")))
                 {
                     HandleValidationError(RuleNameConstants.DateOfBirth_20, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
