@@ -66,5 +66,9 @@
         public const string PlanEEPHours_01Rule = "PlanEEPHours_01";
 
         public const string MathGrade_01Rule = "MathGrade_01";
+        public const string MathGrade_02Rule = "MathGrade_02";
+        public const string MathGrade_03Rule = "MathGrade_03";
+        public const string MathGrade_04Rule = "MathGrade_04";
+        
     }
 }
