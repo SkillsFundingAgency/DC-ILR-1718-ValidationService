@@ -48,6 +48,7 @@
     <Compile Include="Derived\Interface\IDD04.cs" />
     <Compile Include="Derived\Interface\IDD07.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
+    <Compile Include="LearnerFamConstants.cs" />
     <Compile Include="Learner\Accom\Accom_01Rule.cs" />
     <Compile Include="Learner\ALSCost\ALSCost_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_02Rule.cs" />
@@ -71,6 +72,8 @@
     <Compile Include="Learner\GivenNames\GivenNames_04Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_02Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_01Rule.cs" />
+    <Compile Include="Learner\MathGrade\MathGrade_04Rule.cs" />
+    <Compile Include="Learner\MathGrade\MathGrade_03Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_01Rule.cs" />
     <Compile Include="Learner\NINumber\NINumber_02Rule.cs" />
     <Compile Include="Learner\NINumber\NINumber_01Rule.cs" />
