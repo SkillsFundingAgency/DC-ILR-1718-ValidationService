@@ -75,5 +75,8 @@
         public const string EngGrade_03Rule = "EngGrade_03";
         public const string EngGrade_04Rule = "EngGrade_04";
 
+        public const string PostCodePrior_02Rule = "PostCodePrior_02";
+        public const string PostCode_15Rule = "PostCode_15";
+
     }
 }

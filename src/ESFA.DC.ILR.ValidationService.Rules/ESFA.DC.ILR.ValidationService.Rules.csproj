@@ -87,6 +87,8 @@
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_02Rule.cs" />
     <Compile Include="Learner\PlanLearnHours\PlanLearnHours_01Rule.cs" />
     <Compile Include="Learner\PMUKPRN\PMUKPRN_01Rule.cs" />
+    <Compile Include="Learner\Postcode\Postcode_15Rule.cs" />
+    <Compile Include="Learner\PostcodePrior\PostcodePrior_02Rule.cs" />
     <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_03Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_07Rule.cs" />

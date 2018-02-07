@@ -15,7 +15,7 @@ using Xunit;
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
 {
 
-    [Category("NINumber_01Tests")]
+   
     public class NINumber_01Tests
     {
         [Theory]
@@ -29,7 +29,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         {
             var rule = new NINumber_01Rule(null);
 
-            rule.ConditionMet("AZ0123456C").Should().BeTrue();
+            rule.ConditionMet(niNumber).Should().BeTrue();
         }
 
         [Theory]
