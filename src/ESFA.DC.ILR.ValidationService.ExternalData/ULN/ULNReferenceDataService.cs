@@ -13,9 +13,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.ULN
             _referenceDataCache = referenceDataCache;
         }
 
-        public bool Exists(long uln)
+        public bool Exists(long? uln)
         {
-            return _referenceDataCache.ULNs.Contains(uln);
+            return uln.HasValue &&
+                _referenceDataCache.ULNs.Contains(uln.Value);
         }
     }
 }

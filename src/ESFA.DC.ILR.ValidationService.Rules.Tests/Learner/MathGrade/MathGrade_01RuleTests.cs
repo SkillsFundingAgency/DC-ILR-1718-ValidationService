@@ -1,4 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using FluentAssertions;
 using Moq;
@@ -10,6 +11,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
 {
     public class MathGrade_01RuleTests
     {
+        private MathGrade_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new MathGrade_01Rule(validationErrorHandler);
+        }
+
         [Theory]
         [InlineData(null,25)]
         [InlineData(null,82)]
@@ -17,10 +23,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
         [InlineData("", 25)]
         public void ConditionMet_True(string mathGrade , long? fundModel)
         {
-            var rule = new MathGrade_01Rule(null);
-            rule.ConditionMet(mathGrade, fundModel).Should().BeTrue();
+            NewRule().ConditionMet(mathGrade, fundModel).Should().BeTrue();
         }
-
 
         [Theory]
         [InlineData(null, 10)]
@@ -28,27 +32,23 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
         [InlineData(10, 25)]
         public void ConditionMet_False(long? planEepHours, long? fundModel)
         {
-            var rule = new MathGrade_01Rule(null);
-            rule.ConditionMet("X", 82).Should().BeFalse();
+            NewRule().ConditionMet("X", 82).Should().BeFalse();
         }
-
 
         [Theory]
         [InlineData(25)]
         [InlineData(82)]
-        public void ConditionFundModel_True(long? fundModel)
+        public void FundModelConditionMet_True(long? fundModel)
         {
-            var rule = new MathGrade_01Rule(null);
-            rule.FundModelConditionMet(fundModel).Should().BeTrue();
+            NewRule().FundModelConditionMet(fundModel).Should().BeTrue();
         }
 
         [Theory]
         [InlineData(15)]
         [InlineData(null)]
-        public void ConditionFundModel_False(long? fundModel)
+        public void FundModelConditionMet_False(long? fundModel)
         {
-            var rule = new MathGrade_01Rule(null);
-            rule.FundModelConditionMet(fundModel).Should().BeFalse();
+            NewRule().FundModelConditionMet(fundModel).Should().BeFalse();
         }
 
         [Fact]
@@ -57,10 +57,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             var learner = SetupLearner("");
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("MathGrade_01", null, null, null);
             
-            var rule = new MathGrade_01Rule(validationErrorHandlerMock.Object);
+            var rule = NewRule(validationErrorHandlerMock.Object);
+
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
 
@@ -70,32 +73,31 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             var learner = SetupLearner("A");
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("MathGrade_01", null, null, null);
             
-            var rule = new MathGrade_01Rule(validationErrorHandlerMock.Object);
+            var rule = NewRule(validationErrorHandlerMock.Object);
+
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
-        private static MessageLearner SetupLearner(string mathGrade)
+        private ILearner SetupLearner(string mathGrade)
         {
-            var learner = new MessageLearner
+            var learner = new TestLearner()
             {
                 MathGrade = mathGrade,
-                LearningDelivery = new[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 25,
-                        FundModelSpecified = true
+                        FundModelNullable = 25
                     }
                 }
             };
+
             return learner;
         }
-
-
-
-
     }
 }

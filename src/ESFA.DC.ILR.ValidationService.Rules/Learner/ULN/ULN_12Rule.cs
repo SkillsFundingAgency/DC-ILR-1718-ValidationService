@@ -1,11 +1,11 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
-    public class ULN_12Rule : AbstractRule, IRule<MessageLearner>
+    public class ULN_12Rule : AbstractRule, IRule<ILearner>
     {
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
@@ -15,11 +15,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
             _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDelivery)
+            foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(_learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.ACT, "1"), objectToValidate.ULNNullable))
+                if (ConditionMet(_learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1"), objectToValidate.ULNNullable))
                 {
                     HandleValidationError(RuleNameConstants.ULN_12, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }

@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate;
 using FluentAssertions;
@@ -9,14 +9,17 @@ using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartDate
 {
-    public class LearnStartDate_02Tests
+    public class LearnStartDate_02RuleTests
     {
+        private LearnStartDate_02Rule NewRule(IValidationDataService validationDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LearnStartDate_02Rule(validationDataService, validationErrorHandler);
+        }
+
         [Fact]
         public void ConditionMet_True()
         {
-            var rule = new LearnStartDate_02Rule(null, null);
-
-            rule.ConditionMet(new DateTime(2005, 1, 1), new DateTime(2017, 8, 1)).Should().BeTrue();
+            NewRule().ConditionMet(new DateTime(2005, 1, 1), new DateTime(2017, 8, 1)).Should().BeTrue();
         }
 
         [Theory]
@@ -24,21 +27,25 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         [InlineData(2030, 1, 1)]
         public void ConditionMet_False(int year, int month, int day)
         {
-            var rule = new LearnStartDate_02Rule(null, null);
+            NewRule().ConditionMet(new DateTime(year, month, day), new DateTime(2017, 8, 1)).Should().BeFalse();
+        }
 
-            rule.ConditionMet(new DateTime(year, month, day), new DateTime(2017, 8, 1)).Should().BeFalse();
+        [Fact]
+        public void ConditionMet_False_LearnStartDate_Null()
+        {
+            NewRule().ConditionMet(null, new DateTime(2017, 8, 1)).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDate = new DateTime(2015, 1, 1),
+                        LearnStartDateNullable = new DateTime(2015, 1, 1),
                     }
                 }
             };
@@ -47,7 +54,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
 
             validationDataServiceMock.SetupGet(vd => vd.AcademicYearStart).Returns(new DateTime(2017, 8, 1));
 
-            var rule = new LearnStartDate_02Rule(validationDataServiceMock.Object, null);
+            var rule = NewRule(validationDataServiceMock.Object);
 
             rule.Validate(learner);
         }
@@ -55,13 +62,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         [Fact]
         public void Validate_Errors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDate = new DateTime(2005, 1, 1),
+                        LearnStartDateNullable = new DateTime(2005, 1, 1),
                     }
                 }
             };

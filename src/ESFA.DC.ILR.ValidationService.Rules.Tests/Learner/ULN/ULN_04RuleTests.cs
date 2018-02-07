@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
@@ -12,35 +12,38 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_04RuleTests
     {
-        [Fact]
-        public void ConditionMet_True()
+        private ULN_04Rule NewRule(IDD01 dd01 = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            var rule = new ULN_04Rule(null, null);
+            return new ULN_04Rule(dd01, validationErrorHandler);
+        }
 
-            rule.ConditionMet(1000000043, "N").Should().BeTrue();
+        [Theory]
+        [InlineData(1000000043)]
+        [InlineData(null)]
+        public void ConditionMet_True(long? uln)
+        {
+            NewRule().ConditionMet(uln, "N").Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False()
         {
-            var rule = new ULN_04Rule(null, null);
-
-            rule.ConditionMet(1000000004, "4").Should().BeFalse();
+            NewRule().ConditionMet(1000000004, "4").Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 1000000043,
+                ULNNullable = 1000000043,
             };
 
             var dd01Mock = new Mock<IDD01>();
 
             dd01Mock.Setup(dd => dd.Derive(1000000043)).Returns("Y");
 
-            var rule = new ULN_04Rule(dd01Mock.Object, null);
+            var rule = NewRule(dd01Mock.Object);
 
             rule.Validate(learner);
         }
@@ -48,9 +51,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 1000000042,
+                ULNNullable = 1000000042,
             };
 
             var dd01Mock = new Mock<IDD01>();

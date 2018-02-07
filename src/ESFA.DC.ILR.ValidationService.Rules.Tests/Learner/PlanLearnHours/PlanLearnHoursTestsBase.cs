@@ -1,36 +1,24 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.ValidationService.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
 {
     public abstract class PlanLearnHoursTestsBase
     {
-        protected MessageLearner SetupLearner(long? planLearnHours, long? planEepHours, long? fundModel)
+        protected ILearner SetupLearner(long? planLearnHours, long? planEepHours, long? fundModel)
         {
-            var learner = new MessageLearner
+            return new TestLearner()
             {
-                PlanLearnHours = planLearnHours ?? 0,
-                PlanLearnHoursSpecified = planLearnHours.HasValue,
-                PlanEEPHours = planEepHours ?? 0,
-                PlanEEPHoursSpecified = planEepHours.HasValue
-            };
-
-            var learningDelivery = new MessageLearnerLearningDelivery()
-            {
-                FundModel = fundModel ?? 0,
-                FundModelSpecified = fundModel.HasValue
-            };
-            learner.LearningDelivery = new MessageLearnerLearningDelivery[] { learningDelivery };
-            return learner;
-        }
-
-      
+                PlanLearnHoursNullable = planLearnHours,
+                PlanEEPHoursNullable = planEepHours,
+                LearningDeliveries = new TestLearningDelivery[]
+                {
+                    new TestLearningDelivery()
+                    {
+                        FundModelNullable = fundModel,                        
+                    }
+                }
+            };            
+        }      
     }
 }

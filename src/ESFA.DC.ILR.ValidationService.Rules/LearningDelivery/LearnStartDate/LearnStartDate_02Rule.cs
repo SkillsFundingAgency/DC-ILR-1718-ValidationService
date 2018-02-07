@@ -1,11 +1,11 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate
 {
-    public class LearnStartDate_02Rule : AbstractRule, IRule<MessageLearner>
+    public class LearnStartDate_02Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IValidationDataService _validationDataService;
 
@@ -15,20 +15,21 @@ namespace ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate
             _validationDataService = validationDataService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDelivery)
+            foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(learningDelivery.LearnStartDate, _validationDataService.AcademicYearStart))
+                if (ConditionMet(learningDelivery.LearnStartDateNullable, _validationDataService.AcademicYearStart))
                 {
                     HandleValidationError(RuleNameConstants.LearnStartDate_02, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
 
-        public bool ConditionMet(DateTime learnStartDate, DateTime academicYearStart)
+        public bool ConditionMet(DateTime? learnStartDate, DateTime academicYearStart)
         {
-            return learnStartDate < academicYearStart.AddYears(-10);
+            return learnStartDate.HasValue
+                && learnStartDate < academicYearStart.AddYears(-10);
         }
     }
 }

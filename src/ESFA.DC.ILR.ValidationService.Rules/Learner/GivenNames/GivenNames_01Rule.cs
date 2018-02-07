@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
 {
-    public class GivenNames_01Rule : AbstractRule, IRule<MessageLearner>
+    public class GivenNames_01Rule : AbstractRule, IRule<ILearner>
     {
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
@@ -16,9 +16,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
             _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            if (objectToValidate.LearningDelivery == null || !objectToValidate.LearningDelivery.All(ld => Exclude(ld)))
+            if (objectToValidate.LearningDeliveries == null || !objectToValidate.LearningDeliveries.All(ld => Exclude(ld)))
             {
                 if (ConditionMet(objectToValidate.GivenNames))
                 {
@@ -27,15 +27,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
             }            
         }
 
-        public bool ConditionMet(string familyName)
+        public bool ConditionMet(string givenName)
         {
-            return string.IsNullOrWhiteSpace(familyName);
+            return string.IsNullOrWhiteSpace(givenName);
         }
 
-        public bool Exclude(MessageLearnerLearningDelivery learningDelivery)
+        public bool Exclude(ILearningDelivery learningDelivery)
         {
-            return learningDelivery.FundModel == 10
-                || (learningDelivery.FundModel == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108"));
+            return learningDelivery.FundModelNullable == 10
+                || (learningDelivery.FundModelNullable == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "108"));
         }
     }
 }

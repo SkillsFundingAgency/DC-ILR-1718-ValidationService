@@ -1,5 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -14,52 +14,45 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_12RuleTests
     {
-        [Fact]
-        public void ConditionMet_True_NullULN()
+        private ULN_12Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            var rule = new ULN_12Rule(null, null);
-
-            rule.ConditionMet(true, null).Should().BeTrue();
+            return new ULN_12Rule(learningDeliveryFAMQueryService, validationErrorHandler);
         }
 
-        [Fact]
-        public void ConditionMet_True_TemporaryULN()
+        [Theory]
+        [InlineData(null)]
+        [InlineData(9999999999)]
+        public void ConditionMet_True_NullULN(long? uln)
         {
-            var rule = new ULN_12Rule(null, null);
-
-            rule.ConditionMet(true, 9999999999).Should().BeTrue();
+            NewRule().ConditionMet(true, uln).Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False_FAM()
         {
-            var rule = new ULN_12Rule(null, null);
-
-            rule.ConditionMet(false, 1).Should().BeFalse();
+            NewRule().ConditionMet(false, 1).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_ULN()
         {
-            var rule = new ULN_12Rule(null, null);
-
-            rule.ConditionMet(true, 1);
+            NewRule().ConditionMet(true, 1).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoError()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 1,
-                LearningDelivery = new MessageLearnerLearningDelivery[] { }                
+                ULNNullable = 1,
+                LearningDeliveries = new TestLearningDelivery[] { }                
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(false);
 
-            var rule = new ULN_12Rule(learningDeliveryFAMQueryServiceMock.Object, null);
+            var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
         }
@@ -67,14 +60,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_Error()
         {            
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULNSpecified = false,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                        LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                     }
                 }
             };
@@ -88,7 +80,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new ULN_12Rule(learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
