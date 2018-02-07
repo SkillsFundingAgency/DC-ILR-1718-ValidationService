@@ -1,4 +1,5 @@
 ﻿using ESFA.DC.ILR.Model;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -121,21 +122,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
             var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = academicYearAugustThirtyFirst,
-                        FundModelSpecified = true,
-                        FundModel = 25,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        LearnStartDateNullable = academicYearAugustThirtyFirst,
+                        FundModelNullable = 25,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };
@@ -165,19 +163,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
             var academicYearStartDate = new DateTime(2017, 8, 31);
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModelSpecified = true,
-                        FundModel = 25,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        FundModelNullable = 25,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };

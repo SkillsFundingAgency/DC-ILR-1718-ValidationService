@@ -1,5 +1,6 @@
 ﻿using ESFA.DC.ILR.Model;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -48,16 +49,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [InlineData("AZ123456C", "ACT", "1")]
         public void Validate_NoErrors(string niNumber, string famCode, string famType)
         {
-
-            var learner = new MessageLearner();
-            learner.NINumber = niNumber;
-
-            var learningDeliveries = new MessageLearnerLearningDelivery()
+            var learningDeliveries = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
-            learner.LearningDelivery = new MessageLearnerLearningDelivery[] { learningDeliveries};
             
+            var learner = new TestLearner()
+            {
+                NINumber = niNumber,
+                LearningDeliveries = new TestLearningDelivery[] { learningDeliveries}
+            };
+
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("NINumber_02", null, null, null);
 
@@ -80,14 +82,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [InlineData(null)]
         public void Validate_Error(string niNumber)
         {
-            var learner = new MessageLearner();
-            learner.NINumber = niNumber;
-
-            var learningDeliveries = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
-            learner.LearningDelivery = new MessageLearnerLearningDelivery[] { learningDeliveries };
+
+            var learner = new TestLearner()
+            {
+                NINumber = niNumber,
+                LearningDeliveries = new TestLearningDelivery[] { learningDelivery }
+            };
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("NINumber_02", null, null, null);

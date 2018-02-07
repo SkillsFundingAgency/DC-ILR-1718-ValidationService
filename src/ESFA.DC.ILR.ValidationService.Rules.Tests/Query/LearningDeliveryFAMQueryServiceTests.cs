@@ -1,21 +1,20 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Rules.Query;
 using FluentAssertions;
-using System.Collections.Generic;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
 {
-    public class MessageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceTests
+    public class LearningDeliveryFAMQueryServiceTests
     {   
         [Fact]
         public void HasAnyLearningDeliveryFAMCodesForType_True()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeThree" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeThree" },
             };
 
             var codes = new string[] { "CodeOne", "CodeThree" };
@@ -38,11 +37,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         [Fact]
         public void HasAnyLearningDeliveryFAMCodesForType_False_CodesNull()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeThree" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeThree" },
             };
             
 
@@ -54,11 +53,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         [Fact]
         public void HasAnyLearningDeliveryFAMCodesForType_False_Mismatch()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeThree" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeThree" },
             };
 
             var codes = new string[] { "CodeTwo", "CodeThree" };
@@ -71,10 +70,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         [Fact]
         public void HasLearningDeliveryFAMCodeForType_True()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },            
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },            
             };
 
             var queryService = new LearningDeliveryFAMQueryService();
@@ -93,10 +92,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         [Fact]
         public void HasLearningDeliveryFAMCodeForType_FalseMismatch()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne", LearnDelFAMCode = "CodeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo", LearnDelFAMCode = "CodeTwo" },
             };
 
             var queryService = new LearningDeliveryFAMQueryService();
@@ -107,11 +106,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         [Fact]
         public void HasLearningDeliveryFAMType_True()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo" }
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo" }
             };
             
             var queryService = new LearningDeliveryFAMQueryService();
@@ -122,11 +121,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         [Fact]
         public void HasLearningDeliveryFAMType_False()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[]
             {
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
-                new MessageLearnerLearningDeliveryLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo" }
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeOne" },
+                new TestLearningDeliveryFAM() { LearnDelFAMType = "TypeTwo" }
             };
 
             var queryService = new LearningDeliveryFAMQueryService();

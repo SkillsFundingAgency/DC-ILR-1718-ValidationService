@@ -14,9 +14,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 {
     public class FamilyName_02RuleTests
     {
-        public FamilyName_02Rule NewRule(ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        public FamilyName_02Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            return new FamilyName_02Rule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
+            return new FamilyName_02Rule(learningDeliveryFAMQueryService, validationErrorHandler);
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -13,9 +13,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_12RuleTests
     {
-        private DateOfBirth_12Rule NewRule(IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService messageLearnerLearningDeliveryLearningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        private DateOfBirth_12Rule NewRule(IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
         {
-            return new DateOfBirth_12Rule(dateTimeQueryService, messageLearnerLearningDeliveryLearningDeliveryFAMQueryService, validationErrorHandler);
+            return new DateOfBirth_12Rule(dateTimeQueryService, learningDeliveryFAMQueryService, validationErrorHandler);
         }
 
         [Fact]
@@ -106,21 +106,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
             var learnStartDate = new DateTime(2017, 6, 30);
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate,
-                        FundModelSpecified = true,
-                        FundModel = 10,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        LearnStartDateNullable = learnStartDate,
+                        FundModelNullable = 10,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };
@@ -148,21 +145,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
             var learnStartDate = new DateTime(2017, 6, 30);
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate,
-                        FundModelSpecified = true,
-                        FundModel = 10,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        LearnStartDateNullable = learnStartDate,
+                        FundModelNullable = 10,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };
@@ -171,7 +165,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasAnyLearningDeliveryFAMCodesForType(learningDeliveryFAMs, "ASL", It.IsAny<IEnumerable<string>>())).Returns(false);
 
-            var rule = NewRule(messageLearnerLearningDeliveryLearningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
         }
