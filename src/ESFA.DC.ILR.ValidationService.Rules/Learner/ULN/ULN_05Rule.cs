@@ -2,6 +2,7 @@
 using ESFA.DC.ILR.ValidationService.ExternalData.ULN.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
+using ESFA.DC.ILR.ValidationService.Rules.Constants;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {

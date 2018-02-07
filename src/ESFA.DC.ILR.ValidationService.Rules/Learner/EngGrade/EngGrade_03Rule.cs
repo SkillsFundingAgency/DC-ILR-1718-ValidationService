@@ -1,6 +1,7 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
+using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
 
@@ -36,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade
         {
             return !string.IsNullOrWhiteSpace(engGrade) &&
                    _mathGrades.Contains(engGrade) &&
-                   !_learnerFamQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamConstants.EDF_FamType, 2);
+                   !_learnerFamQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamTypeConstants.EDF, 2);
 
         }
         

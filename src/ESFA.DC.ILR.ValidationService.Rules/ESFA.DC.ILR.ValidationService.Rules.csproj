@@ -48,8 +48,9 @@
     <Compile Include="Derived\Interface\IDD04.cs" />
     <Compile Include="Derived\Interface\IDD07.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
-    <Compile Include="LearnerFamConstants.cs" />
+    <Compile Include="Constants\LearnerFamTypeConstants.cs" />
     <Compile Include="Learner\Accom\Accom_01Rule.cs" />
+    <Compile Include="Learner\AddLine1\AddLine1_03Rule.cs" />
     <Compile Include="Learner\ALSCost\ALSCost_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_01Rule.cs" />
@@ -105,7 +106,7 @@
     <Compile Include="Learner\ULN\ULN_11Rule.cs" />
     <Compile Include="Learner\ULN\ULN_10Rule.cs" />
     <Compile Include="Learner\ULN\ULN_12Rule.cs" />
-    <Compile Include="LearningDeliveryFAMTypeConstants.cs" />
+    <Compile Include="Constants\LearningDeliveryFAMTypeConstants.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_02Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_03Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_05Rule.cs" />
@@ -117,8 +118,8 @@
     <Compile Include="Query\Interface\ILearnerFAMQueryService.cs" />
     <Compile Include="Query\LearningDeliveryFAMQueryService.cs" />
     <Compile Include="Query\LearnerFAMQueryService.cs" />
-    <Compile Include="RuleNameConstants.cs" />
-    <Compile Include="ValidationConstants.cs" />
+    <Compile Include="Constants\RuleNameConstants.cs" />
+    <Compile Include="Constants\ValidationConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
