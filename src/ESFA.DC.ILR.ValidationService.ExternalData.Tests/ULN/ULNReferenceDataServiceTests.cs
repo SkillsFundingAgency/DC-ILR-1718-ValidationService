@@ -32,5 +32,13 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ULN
 
             ulnReferenceDataService.Exists(4).Should().BeFalse();
         }
+        
+        [Fact]
+        public void Exists_False_Null()
+        {
+            var ulnReferenceDataService = new ULNReferenceDataService(null);
+
+            ulnReferenceDataService.Exists(null).Should().BeFalse();
+        }
     }
 }

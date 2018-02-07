@@ -1,4 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours;
@@ -13,16 +14,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
 {
     public class PlanEEPHours_01RuleTests
     {
+        private PlanEEPHours_01Rule NewRule(IDD07 dd07 = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PlanEEPHours_01Rule(dd07, validationErrorHandler);
+        }
+
         [Theory]
         [InlineData(25)]
         [InlineData(82)]
         public void ConditionMet_True(long? fundModel)
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-         
-            rule.ConditionMet(null,fundModel).Should().BeTrue();
+            NewRule().ConditionMet(null,fundModel).Should().BeTrue();
         }
-
 
         [Theory]
         [InlineData(null,10)]
@@ -30,52 +33,40 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         [InlineData(10, 25)]
         public void ConditionMet_False(long? planEepHours, long? fundModel )
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            rule.ConditionMet(10,82).Should().BeFalse();
+            NewRule().ConditionMet(10,82).Should().BeFalse();
         }
 
         [Fact]
         public void ExcludeConditionMet_AllAimsClosed_True()
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            var learningDelivers = new List<MessageLearnerLearningDelivery>()
+            var learningDeliveries = new List<TestLearningDelivery>()
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    LearnActEndDate = DateTime.Now,
-                    LearnActEndDateSpecified = true
+                    LearnActEndDateNullable = new DateTime(2018, 1, 1)
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    LearnActEndDate = DateTime.Now,
-                    LearnActEndDateSpecified = true
+                    LearnActEndDateNullable = new DateTime(2018, 1, 1)                    
                 }
             };
 
-            rule.HasAllLearningAimsClosedExcludeConditionMet(learningDelivers).Should().BeTrue();
+            NewRule().HasAllLearningAimsClosedExcludeConditionMet(learningDeliveries).Should().BeTrue();
         }
 
         [Fact]
         public void ExcludeConditionMet_All_AimsClosed_False()
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            var learningDelivers = new List<MessageLearnerLearningDelivery>()
+            var learningDelivers = new List<TestLearningDelivery>()
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery(),
+                new TestLearningDelivery()
                 {
-                    LearnActEndDateSpecified = false
-                },
-                new MessageLearnerLearningDelivery()
-                {
-                    LearnActEndDate = DateTime.Now,
-                    LearnActEndDateSpecified = true
+                    LearnActEndDateNullable = new DateTime(2018, 1, 1),
                 }
             };
 
-            rule.HasAllLearningAimsClosedExcludeConditionMet(learningDelivers).Should().BeFalse();
+            NewRule().HasAllLearningAimsClosedExcludeConditionMet(learningDelivers).Should().BeFalse();
         }
 
         [Theory]
@@ -89,7 +80,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
 
             dd07Mock.Setup(dd => dd.Derive(progType)).Returns("Y");
 
-            var rule = new PlanEEPHours_01Rule(null, dd07Mock.Object);
+            var rule = NewRule(dd07Mock.Object);
+
             rule.Exclude(learningDelivery).Should().BeTrue();
         }
 
@@ -101,9 +93,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
             var learningDelivery = SetupLearningDelivery(fundModel, progType);
 
             var dd07Mock = new Mock<IDD07>();
+
             dd07Mock.Setup(dd => dd.Derive(progType)).Returns("N");
 
-            var rule = new PlanEEPHours_01Rule(null, dd07Mock.Object);
+            var rule = NewRule(dd07Mock.Object);
 
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
@@ -111,33 +104,25 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         [Fact]
         public void ExcludeConditionDD07_False()
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            rule.HasLearningDeliveryDd07ExcludeConditionMet("").Should().BeFalse();
+            NewRule().HasLearningDeliveryDd07ExcludeConditionMet("").Should().BeFalse();
         }
 
         [Fact]
         public void ExcludeConditionDD07_True()
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            rule.HasLearningDeliveryDd07ExcludeConditionMet("Y").Should().BeTrue();
+            NewRule().HasLearningDeliveryDd07ExcludeConditionMet("Y").Should().BeTrue();
         }
 
         [Fact]
         public void ExcludeConditionFundModel_True()
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            rule.HasLearningDeliveryFundModelExcludeConditionMet(70).Should().BeTrue();
+            NewRule().HasLearningDeliveryFundModelExcludeConditionMet(70).Should().BeTrue();
         }
 
         [Fact]
         public void ExcludeConditionFundModel_False()
         {
-            var rule = new PlanEEPHours_01Rule(null, null);
-
-            rule.HasLearningDeliveryFundModelExcludeConditionMet(10).Should().BeFalse();
+            NewRule().HasLearningDeliveryFundModelExcludeConditionMet(10).Should().BeFalse();
         }
 
         [Fact]
@@ -146,12 +131,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
             var learner = SetupLearner(null);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanEEPHours_01", null, null, null);
 
             var dd07Mock = new Mock<IDD07>();
+
             dd07Mock.Setup(dd => dd.Derive(It.IsAny<long>())).Returns("N");
 
-            var rule = new PlanEEPHours_01Rule(validationErrorHandlerMock.Object, dd07Mock.Object);
+            var rule = NewRule(dd07Mock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -164,46 +151,42 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
             var learner = SetupLearner(10);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanEEPHours_01", null, null, null);
 
             var dd07Mock = new Mock<IDD07>();
+
             dd07Mock.Setup(dd => dd.Derive(It.IsAny<long>())).Returns("N");
 
-            var rule = new PlanEEPHours_01Rule(validationErrorHandlerMock.Object, dd07Mock.Object);
+            var rule = NewRule(dd07Mock.Object, validationErrorHandlerMock.Object);
+
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
-        private static MessageLearner SetupLearner(long? planEEPHours)
+        private ILearner SetupLearner(long? planEEPHours)
         {
-            var learner = new MessageLearner
+            return new TestLearner()
             {
-                PlanEEPHoursSpecified= planEEPHours.HasValue,
-                PlanEEPHours = planEEPHours ?? 0,
-                LearningDelivery = new[]
+                PlanEEPHoursNullable = planEEPHours,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 25,
-                        FundModelSpecified = true
+                        FundModelNullable = 25,
                     }
                 }
-            };
-
-            return learner;
+            };            
         }
 
-        private MessageLearnerLearningDelivery SetupLearningDelivery(long? fundModel, long? progType)
+        private ILearningDelivery SetupLearningDelivery(long? fundModel, long? progType)
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            return new TestLearningDelivery()
             {
-                FundModelSpecified = fundModel.HasValue,
-                FundModel = fundModel ?? 0,
-                ProgType = progType ?? 0,
-                ProgTypeSpecified = progType.HasValue
+                FundModelNullable = fundModel,
+                ProgTypeNullable = progType,                
             };
-
-            return learningDelivery;
         }
     }
 }

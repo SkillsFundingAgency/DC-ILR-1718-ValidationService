@@ -1,5 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -17,14 +17,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Exclude_True()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "1")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "SOF", "1")).Returns(true);
 
             var uln_02 = new ULN_02Rule(learningDeliveryFAMQueryServiceMock.Object, null);
 
@@ -34,14 +34,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Exclude_False()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "1")).Returns(false);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "SOF", "1")).Returns(false);
 
             var uln_02 = new ULN_02Rule(learningDeliveryFAMQueryServiceMock.Object, null);
 
@@ -77,14 +77,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_NoErrors()
         {
-            var messageLearner = new MessageLearner()
+            var messageLearner = new TestLearner()
             {
-                ULN = 1,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 1,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 2,
+                        FundModelNullable = 2,
                     }
                 }
             };
@@ -101,23 +101,22 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_Errors()
         {
-            var messageLearner = new MessageLearner()
+            var messageLearner = new TestLearner()
             {
-                ULN = 9999999999,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 9999999999,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 10,
+                        FundModelNullable = 10,
                     },
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 99,
+                        FundModelNullable = 99,
                     }
                 }
             };
-
-
+            
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
@@ -127,6 +126,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             validationErrorHandlerMock.Setup(handle);
 
             var uln_02 = new ULN_02Rule(learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+
             uln_02.Validate(messageLearner);
 
             validationErrorHandlerMock.Verify(handle, Times.Exactly(2));

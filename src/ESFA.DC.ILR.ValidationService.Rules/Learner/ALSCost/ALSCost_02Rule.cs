@@ -12,12 +12,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
     /// Learner.ALSCost not null and LearnerFAM.LearnFAMType not HNS
     /// </summary>
     public class ALSCost_02Rule : AbstractRule, IRule<ILearner>
-    {
-        
+    {        
         private const string HnsFamCode = "HNS";
         private readonly ILearnerFAMQueryService _learnerFamQueryService;
 
-        public ALSCost_02Rule(IValidationErrorHandler validationErrorHandler,ILearnerFAMQueryService learnerFamQueryService)
+        public ALSCost_02Rule(ILearnerFAMQueryService learnerFamQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _learnerFamQueryService = learnerFamQueryService;
@@ -28,13 +27,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost
             if (ConditionMet(objectToValidate.ALSCostNullable,objectToValidate.LearnerFAMs))
             {
                 HandleValidationError(RuleNameConstants.ALSCost_02Rule, objectToValidate.LearnRefNumber);
-            }
-            
+            }            
         }
+
         public bool ConditionMet(long? aLsCostNullable, IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
-            return aLsCostNullable.HasValue && !_learnerFamQueryService.HasLearnerFAMType(learnerFams,HnsFamCode);
-        }
-        
+            return aLsCostNullable.HasValue 
+                && !_learnerFamQueryService.HasLearnerFAMType(learnerFams, HnsFamCode);
+        }        
     }
 }

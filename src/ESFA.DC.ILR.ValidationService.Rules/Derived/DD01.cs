@@ -7,19 +7,19 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Derived
 {
     public class DD01 : IDD01
     {
-        public string Derive(long uln)
+        public string Derive(long? uln)
         {
             if (uln == ValidationConstants.TemporaryULN)
             {
                 return ValidationConstants.Y;
             }
 
-            if (uln.ToString().Length != 10)
+            if (!uln.HasValue || uln.ToString().Length != 10)
             {
                 return ValidationConstants.N;
             }
 
-            var checkSum = CalculateCheckSum(uln);
+            var checkSum = CalculateCheckSum(uln.Value);
 
             if (checkSum == 0)
             {

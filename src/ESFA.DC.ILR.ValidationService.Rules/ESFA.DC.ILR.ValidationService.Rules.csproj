@@ -126,10 +126,6 @@
       <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
       <Name>ESFA.DC.ILR.Model.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
-      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
-      <Name>ESFA.DC.ILR.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
       <Project>{991F0564-9702-4B47-8B5F-7C5794563F05}</Project>
       <Name>ESFA.DC.ILR.ValidationService.ExternalData</Name>

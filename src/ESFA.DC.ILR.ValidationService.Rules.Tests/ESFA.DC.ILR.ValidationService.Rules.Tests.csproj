@@ -143,8 +143,8 @@
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_12RuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\DateTimeQueryServiceTests.cs" />
-    <Compile Include="Query\MessageLearnerFAMQueryServiceTests.cs" />
-    <Compile Include="Query\MessageLearnerLearningDeliveryLearningDeliveryFAMQueryServiceTests.cs" />
+    <Compile Include="Query\LearnerFAMQueryServiceTests.cs" />
+    <Compile Include="Query\LearningDeliveryFAMQueryServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -153,10 +153,6 @@
     <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
       <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
       <Name>ESFA.DC.ILR.Model.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
-      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
-      <Name>ESFA.DC.ILR.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.Tests.Model\ESFA.DC.ILR.Tests.Model.csproj">
       <Project>{7549613a-2491-4b74-8c82-da1112734451}</Project>

@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PrevUKPRN;
@@ -12,45 +12,41 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrevUKPRN
 {
     public class PrevUKPRN_01RuleTests
     {
+        private PrevUKPRN_01Rule NewRule(IOrganisationReferenceDataService organisationReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PrevUKPRN_01Rule(organisationReferenceDataService, validationErrorHandler);
+        }
+
         [Fact]
         public void NullConditionMet_True()
         {
-            var rule = new PrevUKPRN_01Rule(null, null);
-
-            rule.NullConditionMet(1).Should().BeTrue();
+            NewRule().NullConditionMet(1).Should().BeTrue();
         }
 
         [Fact]
         public void NullConditionMet_False()
         {
-            var rule = new PrevUKPRN_01Rule(null, null);
-
-            rule.NullConditionMet(null).Should().BeFalse();
+            NewRule().NullConditionMet(null).Should().BeFalse();
         }
 
         [Fact]
         public void LookupConditionMet_True()
         {
-            var rule = new PrevUKPRN_01Rule(null, null);
-
-            rule.LookupConditionMet(false).Should().BeTrue();
+            NewRule().LookupConditionMet(false).Should().BeTrue();
         }
 
         [Fact]
         public void LookupConditionMet_False()
         {
-            var rule = new PrevUKPRN_01Rule(null, null);
-
-            rule.LookupConditionMet(true).Should().BeFalse();
+            NewRule().LookupConditionMet(true).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                PrevUKPRNSpecified = true,
-                PrevUKPRN = 1,
+                PrevUKPRNNullable = 1,
             };
 
             var organisationReferenceDataServiceMock = new Mock<IOrganisationReferenceDataService>();
@@ -62,7 +58,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrevUKPRN
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new PrevUKPRN_01Rule(organisationReferenceDataServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(organisationReferenceDataServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
@@ -72,14 +68,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrevUKPRN
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
-            {
-                PrevUKPRNSpecified = false
-            };
+            var learner = new TestLearner();
          
-            var rule = new PrevUKPRN_01Rule(null, null);
-
-            rule.Validate(learner);
+            NewRule().Validate(learner);
         }
     }
 }

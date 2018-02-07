@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -20,9 +20,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [Fact]
         public void Exclude_True_FundModel10()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                FundModel = 10
+                FundModelNullable = 10
             };
 
             var rule = NewRule();
@@ -33,62 +33,52 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [Fact]
         public void Exclude_True_FundModel99()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                FundModel = 99,
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                FundModelNullable = 99,
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "SOF", "108")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "SOF", "108")).Returns(true);
 
             var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
         }
 
-        [Fact]
-        public void Exclude_False()
+        [Theory]
+        [InlineData(2)]
+        [InlineData(null)]
+        public void Exclude_False(long? fundModel)
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                FundModel = 2
+                FundModelNullable = fundModel
             };
 
-            var rule = NewRule();
-
-            rule.Exclude(learningDelivery).Should().BeFalse();
+            NewRule().Exclude(learningDelivery).Should().BeFalse();
         }
 
-        [Fact]
-        public void ConditionMet_True_Null()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("    ")]
+        public void ConditionMet_True_Null(string givenName)
         {
-            var rule = NewRule();
-
-            rule.ConditionMet(null).Should().BeTrue();
-        }
-
-        [Fact]
-        public void ConditionMet_True_Whitespace()
-        {
-            var rule = NewRule();
-
-            rule.ConditionMet("    ").Should().BeTrue();
+            NewRule().ConditionMet(givenName).Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False()
         {
-            var rule = NewRule();
-
-            rule.ConditionMet("Not Null or White Space").Should().BeFalse();
+            NewRule().ConditionMet("Not Null or White Space").Should().BeFalse();
         }
 
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
                 GivenNames = null
             };
@@ -109,34 +99,30 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
                 GivenNames = "Not Null"
             };
             
-            var rule = NewRule();
-
-            rule.Validate(learner);            
+            NewRule().Validate(learner);            
         }
 
         [Fact]
         public void Validate_NoErrors_AllExcluded()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
                 FamilyName = null,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 10
+                        FundModelNullable = 10
                     }
                 }
             };
 
-            var rule = NewRule();
-
-            rule.Validate(learner);
+            NewRule().Validate(learner);
         }
     }
 }

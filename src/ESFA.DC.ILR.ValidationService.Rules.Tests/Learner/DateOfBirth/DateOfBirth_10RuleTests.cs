@@ -1,4 +1,5 @@
 ﻿using ESFA.DC.ILR.Model;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
@@ -228,19 +229,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var learnStartDate = new DateTime(2014, 7, 1);
             var dateOfBirth = new DateTime(1998, 7, 2);
 
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearnStartDateSpecified = true,
-                LearnStartDate = learnStartDate,
-                ProgTypeSpecified = true,
-                ProgType = 25,
+                LearnStartDateNullable = learnStartDate,
+                ProgTypeNullable = 25,
             };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
                     learningDelivery
                 }
@@ -252,8 +250,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
-            dd04Mock.Setup(dd => dd.Derive(learner.LearningDelivery, learningDelivery)).Returns(learnStartDate);
-            dd07Mock.Setup(dd => dd.Derive(learningDelivery.ProgType)).Returns("Y");
+            dd04Mock.Setup(dd => dd.Derive(learner.LearningDeliveries, learningDelivery)).Returns(learnStartDate);
+            dd07Mock.Setup(dd => dd.Derive(learningDelivery.ProgTypeNullable)).Returns("Y");
             academicYearCalendarServiceMock.Setup(aycs => aycs.LastFridayInJuneForDateInAcademicYear(learnStartDate)).Returns(new DateTime(2018, 6, 29));
             dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, learnStartDate)).Returns(13);
 
@@ -272,14 +270,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
-            {
-                DateOfBirthSpecified = false
-            };
+            var learner = new TestLearner();
 
-            var rule = NewRule();
-
-            rule.Validate(learner);
+            NewRule().Validate(learner);
         }
     }    
 }

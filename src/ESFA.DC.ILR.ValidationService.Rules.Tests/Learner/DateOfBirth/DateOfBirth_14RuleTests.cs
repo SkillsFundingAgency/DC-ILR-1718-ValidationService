@@ -1,11 +1,10 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
 
@@ -41,9 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var dateOfBirth = new DateTime(2000, 1, 1);
             var learnStartDate = new DateTime(2017, 6, 30);           
 
-            var rule = NewRule();
-
-            rule.ConditionMet(35, dateOfBirth, learnStartDate, false).Should().BeFalse();
+            NewRule().ConditionMet(35, dateOfBirth, learnStartDate, false).Should().BeFalse();
         }
 
         [Fact]
@@ -52,9 +49,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var dateOfBirth = new DateTime(2000, 1, 1);
             var learnStartDate = new DateTime(2017, 6, 30);
 
-            var rule = NewRule();
-
-            rule.ConditionMet(null, dateOfBirth, learnStartDate, true).Should().BeFalse();
+            NewRule().ConditionMet(null, dateOfBirth, learnStartDate, true).Should().BeFalse();
         }
 
         [Fact]
@@ -73,9 +68,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var learnStartDate = new DateTime(2017, 6, 30);
 
-            var rule = NewRule();
-
-            rule.ConditionMet(35, null, learnStartDate, true).Should().BeFalse();
+            NewRule().ConditionMet(35, null, learnStartDate, true).Should().BeFalse();
         }
 
         [Fact]
@@ -83,9 +76,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
 
-            var rule = NewRule();
-
-            rule.ConditionMet(35, dateOfBirth, null, true).Should().BeFalse();
+            NewRule().ConditionMet(35, dateOfBirth, null, true).Should().BeFalse();
         }
 
         [Fact]
@@ -108,21 +99,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
             var learnStartDate = new DateTime(2017, 6, 30);
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate,
-                        FundModelSpecified = true,
-                        FundModel = 35,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        LearnStartDateNullable = learnStartDate,
+                        FundModelNullable = 35,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };
@@ -150,21 +138,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(2000, 1, 1);
             var learnStartDate = new DateTime(2017, 6, 30);
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDateSpecified = true,
-                        LearnStartDate = learnStartDate,
-                        FundModelSpecified = true,
-                        FundModel = 35,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        LearnStartDateNullable = learnStartDate,
+                        FundModelNullable = 35,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };

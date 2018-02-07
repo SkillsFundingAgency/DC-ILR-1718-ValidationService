@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -67,10 +67,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearStart = new DateTime(2017, 8, 1);
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth
+                DateOfBirthNullable = dateOfBirth
             };
 
             var validationDataServiceMock = new Mock<IValidationDataService>();
@@ -98,10 +97,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var dateOfBirth = new DateTime(1988, 12, 25);
             var academicYearStart = new DateTime(2017, 8, 1);
 
-            var learner = new MessageLearner()
-            {
-                DateOfBirthSpecified = false,
-            };
+            var learner = new TestLearner();
 
             var validationDataServiceMock = new Mock<IValidationDataService>();
 

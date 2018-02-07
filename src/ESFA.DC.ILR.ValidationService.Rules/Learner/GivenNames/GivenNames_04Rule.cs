@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
 {
-    public class GivenNames_04Rule : AbstractRule, IRule<MessageLearner>
+    public class GivenNames_04Rule : AbstractRule, IRule<ILearner>
     {
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
@@ -18,24 +18,26 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
             _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDelivery) && ConditionMet(objectToValidate.PlanLearnHours, objectToValidate.ULN, objectToValidate.GivenNames))
+            if (CrossLearningDeliveryConditionMet(objectToValidate.LearningDeliveries) && ConditionMet(objectToValidate.PlanLearnHoursNullable, objectToValidate.ULNNullable, objectToValidate.GivenNames))
             {
                 HandleValidationError(RuleNameConstants.GivenNames_04, objectToValidate.LearnRefNumber);
             }
         }
 
-        public bool CrossLearningDeliveryConditionMet(IEnumerable<MessageLearnerLearningDelivery> learningDeliveries)
+        public bool CrossLearningDeliveryConditionMet(IEnumerable<ILearningDelivery> learningDeliveries)
         {
             return learningDeliveries != null
-                && (learningDeliveries.All(ld => ld.FundModel == 10)
-                || learningDeliveries.All(ld => ld.FundModel == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAM, LearningDeliveryFAMTypeConstants.SOF, "108")));
+                && (learningDeliveries.All(ld => ld.FundModelNullable == 10)
+                || learningDeliveries.All(ld => ld.FundModelNullable == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(ld.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
-        public bool ConditionMet(long planLearnHours, long uln, string givenNames)
+        public bool ConditionMet(long? planLearnHours, long? uln, string givenNames)
         {
-            return planLearnHours <= 10 
+            return planLearnHours.HasValue
+                && planLearnHours <= 10 
+                && uln.HasValue
                 && uln != ValidationConstants.TemporaryULN 
                 && string.IsNullOrWhiteSpace(givenNames);
         }

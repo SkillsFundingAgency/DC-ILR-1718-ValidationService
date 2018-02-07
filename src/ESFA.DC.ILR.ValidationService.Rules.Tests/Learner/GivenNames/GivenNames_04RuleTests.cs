@@ -1,5 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -22,37 +22,35 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [Fact]
         public void CrossLearningDeliveryConditionMet_True_FundModel10()
         {
-            var learningDeliveries = new List<MessageLearnerLearningDelivery>()
+            var learningDeliveries = new List<TestLearningDelivery>()
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    FundModel = 10
+                    FundModelNullable = 10
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    FundModel = 10
+                    FundModelNullable = 10
                 }
             };
 
-            var rule = NewRule();
-
-            rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeTrue();
+            NewRule().CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeTrue();
         }
 
         [Fact]
         public void CrossLearningDeliveryConditionMet_True_FundModel99()
         {
-            var learningDeliveries = new List<MessageLearnerLearningDelivery>()
+            var learningDeliveries = new List<TestLearningDelivery>()
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    FundModel = 99,
-                    LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                    FundModelNullable = 99,
+                    LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    FundModel = 99,
-                    LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                    FundModelNullable = 99,
+                    LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                 }
             };
 
@@ -68,18 +66,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [Fact]
         public void CrossLearningDeliveryConditionMet_False()
         {
-            var learningDeliveries = new List<MessageLearnerLearningDelivery>()
+            var learningDeliveries = new List<TestLearningDelivery>()
             {
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    FundModel = 10
+                    FundModelNullable = 10
                 },
-                new MessageLearnerLearningDelivery()
+                new TestLearningDelivery()
                 {
-                    FundModel = 99,
-                    LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
+                    FundModelNullable = 99,
+                    LearningDeliveryFAMs = new TestLearningDeliveryFAM[]
                     {
-                        new MessageLearnerLearningDeliveryLearningDeliveryFAM()
+                        new TestLearningDeliveryFAM()
                         {
                             LearnDelFAMCode = "SOF",
                             LearnDelFAMType = "108"
@@ -88,17 +86,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
                 }
             };
 
-            var rule = NewRule();
-
-            rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeFalse();
+            NewRule().CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeFalse();
         }
         
         [Fact]
         public void CrossLearningDeliveryConditionMet_False_Null()
         {
-            var rule = NewRule();
-
-            rule.CrossLearningDeliveryConditionMet(null).Should().BeFalse();
+            NewRule().CrossLearningDeliveryConditionMet(null).Should().BeFalse();
         }
 
         [Theory]
@@ -107,51 +101,44 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [InlineData(4, "   ")]
         public void ConditionMet_True(long planLearnHours, string givenNames)
         {
-            var rule = NewRule();
-
-            rule.ConditionMet(planLearnHours, 1, givenNames).Should().BeTrue();
+            NewRule().ConditionMet(planLearnHours, 1, givenNames).Should().BeTrue();
         }        
 
-        [Fact]
-        public void ConditionMet_False_PlanLearnHours()
+        [Theory]
+        [InlineData(null)]
+        [InlineData(11)]
+        public void ConditionMet_False_PlanLearnHours(long? planLearnHours)
         {
-            var rule = NewRule();
-
-            rule.ConditionMet(11, 1, null).Should().BeFalse();
+            NewRule().ConditionMet(planLearnHours, 1, null).Should().BeFalse();
         }
 
-        [Fact]
-        public void ConditionMet_False_Uln()
+        [Theory]
+        [InlineData(null)]
+        [InlineData(9999999999)]
+        public void ConditionMet_False_Uln(long? uln)
         {
-            var rule = NewRule();
-
-            rule.ConditionMet(3, 9999999999, null);
-
+            NewRule().ConditionMet(3, uln, null);
         }
 
         [Fact]
         public void ConditionMet_False_GivenNames()
         {
-            var rule = NewRule();
-
-            rule.ConditionMet(3, 1, "Geoff").Should().BeFalse();
+            NewRule().ConditionMet(3, 1, "Geoff").Should().BeFalse();
         }
 
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                PlanLearnHours = 3,
-                PlanLearnHoursSpecified = true,
+                PlanLearnHoursNullable = 3,
                 GivenNames = null,
-                ULN = 1,
-                ULNSpecified = true,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 1,                
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 10
+                        FundModelNullable = 10
                     }
                 }
             };
@@ -172,14 +159,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                PlanLearnHours = 12
+                PlanLearnHoursNullable = 12
             };
 
-            var rule = NewRule();
-
-            rule.Validate(learner);
+            NewRule().Validate(learner);
         }
     }
 }

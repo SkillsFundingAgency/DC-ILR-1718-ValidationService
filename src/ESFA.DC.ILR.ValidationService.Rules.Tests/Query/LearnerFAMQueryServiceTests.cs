@@ -1,15 +1,14 @@
-﻿using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.ValidationService.Rules.Query;
+﻿using ESFA.DC.ILR.ValidationService.Rules.Query;
 using FluentAssertions;
 using System.Collections.Generic;
 using Moq;
 using Xunit;
-using System.Collections;
-using Castle.Core.Logging;
+using ESFA.DC.ILR.Tests.Model;
+using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
 {
-    public class MessageLearnerFAMQueryServiceTests
+    public class LearnerFAMQueryServiceTests
     {   
         [Fact]
         public void HasAnyLearnerFAMCodesForType_True()
@@ -93,14 +92,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
             queryService.HasLearnerFAMType(null, It.IsAny<string>());
         }
 
-        private  MessageLearnerLearnerFAM[] SetupLearnerFams()
+        private ILearnerFAM[] SetupLearnerFams()
         {
-            var learnerFams = new MessageLearnerLearnerFAM[]
+            var learnerFams = new TestLearnerFAM[]
             {
-                new MessageLearnerLearnerFAM() {LearnFAMType = "FamA", LearnFAMCode = 1, LearnFAMCodeSpecified = true},
-                new MessageLearnerLearnerFAM() {LearnFAMType = "FamB", LearnFAMCode = 2, LearnFAMCodeSpecified = true},
-                new MessageLearnerLearnerFAM() {LearnFAMType = "FamC", LearnFAMCode = 3, LearnFAMCodeSpecified = true},
-                new MessageLearnerLearnerFAM() {LearnFAMType = "FamC", LearnFAMCode = 5, LearnFAMCodeSpecified = true},
+                new TestLearnerFAM() { LearnFAMType = "FamA", LearnFAMCodeNullable = 1 },
+                new TestLearnerFAM() { LearnFAMType = "FamB", LearnFAMCodeNullable = 2 },
+                new TestLearnerFAM() { LearnFAMType = "FamC", LearnFAMCodeNullable = 3 },
+                new TestLearnerFAM() { LearnFAMType = "FamC", LearnFAMCodeNullable = 5 },
             };
             return learnerFams;
         }

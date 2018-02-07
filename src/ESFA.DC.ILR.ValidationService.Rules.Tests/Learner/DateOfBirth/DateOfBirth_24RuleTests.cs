@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using FluentAssertions;
@@ -51,11 +51,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_Errors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULNSpecified = true,
-                ULN = 1234,
-                DateOfBirthSpecified = false,
+                ULNNullable = 1234
             };
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -74,12 +72,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULNSpecified = true,
-                ULN = 1234,
-                DateOfBirthSpecified = true,
-                DateOfBirth = new DateTime(2112, 1, 1)
+                ULNNullable = 1234,
+                DateOfBirthNullable = new DateTime(2112, 1, 1)
             };            
 
             var rule = NewRule();

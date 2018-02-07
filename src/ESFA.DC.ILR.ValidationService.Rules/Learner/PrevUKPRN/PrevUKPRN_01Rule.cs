@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
@@ -6,7 +6,7 @@ using ESFA.DC.ILR.ValidationService.Rules.Constants;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrevUKPRN
 {
-    public class PrevUKPRN_01Rule : AbstractRule, IRule<MessageLearner>
+    public class PrevUKPRN_01Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IOrganisationReferenceDataService _organisationReferenceDataService;
 
@@ -16,10 +16,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrevUKPRN
             _organisationReferenceDataService = organisationReferenceDataService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
             if (NullConditionMet(objectToValidate.PrevUKPRNNullable) 
-                && LookupConditionMet(_organisationReferenceDataService.UkprnExists(objectToValidate.PrevUKPRN)))
+                && LookupConditionMet(_organisationReferenceDataService.UkprnExists(objectToValidate.PrevUKPRNNullable.Value)))
             {
                 HandleValidationError(RuleNameConstants.PrevUKPRN_01, objectToValidate.LearnRefNumber);
             }

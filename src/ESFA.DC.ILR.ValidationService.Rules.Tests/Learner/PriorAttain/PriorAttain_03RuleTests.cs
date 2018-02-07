@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.PriorAttain.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
@@ -42,10 +42,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner
+            var learner = new TestLearner
             {
-                PriorAttainSpecified = true,
-                PriorAttain = 100
+                PriorAttainNullable = 100
             };
 
             var priorAttainReferenceDataServiceMock = new Mock<IPriorAttainReferenceDataService>();
@@ -64,10 +63,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
         [Fact]
         public void Validate_NoError()
         {
-            var learner = new MessageLearner
+            var learner = new TestLearner
             {
-                PriorAttainSpecified = true,
-                PriorAttain = 11
+                PriorAttainNullable = 11
             };
 
             var priorAttainReferenceDataServiceMock = new Mock<IPriorAttainReferenceDataService>();

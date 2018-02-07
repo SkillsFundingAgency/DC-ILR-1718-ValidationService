@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -79,16 +79,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var dateOfBirth = new DateTime(1988, 12, 25);
             var learnStartDate = new DateTime(2017, 8, 1);
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = dateOfBirth,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = dateOfBirth,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModelSpecified = true,
-                        FundModel = 25,
+                        FundModelNullable = 25,
                     }
                 }
             };
@@ -115,19 +113,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
-                    {
-                        FundModelSpecified = false,
-                    }
+                    new TestLearningDelivery()
                 }
             };
 
             var validationDataServiceMock = new Mock<IValidationDataService>();
-
             validationDataServiceMock.SetupGet(vds => vds.AcademicYearAugustThirtyFirst).Returns(new DateTime(2017, 8, 31));
 
             var rule = NewRule(validationDataServiceMock.Object);

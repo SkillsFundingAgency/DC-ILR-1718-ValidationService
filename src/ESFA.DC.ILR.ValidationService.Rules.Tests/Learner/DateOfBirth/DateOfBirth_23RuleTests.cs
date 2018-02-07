@@ -1,4 +1,5 @@
 ﻿using ESFA.DC.ILR.Model;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
@@ -20,14 +21,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Exclude_True()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
             
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(true);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "LDM", "034")).Returns(true);
 
             var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object);
 
@@ -37,14 +38,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Exclude_False()
         {
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAM, "LDM", "034")).Returns(false);
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "LDM", "034")).Returns(false);
 
             var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object);
 
@@ -94,18 +95,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_Error()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = false,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModelSpecified = true,
-                        FundModel = 99,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        FundModelNullable = 99,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };
@@ -130,19 +129,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         [Fact]
         public void Validate_NoErrors()
         {
-            var learningDeliveryFAMs = new MessageLearnerLearningDeliveryLearningDeliveryFAM[] { };
+            var learningDeliveryFAMs = new TestLearningDeliveryFAM[] { };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirthSpecified = true,
-                DateOfBirth = new DateTime(1990, 1, 1),
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = new DateTime(1990, 1, 1),
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModelSpecified = true,
-                        FundModel = 99,
-                        LearningDeliveryFAM = learningDeliveryFAMs
+                        FundModelNullable = 99,
+                        LearningDeliveryFAMs = learningDeliveryFAMs
                     }
                 }
             };
