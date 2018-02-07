@@ -69,6 +69,11 @@
         public const string MathGrade_02Rule = "MathGrade_02";
         public const string MathGrade_03Rule = "MathGrade_03";
         public const string MathGrade_04Rule = "MathGrade_04";
-        
+
+        public const string EngGrade_01Rule = "EngGrade_01";
+        public const string EngGrade_02Rule = "EngGrade_02";
+        public const string EngGrade_03Rule = "EngGrade_03";
+        public const string EngGrade_04Rule = "EngGrade_04";
+
     }
 }

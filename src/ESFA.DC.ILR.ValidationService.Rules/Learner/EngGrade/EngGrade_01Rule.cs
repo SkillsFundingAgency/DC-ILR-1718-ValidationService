@@ -2,14 +2,14 @@
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 
-namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
+namespace ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade
 {
     /// <summary>
-    /// If the learner's learning aim is EFA funded, the GCSE maths qualification grade must be returned
+    /// LearningDelivery.FundModel = 25 or 82 and Learner.EngGrade is null
     /// </summary>
-    public class MathGrade_01Rule : AbstractRule, IRule<ILearner>
+    public class EngGrade_01Rule : AbstractRule, IRule<ILearner>
     {
-        public MathGrade_01Rule(IValidationErrorHandler validationErrorHandler)
+        public EngGrade_01Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             
@@ -20,17 +20,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
 
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(objectToValidate.MathGrade, learningDelivery.FundModelNullable))
+                if (ConditionMet(objectToValidate.EngGrade, learningDelivery.FundModelNullable))
                 {
-                    HandleValidationError(RuleNameConstants.MathGrade_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.EngGrade_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
 
         }
 
-        public bool ConditionMet(string mathGradeNullable,long? fundModelNullable)
+        public bool ConditionMet(string engGradeNullable,long? fundModelNullable)
         {
-            return string.IsNullOrWhiteSpace(mathGradeNullable) &&
+            return string.IsNullOrWhiteSpace(engGradeNullable) &&
                     FundModelConditionMet(fundModelNullable);
 
         }

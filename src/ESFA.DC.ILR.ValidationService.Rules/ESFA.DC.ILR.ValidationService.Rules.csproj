@@ -72,6 +72,9 @@
     <Compile Include="Learner\GivenNames\GivenNames_04Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_02Rule.cs" />
     <Compile Include="Learner\GivenNames\GivenNames_01Rule.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_01Rule.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_03Rule.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_04Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_04Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_03Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_01Rule.cs" />

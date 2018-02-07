@@ -1,6 +1,7 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade;
 using FluentAssertions;
 using Moq;
 using System;
@@ -26,11 +27,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             NewRule().ConditionMet(mathGrade, fundModel).Should().BeTrue();
         }
 
-        [Theory]
-        [InlineData(null, 10)]
-        [InlineData(10, 82)]
-        [InlineData(10, 25)]
-        public void ConditionMet_False(long? planEepHours, long? fundModel)
+        [Fact]
+        public void ConditionMet_False()
         {
             NewRule().ConditionMet("X", 82).Should().BeFalse();
         }
