@@ -21,13 +21,19 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
 {
     public class Addline1_03RuleTests
     {
+
+        private AddLine1_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearningDeliveryFAMQueryService learningDeliveryFamQueryService = null)
+        {
+            return new AddLine1_03Rule(validationErrorHandler, learningDeliveryFamQueryService);
+        }
+
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
         [InlineData(null)]
         public void ConditionMet_True(string addLine1)
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
 
             rule.ConditionMet(addLine1).Should().BeTrue();
         }
@@ -35,7 +41,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [Fact]
         public void ConditionMet_False()
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
 
             rule.ConditionMet("test").Should().BeFalse();
         }
@@ -45,7 +51,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [InlineData(10)]
         public void ExcludePlanLearnHoursConditionMet_True(long? planLearnHours)
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
 
             rule.ExcludeConditionPlannedLearnHours(planLearnHours).Should().BeTrue();
         }
@@ -55,7 +61,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [InlineData(11)]
         public void ExcludePlanLearnHoursConditionMet_False(long? planLearnHours)
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
 
             rule.ExcludeConditionPlannedLearnHours(planLearnHours).Should().BeFalse();
         }
@@ -66,7 +72,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [InlineData(9)]
         public void ExcludeFundMode10Met_False(long? fundModel)
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
 
             rule.ExcludeConditionFamValueMet(fundModel, null).Should().BeFalse();
         }
@@ -75,7 +81,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [InlineData(10)]
         public void ExcludeFundMode10Met_True(long? fundModel)
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
 
             rule.ExcludeConditionFamValueMet(fundModel, null).Should().BeTrue();
         }
@@ -100,7 +106,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), It.IsAny<string>(), It.IsAny<string>())).Returns(false);
 
-            var rule = new AddLine1_03Rule(null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, learningDeliveryFAMQueryServiceMock.Object);
             rule.ExcludeConditionFamValueMet(99, learningDeliveryFams).Should().BeFalse();
         }
 
@@ -127,7 +133,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
 
-            var rule = new AddLine1_03Rule(null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, learningDeliveryFAMQueryServiceMock.Object);
 
             rule.ExcludeConditionFamValueMet(99, learningDeliveryFams).Should().BeTrue();
         }
@@ -135,7 +141,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [Fact]
         public void Exclude_LearningDeliveriesNull_False()
         {
-            var rule = new AddLine1_03Rule(null, null);
+            var rule = NewRule();
             rule.Exclude(null, null).Should().BeFalse();
         }
 
@@ -169,7 +175,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
 
-            var rule = new AddLine1_03Rule(null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDeliveries, 10).Should().BeTrue();
         }
@@ -205,7 +211,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
 
-            var rule = new AddLine1_03Rule(null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDeliveries, 10).Should().BeFalse();
         }
@@ -221,7 +227,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("AddLine1_03", null, null, null);
 
-            var rule = new AddLine1_03Rule(validationErrorHandlerMock.Object, null);
+            var rule = NewRule(validationErrorHandlerMock.Object, null);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
@@ -236,7 +242,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("AddLine1_03", null, null, null);
 
-            var rule = new AddLine1_03Rule(validationErrorHandlerMock.Object, null);
+            var rule = NewRule(validationErrorHandlerMock.Object, null);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
