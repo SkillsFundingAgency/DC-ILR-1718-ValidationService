@@ -1,7 +1,9 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost;
 using ESFA.DC.ILR.ValidationService.Rules.Query;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
 using System;
@@ -13,19 +15,27 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
 {
     public class ALSCost_02RuleTests
     {
+        private ALSCost_02Rule NewRule(ILearnerFAMQueryService learnerFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ALSCost_02Rule(learnerFAMQueryService, validationErrorHandler);
+        }
+
         [Fact]
         public void ConditionMet_True()
         {
             var learnerFamQueryService = new LearnerFAMQueryService();
+
             var learnerFams = new[]
             {
-                new MessageLearnerLearnerFAM()
+                new TestLearnerFAM()
                 {
                     LearnFAMType = "XYZ"
                 }
             };
-            var rule = new ALSCost_02Rule(null,learnerFamQueryService);
-            rule.ConditionMet(10,learnerFams).Should().BeTrue();
+
+            var rule = NewRule(learnerFamQueryService);
+
+            rule.ConditionMet(10, learnerFams).Should().BeTrue();
         }
 
         [Theory]
@@ -35,17 +45,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         {
             var learnerFamQueryService = new LearnerFAMQueryService();
 
-            var fams = new List<MessageLearnerLearnerFAM>()
+            var fams = new List<TestLearnerFAM>()
             {
-                new MessageLearnerLearnerFAM()
+                new TestLearnerFAM()
                 {
                     LearnFAMType = famType
                 }
             };
-            var rule = new ALSCost_02Rule(null,learnerFamQueryService);
+
+            var rule = NewRule(learnerFamQueryService);
+
             rule.ConditionMet(alsCost, fams).Should().BeFalse();
-        }
-       
+        }       
 
         [Fact]
         public void Validate_Error()
@@ -55,8 +66,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ALSCost_02", null, null, null);
             
-            var rule = new ALSCost_02Rule(validationErrorHandlerMock.Object, new LearnerFAMQueryService());
+            var rule = NewRule(new LearnerFAMQueryService(), validationErrorHandlerMock.Object);
+
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
 
@@ -68,26 +81,26 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ALSCost_02", null, null, null);
             
-            var rule = new ALSCost_02Rule(validationErrorHandlerMock.Object, new LearnerFAMQueryService());
+            var rule = NewRule(new LearnerFAMQueryService(), validationErrorHandlerMock.Object);
+
             rule.Validate(learner);
+
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
-        private  MessageLearner SetupLearner(string learnFamType)
+        private ILearner SetupLearner(string learnFamType)
         {
-            var learner = new MessageLearner()
+            return new TestLearner()
             {
-                ALSCostSpecified = true,
-                ALSCost = 10,
-                LearnerFAM = new MessageLearnerLearnerFAM[]
+                ALSCostNullable = 10,
+                LearnerFAMs = new TestLearnerFAM[]
                 {
-                    new MessageLearnerLearnerFAM()
+                    new TestLearnerFAM()
                     {
                         LearnFAMType = learnFamType
                     }
                 }
             };
-            return learner;
         }
     }
 }
