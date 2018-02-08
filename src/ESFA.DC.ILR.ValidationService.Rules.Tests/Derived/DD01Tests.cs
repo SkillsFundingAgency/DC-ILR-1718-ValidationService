@@ -6,36 +6,45 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
 {
     public class DD01Tests
     {
+        public DD01 NewDD()
+        {
+            return new DD01();
+        }
+
         [Fact]
         public void CalculateChecksum()
         {
-            var dd = new DD01();
+            NewDD().CalculateCheckSum(1000000043).Should().Be(7);
+        }
 
-            dd.CalculateCheckSum(1000000043).Should().Be(7);
+        [Fact]
+        public void Derive_UlnNull()
+        {
+            NewDD().Derive(null).Should().Be("N");
         }
 
         [Fact]
         public void Derive_UlnNotTenCharacters()
         {
-            var dd = new DD01();
-
-            dd.Derive(100000004).Should().Be("N");
+            NewDD().Derive(100000004).Should().Be("N");
         }
 
         [Fact]
         public void Derive_RemainderZero()
         {
-            var dd = new DD01();
-
-            dd.Derive(1000000063).Should().Be("N");
+            NewDD().Derive(1000000063).Should().Be("N");
         }
 
         [Fact]
         public void Derive_Correct()
         {
-            var dd = new DD01();
+            NewDD().Derive(1000000043).Should().Be("3");
+        }
 
-            dd.Derive(1000000043).Should().Be("3");
+        [Fact]
+        public void Derive_TemporaryULN()
+        {
+            NewDD().Derive(9999999999).Should().Be("Y");
         }
     }
 }

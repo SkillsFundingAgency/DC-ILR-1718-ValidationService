@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [InlineData(22)]
         [InlineData(23)]
         [InlineData(25)]
-        public void Derive_True(long input)
+        public void Derive_True(long? input)
         {
             var dd07 = new DD07();
 
@@ -25,7 +25,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(99)]
-        public void Derive_False(long input)
+        [InlineData(null)]
+        public void Derive_False(long? input)
         {
             var dd07 = new DD07();
 

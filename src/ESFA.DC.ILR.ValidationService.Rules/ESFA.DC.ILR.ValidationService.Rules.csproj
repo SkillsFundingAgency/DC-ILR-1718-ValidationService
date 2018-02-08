@@ -47,29 +47,85 @@
     <Compile Include="Derived\Interface\IDD01.cs" />
     <Compile Include="Derived\Interface\IDD04.cs" />
     <Compile Include="Derived\Interface\IDD07.cs" />
-    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
-    <Compile Include="Extensions\MessageLearnerExtensions.cs" />
-    <Compile Include="Extensions\MessageLearnerLearningDeliveryExtensions.cs" />
+    <Compile Include="Constants\LearnerFamTypeConstants.cs" />
+    <Compile Include="Learner\Accom\Accom_01Rule.cs" />
+    <Compile Include="Learner\AddLine1\AddLine1_03Rule.cs" />
+    <Compile Include="Learner\ALSCost\ALSCost_02Rule.cs" />
+    <Compile Include="Learner\ContPrefType\ContPrefType_01Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_02Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_01Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_07Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_06Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_05Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_04Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_03Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_10Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_20Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_14Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_12Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_13Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_23Rule.cs" />
+    <Compile Include="Learner\DateOfBirth\DateOfBirth_24Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
+    <Compile Include="Learner\FamilyName\FamilyName_01Rule.cs" />
+    <Compile Include="Learner\FamilyName\FamilyName_04Rule.cs" />
+    <Compile Include="Learner\FamilyName\FamilyName_02Rule.cs" />
+    <Compile Include="Learner\GivenNames\GivenNames_04Rule.cs" />
+    <Compile Include="Learner\GivenNames\GivenNames_02Rule.cs" />
+    <Compile Include="Learner\GivenNames\GivenNames_01Rule.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_01Rule.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_03Rule.cs" />
+    <Compile Include="Learner\EngGrade\EngGrade_04Rule.cs" />
+    <Compile Include="Learner\MathGrade\MathGrade_04Rule.cs" />
+    <Compile Include="Learner\MathGrade\MathGrade_03Rule.cs" />
+    <Compile Include="Learner\MathGrade\MathGrade_01Rule.cs" />
+    <Compile Include="Learner\NINumber\NINumber_02Rule.cs" />
+    <Compile Include="Learner\NINumber\NINumber_01Rule.cs" />
+    <Compile Include="Learner\PlanEEPHours\PlanEEPHours_01Rule.cs" />
+    <Compile Include="Learner\PlanLearnHours\PlanLearnHours_05Rule.cs" />
+    <Compile Include="Learner\PlanLearnHours\PlanLearnHours_04Rule.cs" />
+    <Compile Include="Learner\PlanLearnHours\PlanLearnHours_03Rule.cs" />
+    <Compile Include="Learner\PlanLearnHours\PlanLearnHours_02Rule.cs" />
+    <Compile Include="Learner\PlanLearnHours\PlanLearnHours_01Rule.cs" />
+    <Compile Include="Learner\PMUKPRN\PMUKPRN_01Rule.cs" />
+    <Compile Include="Learner\Postcode\Postcode_15Rule.cs" />
+    <Compile Include="Learner\PostcodePrior\PostcodePrior_02Rule.cs" />
+    <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_03Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_07Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_05Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_04Rule.cs" />
+    <Compile Include="Learner\PriorAttain\PriorAttain_01Rule.cs" />
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />
     <Compile Include="Learner\ULN\ULN_04Rule.cs" />
     <Compile Include="Learner\ULN\ULN_05Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_07Rule.cs" />
     <Compile Include="Learner\ULN\ULN_06Rule.cs" />
-    <Compile Include="LearningDeliveryFAMTypeConstants.cs" />
+    <Compile Include="Learner\ULN\ULN_09Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_11Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_10Rule.cs" />
+    <Compile Include="Learner\ULN\ULN_12Rule.cs" />
+    <Compile Include="Constants\LearningDeliveryFAMTypeConstants.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_02Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_03Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_05Rule.cs" />
     <Compile Include="LearningDelivery\LearnStartDate\LearnStartDate_12Rule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuleNameConstants.cs" />
-    <Compile Include="ValidationConstants.cs" />
+    <Compile Include="Query\DateTimeQueryService.cs" />
+    <Compile Include="Query\Interface\IDateTimeQueryService.cs" />
+    <Compile Include="Query\Interface\ILearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\Interface\ILearnerFAMQueryService.cs" />
+    <Compile Include="Query\LearningDeliveryFAMQueryService.cs" />
+    <Compile Include="Query\LearnerFAMQueryService.cs" />
+    <Compile Include="Constants\RuleNameConstants.cs" />
+    <Compile Include="Constants\ValidationConstants.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
-      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
-      <Name>ESFA.DC.ILR.Model</Name>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
+      <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
+      <Name>ESFA.DC.ILR.Model.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
       <Project>{991F0564-9702-4B47-8B5F-7C5794563F05}</Project>
@@ -80,5 +136,6 @@
       <Name>ESFA.DC.ILR.ValidationService.Interface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

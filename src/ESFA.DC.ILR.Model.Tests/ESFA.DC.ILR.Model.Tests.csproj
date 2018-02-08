@@ -34,14 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions.Core, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.4.19.4\lib\net45\FluentAssertions.Core.dll</HintPath>
+    <Reference Include="FluentAssertions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssertions.5.0.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,14 +62,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractModelTests.cs" />
+    <Compile Include="EnumExtensionsTests.cs" />
+    <Compile Include="MessageHeaderCollectionDetailsTests.cs" />
+    <Compile Include="MessageHeaderSourceTests.cs" />
+    <Compile Include="MessageHeaderTests.cs" />
+    <Compile Include="MessageLearnerContactPreferenceTests.cs" />
+    <Compile Include="MessageLearnerDestinationandProgressionDPOutcomeTests.cs" />
+    <Compile Include="MessageLearnerDestinationandProgressionTests.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoringTests.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatusTests.cs" />
+    <Compile Include="MessageLearnerLearnerFAMTests.cs" />
+    <Compile Include="MessageLearnerLearnerHELearnerHEFinancialSupportTests.cs" />
+    <Compile Include="MessageLearnerLearnerHETests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryAppFinRecordTests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryHETests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAMTests.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryWorkPlacementTests.cs" />
     <Compile Include="MessageLearnerLearningDeliveryTests.cs" />
+    <Compile Include="MessageLearnerLLDDandHealthProblemTests.cs" />
     <Compile Include="MessageLearnerTests.cs" />
+    <Compile Include="MessageSourceFileTests.cs" />
+    <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
+      <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
+      <Name>ESFA.DC.ILR.Model.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
       <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
       <Name>ESFA.DC.ILR.Model</Name>

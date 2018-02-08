@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.ULN.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
@@ -12,43 +12,42 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_05RuleTests
     {
+        private ULN_05Rule NewRule(IULNReferenceDataService uLNReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_05Rule(uLNReferenceDataService, validationErrorHandler);
+        }
+
         [Fact]
         public void ConditionMet_True()
         {
-            var rule = new ULN_05Rule(null, null);
-
-            rule.ConditionMet(1, false).Should().BeTrue();
+            NewRule().ConditionMet(1, false).Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False_Uln9s()
         {
-            var rule = new ULN_05Rule(null, null);
-
-            rule.ConditionMet(9999999999, false).Should().BeFalse();
+            NewRule().ConditionMet(9999999999, false).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_UlnExists()
         {
-            var rule = new ULN_05Rule(null, null);
-
-            rule.ConditionMet(1, true).Should().BeFalse();
+            NewRule().ConditionMet(1, true).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 1
+                ULNNullable = 1
             };
 
             var ulnReferenceDataServiceMock = new Mock<IULNReferenceDataService>();
 
             ulnReferenceDataServiceMock.Setup(urds => urds.Exists(1)).Returns(true);
 
-            var rule = new ULN_05Rule(ulnReferenceDataServiceMock.Object, null);
+            var rule = NewRule(ulnReferenceDataServiceMock.Object);
 
             rule.Validate(learner);
         }
@@ -56,9 +55,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void Validate_Error()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                ULN = 1,
+                ULNNullable = 1,
             };
 
             var ulnReferenceDataServiceMock = new Mock<IULNReferenceDataService>();
@@ -70,7 +69,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new ULN_05Rule(ulnReferenceDataServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = NewRule(ulnReferenceDataServiceMock.Object, validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 

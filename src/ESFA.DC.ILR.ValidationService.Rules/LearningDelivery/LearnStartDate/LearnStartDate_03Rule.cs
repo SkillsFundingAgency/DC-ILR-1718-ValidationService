@@ -1,12 +1,13 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
+using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate
 {
-    public class LearnStartDate_03Rule : AbstractRule, IRule<MessageLearner>
+    public class LearnStartDate_03Rule : AbstractRule, IRule<ILearner>
     {
         private readonly IDD07 _dd07;
         private readonly IValidationDataService _validationDataService;
@@ -18,21 +19,22 @@ namespace ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate
             _validationDataService = validationDataService;
         }
 
-        public void Validate(MessageLearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDelivery)
+            foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(learningDelivery.LearnStartDate, _validationDataService.AcademicYearEnd, learningDelivery.ProgType, _dd07.Derive(learningDelivery.ProgType)))
+                if (ConditionMet(learningDelivery.LearnStartDateNullable, _validationDataService.AcademicYearEnd, learningDelivery.ProgTypeNullable, _dd07.Derive(learningDelivery.ProgTypeNullable)))
                 {
                     HandleValidationError(RuleNameConstants.LearnStartDate_03, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
 
-        public bool ConditionMet(DateTime learnStartDate, DateTime academicYearEnd, long progType, string dd07)
+        public bool ConditionMet(DateTime? learnStartDate, DateTime academicYearEnd, long? progType, string dd07)
         {
             return dd07 == ValidationConstants.N
                 && progType != 24
+                && learnStartDate.HasValue
                 && learnStartDate > academicYearEnd;
         }
     }

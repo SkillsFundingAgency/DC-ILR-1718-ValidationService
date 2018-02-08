@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate;
 using FluentAssertions;
@@ -11,63 +11,64 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
 {
     public class LearnStartDate_05RuleTests
     {
-        [Fact]
-        public void ConditionMet_True()
+        private LearnStartDate_05Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
         {
-            var rule = new LearnStartDate_05Rule(null);
-
-            rule.ConditionMet(new DateTime(2018, 1, 1), new DateTime(2017, 8, 1)).Should().BeTrue();
+            return new LearnStartDate_05Rule(validationErrorHandler);
         }
 
         [Fact]
-        public void ConditionMet_False_NullDateOfBirth()
+        public void ConditionMet_True()
         {
-            var rule = new LearnStartDate_05Rule(null);
+            NewRule().ConditionMet(new DateTime(2018, 1, 1), new DateTime(2017, 8, 1)).Should().BeTrue();
+        }
 
-            rule.ConditionMet(null, new DateTime(2017, 8, 1)).Should().BeFalse();
+        [Fact]
+        public void ConditionMet_False_DateOfBirth_Null()
+        {
+            NewRule().ConditionMet(null, new DateTime(2017, 8, 1)).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ConditionMet_False_LearnStartDate_Null()
+        {
+            NewRule().ConditionMet(new DateTime(1988, 12, 25), null).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionMet_False_DateOfBirth()
         {
-            var rule = new LearnStartDate_05Rule(null);
-
-            rule.ConditionMet(new DateTime(1988, 2, 10), new DateTime(2017, 8, 1)).Should().BeFalse();
+            NewRule().ConditionMet(new DateTime(1988, 12, 25), new DateTime(2017, 8, 1)).Should().BeFalse();
         }
 
         [Fact]
         public void Validate_NoErrors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirth = new DateTime(1988, 2, 10),
-                DateOfBirthSpecified = true,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = new DateTime(1988, 12, 25),                
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDate = new DateTime(2015, 1, 1),
+                        LearnStartDateNullable = new DateTime(2015, 1, 1),
                     }
                 }
             };
 
-            var rule = new LearnStartDate_05Rule(null);
-
-            rule.Validate(learner);
+            NewRule().Validate(learner);
         }
 
         [Fact]
         public void Validate_Errors()
         {
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                DateOfBirth = new DateTime(2018, 1, 1),
-                DateOfBirthSpecified = true,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                DateOfBirthNullable = new DateTime(2018, 1, 1),
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        LearnStartDate = new DateTime(2005, 1, 1),
+                        LearnStartDateNullable = new DateTime(2005, 1, 1),
                     }
                 }
             };

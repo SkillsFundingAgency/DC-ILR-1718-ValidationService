@@ -1,10 +1,13 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
+using ESFA.DC.ILR.Tests.Model;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
 
@@ -12,62 +15,39 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_03RuleTests
     {
+        private ULN_03Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_03Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
+        }
+
         [Fact]
         public void Exclude_True()
         {
-            var rule = new ULN_03Rule(null, null, null);
-
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
-                {
-                    new MessageLearnerLearningDeliveryLearningDeliveryFAM()
-                    {
-                        LearnDelFAMType = "ACT",
-                        LearnDelFAMCode = "1"
-                    }
-                }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
-            rule.Exclude(learningDelivery).Should().BeTrue();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "ACT", "1")).Returns(true);
+            
+            NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object).Exclude(learningDelivery).Should().BeTrue();
         }
 
         [Fact]
-        public void Exclude_False_Null()
+        public void Exclude_False()
         {
-            var rule = new ULN_03Rule(null, null, null);
-
-            var learningDelivery = new MessageLearnerLearningDelivery()
+            var learningDelivery = new TestLearningDelivery()
             {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
-                {
-                    new MessageLearnerLearningDeliveryLearningDeliveryFAM()
-                    {
-                        LearnDelFAMType = "No",
-                        LearnDelFAMCode = "2"
-                    }
-                }
+                LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
 
-            rule.Exclude(learningDelivery).Should().BeFalse();
-        }
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-        [Fact]
-        public void Exclude_False_NoMatch()
-        {
-            var rule = new ULN_03Rule(null, null, null);
-
-            var learningDelivery = new MessageLearnerLearningDelivery()
-            {
-                LearningDeliveryFAM = new MessageLearnerLearningDeliveryLearningDeliveryFAM[]
-                {
-                    new MessageLearnerLearningDeliveryLearningDeliveryFAM()
-                    {
-                        LearnDelFAMType = "ACT",
-                        LearnDelFAMCode = "2"
-                    }
-                }
-            };
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "ACT", "1")).Returns(false);
+            
+            var rule = new ULN_03Rule(null, null, learningDeliveryFAMQueryServiceMock.Object, null);
 
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
@@ -81,7 +61,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [InlineData(70)]
         public void ConditionMet_True(long fundModel)
         {
-            var rule = new ULN_03Rule(null, null, null);
+            var rule = new ULN_03Rule(null, null, null, null);
 
             rule.ConditionMet(fundModel, 9999999999, new DateTime(1970, 1, 1), new DateTime(2018, 1, 1)).Should().BeTrue();
         }
@@ -89,7 +69,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_False_Uln()
         {
-            var rule = new ULN_03Rule(null, null, null);
+            var rule = new ULN_03Rule(null, null, null, null);
 
             rule.ConditionMet(25, 1, new DateTime(1970, 1, 1), new DateTime(2018, 1, 1)).Should().BeFalse();
         }
@@ -97,7 +77,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_False_FundModel()
         {
-            var rule = new ULN_03Rule(null, null, null);
+            var rule = new ULN_03Rule(null, null, null, null);
 
             rule.ConditionMet(1, 9999999999, new DateTime(1970, 1, 1), new DateTime(2018, 1, 1)).Should().BeFalse();
         }
@@ -105,7 +85,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         [Fact]
         public void ConditionMet_False_FilePreparationDate()
         {
-            var rule = new ULN_03Rule(null, null, null);
+            var rule = new ULN_03Rule(null, null, null, null);
 
             rule.ConditionMet(25, 9999999999, new DateTime(2030, 1, 1), new DateTime(2018, 1, 1)).Should().BeFalse();
         }
@@ -116,58 +96,62 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var fileDataServiceMock = new Mock<IFileDataService>();
             var validationDataServiceMock = new Mock<IValidationDataService>();
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
-            fileDataServiceMock.SetupGet(fd => fd.FilePreparationDate).Returns(new DateTime(1970, 1, 1));
-            validationDataServiceMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));
-
-            var rule = new ULN_03Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, validationErrorHandlerMock.Object);
-
-            var messageLearner = new MessageLearner()
+            var messageLearner = new TestLearner()
             {
-                ULN = 1,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 1,
+                LearningDeliveries = new TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 2,
+                        FundModelNullable = 2,
                     }
                 }
             };
 
+            fileDataServiceMock.SetupGet(fd => fd.FilePreparationDate).Returns(new DateTime(1970, 1, 1));
+            validationDataServiceMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(false);
+
+            var rule = new ULN_03Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
+            
             rule.Validate(messageLearner);
         }
 
         [Fact]
         public void Validate_Errors()
         {
-            var fileDataServiceMock = new Mock<IFileDataService>();
-            var validationDataServiceMock = new Mock<IValidationDataService>();
-            var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-
-            fileDataServiceMock.SetupGet(fd => fd.FilePreparationDate).Returns(new DateTime(1970, 1, 1));
-            validationDataServiceMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));
-
-            var messageLearner = new MessageLearner()
+            var messageLearner = new ILR.Tests.Model.TestLearner()
             {
-                ULN = 9999999999,
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                ULNNullable = 9999999999,
+                LearningDeliveries = new ILR.Tests.Model.TestLearningDelivery[]
                 {
-                    new MessageLearnerLearningDelivery()
+                    new ILR.Tests.Model.TestLearningDelivery()
                     {
-                        FundModel = 25,
+                        FundModelNullable = 25,
                     },
-                    new MessageLearnerLearningDelivery()
+                    new TestLearningDelivery()
                     {
-                        FundModel = 36,
+                        FundModelNullable = 36,
                     }
                 }
             };
+
+            var fileDataServiceMock = new Mock<IFileDataService>();
+            var validationDataServiceMock = new Mock<IValidationDataService>();
+            var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
+            var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
+            
+            fileDataServiceMock.SetupGet(fd => fd.FilePreparationDate).Returns(new DateTime(1970, 1, 1));
+            validationDataServiceMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));
+            learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(false);
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ULN_03", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
 
-            var rule = new ULN_03Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, validationErrorHandlerMock.Object);
+            var rule = new ULN_03Rule(fileDataServiceMock.Object, validationDataServiceMock.Object, learningDeliveryFAMQueryServiceMock.Object, validationErrorHandlerMock.Object);
             rule.Validate(messageLearner);
 
             validationErrorHandlerMock.Verify(handle, Times.Exactly(2));

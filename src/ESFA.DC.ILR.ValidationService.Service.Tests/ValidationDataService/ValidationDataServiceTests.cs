@@ -10,6 +10,14 @@ namespace ESFA.DC.ILR.ValidationService.Service.Tests.ValidationDataService
     public class ValidationDataServiceTests
     {
         [Fact]
+        public void AcademicYearAugustThirtyFirst()
+        {
+            var validationDataService = new Service.ValidationDataService.ValidationDataService(null);
+
+            validationDataService.AcademicYearAugustThirtyFirst.Should().Be(new DateTime(2017, 8, 31));
+        }
+
+        [Fact]
         public void AcademicYearEnd()
         {
             var validationDataService = new Service.ValidationDataService.ValidationDataService(null);

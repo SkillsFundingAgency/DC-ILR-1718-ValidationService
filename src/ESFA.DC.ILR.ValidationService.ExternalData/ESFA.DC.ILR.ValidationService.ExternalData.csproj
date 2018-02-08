@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContPrefType\ContactPreferenceDataService.cs" />
+    <Compile Include="ContPrefType\Interface\IContactPreferenceDataService.cs" />
+    <Compile Include="ContPrefType\Models\ContactPreference.cs" />
     <Compile Include="FileDataService\FileDataService.cs" />
     <Compile Include="FileDataService\Interface\IFileDataService.cs" />
     <Compile Include="Interface\IReferenceDataCache.cs" />
@@ -47,6 +50,10 @@
     <Compile Include="LARS\Model\FrameworkAim.cs" />
     <Compile Include="LARS\Model\LearningDelivery.cs" />
     <Compile Include="LARS\Model\LearningDeliveryCategory.cs" />
+    <Compile Include="Organisation\Interface\IOrganisationReferenceDataService.cs" />
+    <Compile Include="Organisation\OrganisationReferenceDataService.cs" />
+    <Compile Include="PriorAttain\Interface\IPriorAttainReferenceDataService.cs" />
+    <Compile Include="PriorAttain\PriorAttainReferenceDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ULN\Interface\IULNReferenceDataService.cs" />
     <Compile Include="ULN\ULNReferenceDataService.cs" />

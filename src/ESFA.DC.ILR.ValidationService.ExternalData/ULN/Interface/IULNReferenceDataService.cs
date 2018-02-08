@@ -2,6 +2,6 @@
 {
     public interface IULNReferenceDataService
     {
-        bool Exists(long uln);
+        bool Exists(long? uln);
     }
 }

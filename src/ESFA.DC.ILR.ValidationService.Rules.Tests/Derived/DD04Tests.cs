@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Rules.Derived;
 using FluentAssertions;
 using System;
@@ -11,27 +11,27 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [Fact]
         public void Derive()
         {
-            var earliestLearningDelivery = new MessageLearnerLearningDelivery()
+            var earliestLearningDelivery = new TestLearningDelivery()
             {
-                ProgType = 1,
-                FworkCode = 1,
-                PwayCode = 1,
-                AimType = 1,
-                LearnStartDate = new DateTime(2015, 1, 1)
+                ProgTypeNullable = 1,
+                FworkCodeNullable = 1,
+                PwayCodeNullable = 1,
+                AimTypeNullable = 1,
+                LearnStartDateNullable = new DateTime(2015, 1, 1)
             };
 
-            var latestLearningDelivery = new MessageLearnerLearningDelivery()
+            var latestLearningDelivery = new TestLearningDelivery()
             {
-                ProgType = 1,
-                FworkCode = 1,
-                PwayCode = 1,
-                AimType = 1,
-                LearnStartDate = new DateTime(2017, 1, 1)
+                ProgTypeNullable = 1,
+                FworkCodeNullable = 1,
+                PwayCodeNullable = 1,
+                AimTypeNullable = 1,
+                LearnStartDateNullable = new DateTime(2017, 1, 1)
             };
 
-            var learner = new MessageLearner()
+            var learner = new TestLearner()
             {
-                LearningDelivery = new MessageLearnerLearningDelivery[]
+                LearningDeliveries = new TestLearningDelivery[]
                 {
                     latestLearningDelivery,
                     earliestLearningDelivery
@@ -40,7 +40,129 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
 
             var dd04 = new DD04();
 
-            dd04.Derive(learner, latestLearningDelivery).Should().Be(new DateTime(2015, 1, 1));
+            dd04.Derive(learner.LearningDeliveries, latestLearningDelivery).Should().Be(new DateTime(2015, 1, 1));
         }
+
+        [Fact]
+        public void EarliestLearningDeliveryLearnStartDateFor_NullLearningDelivery()
+        {
+            var dd04 = new DD04();
+
+            dd04.EarliestLearningDeliveryLearnStartDateFor(null, 1, 1, 1, 1).Should().BeNull();
+        }
+
+        [Fact]
+        public void EarliestLearningDeliveryLearnStartDateFor_NoMatch()
+        {
+            var learningDeliveries = new TestLearningDelivery[]
+            {
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                }
+            };            
+
+            var dd04 = new DD04();
+
+            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 2).Should().BeNull();
+        }
+
+        [Fact]
+        public void EarliestLearningDeliveryLearnStartDateFor_SingleMatch()
+        {
+            var learnStartDate = new DateTime(2017, 1, 1);
+
+            var learningDeliveries = new TestLearningDelivery[]
+            {
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                    LearnStartDateNullable = learnStartDate
+                },
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 2,
+                }
+            };
+
+            var dd04 = new DD04();
+
+            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 1).Should().Be(learnStartDate);
+        }
+
+        [Fact]
+        public void EarliestLearningDeliveryLearnStartDateFor_NullLearningDeliveries()
+        {
+            var learnStartDate = new DateTime(2017, 1, 1);
+
+            var learningDeliveries = new TestLearningDelivery[]
+            {
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                },
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 2,
+                }
+            };
+
+            var dd04 = new DD04();
+
+            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 1).Should().BeNull();
+        }
+
+        [Fact]
+        public void EarliestLearningDeliveryLearnStartDateFor_OrderedMatch_WithNull()
+        {
+            var earliestLearnStartDate = new DateTime(2017, 1, 1);
+            var latestLearnStartDate = new DateTime(2018, 1, 1);
+
+            var learningDeliveries = new TestLearningDelivery[]
+            {
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                    LearnStartDateNullable = earliestLearnStartDate
+                },
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                    LearnStartDateNullable = latestLearnStartDate
+                },
+                new TestLearningDelivery()
+                {
+                    AimTypeNullable = 1,
+                    ProgTypeNullable = 1,
+                    FworkCodeNullable = 1,
+                    PwayCodeNullable = 1,
+                }
+            };
+
+            var dd04 = new DD04();
+
+            dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 1).Should().Be(earliestLearnStartDate);
+        }        
     }
 }

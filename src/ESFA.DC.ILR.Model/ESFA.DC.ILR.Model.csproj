@@ -40,11 +40,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\EnumExtensions.cs" />
     <Compile Include="ILR-2017-18.cs">
       <DependentUpon>ILR-2017-18.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageHeader.cs" />
+    <Compile Include="MessageHeaderCollectionDetails.cs" />
+    <Compile Include="MessageHeaderSource.cs" />
     <Compile Include="MessageLearner.cs" />
+    <Compile Include="MessageLearnerContactPreference.cs" />
+    <Compile Include="MessageLearnerDestinationAndProgression.cs" />
+    <Compile Include="MessageLearnerDestinationAndProgressionDPOutcome.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatus.cs" />
+    <Compile Include="MessageLearnerLearnerEmploymentStatusEmploymentStatusMonitoring.cs" />
+    <Compile Include="MessageLearnerLearnerFAM.cs" />
+    <Compile Include="MessageLearnerLearnerHE.cs" />
+    <Compile Include="MessageLearnerLearnerHELearnerHEFinancialSupport.cs" />
     <Compile Include="MessageLearnerLearningDelivery.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryAppFinRecord.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryFAM.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryHE.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryLearningDeliveryWorkPlacement.cs" />
+    <Compile Include="MessageLearnerLearningDeliveryProviderSpecDeliveryMonitoring.cs" />
+    <Compile Include="MessageLearnerLLDDandHealthProblem.cs" />
+    <Compile Include="MessageLearnerProviderSpecLearnerMonitoring.cs" />
+    <Compile Include="MessageLearningProvider.cs" />
+    <Compile Include="MessageSourceFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +74,12 @@
     <None Include="ILR-2017-18.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
+      <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
+      <Name>ESFA.DC.ILR.Model.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
