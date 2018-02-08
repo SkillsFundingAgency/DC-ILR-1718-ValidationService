@@ -84,9 +84,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
-      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
-      <Name>ESFA.DC.ILR.Model</Name>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
+      <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
+      <Name>ESFA.DC.ILR.Model.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.Tests.Model\ESFA.DC.ILR.Tests.Model.csproj">
+      <Project>{7549613A-2491-4B74-8C82-DA1112734451}</Project>
+      <Name>ESFA.DC.ILR.Tests.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
       <Project>{991f0564-9702-4b47-8b5f-7c5794563f05}</Project>

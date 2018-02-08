@@ -59,11 +59,10 @@
     <Compile Include="ULN\ULNReferenceDataService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ESFA.DC.ILR.Model\ESFA.DC.ILR.Model.csproj">
-      <Project>{0992A6A9-8C4E-41E9-8EE1-EE4AA68B6A5C}</Project>
-      <Name>ESFA.DC.ILR.Model</Name>
+    <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
+      <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
+      <Name>ESFA.DC.ILR.Model.Interface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
