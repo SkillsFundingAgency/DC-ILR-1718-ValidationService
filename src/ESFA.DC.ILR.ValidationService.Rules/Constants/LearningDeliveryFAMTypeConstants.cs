@@ -1,4 +1,4 @@
-﻿namespace ESFA.DC.ILR.ValidationService.Rules
+﻿namespace ESFA.DC.ILR.ValidationService.Rules.Constants
 {
     public static class LearningDeliveryFAMTypeConstants
     {

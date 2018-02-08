@@ -1,4 +1,4 @@
-﻿namespace ESFA.DC.ILR.ValidationService.Rules
+﻿namespace ESFA.DC.ILR.ValidationService.Rules.Constants
 {
     public static class RuleNameConstants
     {
@@ -77,6 +77,12 @@
 
         public const string PostCodePrior_02Rule = "PostCodePrior_02";
         public const string PostCode_15Rule = "PostCode_15";
+
+        public const string AddLine1_03Rule = "AddLine1_03";
+
+        public const string ContPrefType_01Rule = "ContPrefType_01";
+        public const string ContPrefType_02Rule = "ContPrefType_02";
+        public const string ContPrefType_03Rule = "ContPrefType_03";
 
     }
 }

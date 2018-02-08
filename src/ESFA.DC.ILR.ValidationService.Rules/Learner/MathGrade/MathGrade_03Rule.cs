@@ -3,6 +3,7 @@ using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using System.Collections.Generic;
+using ESFA.DC.ILR.ValidationService.Rules.Constants;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
 {
@@ -36,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
         {
             return !string.IsNullOrWhiteSpace(mathGrade) &&
                    _mathGrades.Contains(mathGrade) &&
-                   !_learnerFamQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamConstants.EDF_FamType, 1);
+                   !_learnerFamQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamTypeConstants.EDF, 1);
 
         }
         

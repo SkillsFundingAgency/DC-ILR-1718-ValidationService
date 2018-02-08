@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContPrefType\ContactPreferenceDataService.cs" />
+    <Compile Include="ContPrefType\Interface\IContactPreferenceDataService.cs" />
+    <Compile Include="ContPrefType\Models\ContactPreference.cs" />
     <Compile Include="FileDataService\FileDataService.cs" />
     <Compile Include="FileDataService\Interface\IFileDataService.cs" />
     <Compile Include="Interface\IReferenceDataCache.cs" />
