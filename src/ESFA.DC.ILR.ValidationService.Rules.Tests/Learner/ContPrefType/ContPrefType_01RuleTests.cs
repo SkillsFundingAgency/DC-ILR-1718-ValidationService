@@ -54,7 +54,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
         }
 
         [Fact]
-        public void Validte_True()
+        public void Validate_True()
         {
             var learner = new TestLearner()
             {
@@ -81,7 +81,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
         }
 
         [Fact]
-        public void Validte_False()
+        public void Validate_False()
         {
             var learner = new TestLearner()
             {

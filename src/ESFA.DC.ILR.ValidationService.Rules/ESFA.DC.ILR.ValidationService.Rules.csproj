@@ -42,10 +42,12 @@
   <ItemGroup>
     <Compile Include="Abstract\AbstractRule.cs" />
     <Compile Include="Derived\DD01.cs" />
+    <Compile Include="Derived\DD06.cs" />
     <Compile Include="Derived\DD04.cs" />
     <Compile Include="Derived\DD07.cs" />
     <Compile Include="Derived\Interface\IDD01.cs" />
     <Compile Include="Derived\Interface\IDD04.cs" />
+    <Compile Include="Derived\Interface\IDD06.cs" />
     <Compile Include="Derived\Interface\IDD07.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Constants\LearnerFamTypeConstants.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="Learner\AddLine1\AddLine1_03Rule.cs" />
     <Compile Include="Learner\ALSCost\ALSCost_02Rule.cs" />
     <Compile Include="Learner\ContPrefType\ContPrefType_01Rule.cs" />
+    <Compile Include="Learner\ContPrefType\ContPrefType_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_01Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_07Rule.cs" />
