@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber;
-using ESFA.DC.ILR.ValidationService.Rules.Query;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
@@ -242,7 +235,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("AddLine1_03", null, null, null);
 
-            var rule = NewRule(validationErrorHandlerMock.Object, null);
+            var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }

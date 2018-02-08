@@ -80,5 +80,9 @@
 
         public const string AddLine1_03Rule = "AddLine1_03";
 
+        public const string ContPrefType_01Rule = "ContPrefType_01";
+        public const string ContPrefType_02Rule = "ContPrefType_02";
+        public const string ContPrefType_03Rule = "ContPrefType_03";
+
     }
 }
