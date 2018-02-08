@@ -4,13 +4,13 @@ using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Accom
 {
-    public class Accom_01Rule :  AbstractRule, IRule<ILearner>
+    public class Accom_01Rule : AbstractRule, IRule<ILearner>
     {
         private const int AccomValue = 5;
+
         public Accom_01Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
-        {
-            
+        {            
         }
 
         public void Validate(ILearner objectToValidate)
@@ -23,7 +23,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Accom
 
         public bool ConditionMet(long? accomValue)
         {
-            return accomValue.HasValue && accomValue.Value != AccomValue;
+            return accomValue.HasValue 
+                && accomValue.Value != AccomValue;
         }
     }
 }
