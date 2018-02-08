@@ -80,7 +80,7 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType
             return _validContactPreferenceTypeCodesLookup.Any(x => x.Code == code.Value);
         }
 
-        public bool TypeForCodesExist(string type, IEnumerable<long> codes, DateTime validTo)
+        public bool TypeForCodesExist(string type, IEnumerable<long> codes, DateTime validTo )
         {
             if (string.IsNullOrWhiteSpace(type) || codes == null)
             {

@@ -54,7 +54,7 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         {
             var priorAttainReferenceDataService = new ContactPreferenceDataService();
 
-            priorAttainReferenceDataService.TypeForCodesExist(contactPreferrenceType, codes, new DateTime(2010, 10, 10)).Should().BeFalse();
+            priorAttainReferenceDataService.TypeForCodesExist(contactPreferrenceType, codes,new DateTime(2010,10,10)).Should().BeFalse();
         }
 
         [Theory]
