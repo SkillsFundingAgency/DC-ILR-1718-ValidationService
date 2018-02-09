@@ -32,29 +32,29 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         }
 
         [Theory]
-        [InlineData("PMC", new long[] { 1, 99, 10 })]
-        [InlineData("PMC", new long[] { 99, 2, 10 })]
-        [InlineData("PMC", new long[] { 99, 10, 3 })]
-        [InlineData("RUI", new long[] { 1, 10, 99 })]
-        [InlineData("RUI", new long[] { 10, 2, 99 })]
-        [InlineData("RUI", new long[] { 10, 22, 3 })]
-        [InlineData("RUI", new long[] { 111, 2, 4 })]
-        [InlineData("RUI", new long[] { 99, 30, 5 })]
-        public void TypeForCodeExists_True(string contactPreferrenceType, long[] codes)
+        [InlineData("PMC", 1)]
+        [InlineData("PMC", 2)]
+        [InlineData("PMC", 3)]
+        [InlineData("RUI", 1)]
+        [InlineData("RUI", 2)]
+        [InlineData("RUI", 3)]
+        [InlineData("RUI", 4)]
+        [InlineData("RUI", 5)]
+        public void TypeForCodeExists_True(string contactPreferrenceType, long? code)
         {
             var priorAttainReferenceDataService = new ContactPreferenceDataService();
 
-            priorAttainReferenceDataService.TypeForCodesExist(contactPreferrenceType, codes, new DateTime(2010, 10, 10)).Should().BeTrue();
+            priorAttainReferenceDataService.TypeForCodeExist(contactPreferrenceType, code, new DateTime(2010, 10, 10)).Should().BeTrue();
         }
 
         [Theory]
-        [InlineData("PMC", new long[] { 20, 99, 10 })]
-        [InlineData("RUI", new long[] { 30, 10, 50 })]
-        public void TypeForCodeExists_False(string contactPreferrenceType, long[] codes)
+        [InlineData("PMC", 10)]
+        [InlineData("RUI", 50)]
+        public void TypeForCodeExists_False(string contactPreferrenceType, long? code)
         {
             var priorAttainReferenceDataService = new ContactPreferenceDataService();
 
-            priorAttainReferenceDataService.TypeForCodesExist(contactPreferrenceType, codes,new DateTime(2010,10,10)).Should().BeFalse();
+            priorAttainReferenceDataService.TypeForCodeExist(contactPreferrenceType, code, new DateTime(2010, 10, 10)).Should().BeFalse();
         }
 
         [Theory]
@@ -66,12 +66,12 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI", 3, "2013-07-31")]
         [InlineData("RUI", 4, "2099-12-31")]
         [InlineData("RUI", 5, "2099-12-31")]
-        public void TypeForCodeExists_DateTime_True(string contactPreferrenceType, long code, string datetime)
+        public void TypeForCodeExists_DateTime_True(string contactPreferrenceType, long? code, string datetime)
         {
             var priorAttainReferenceDataService = new ContactPreferenceDataService();
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
 
-            priorAttainReferenceDataService.TypeForCodesExist(contactPreferrenceType, new[] { code }, validToDate).Should().BeTrue();
+            priorAttainReferenceDataService.TypeForCodeExist(contactPreferrenceType,  code , validToDate).Should().BeTrue();
         }
 
         [Theory]
@@ -83,12 +83,12 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI", 3, "2013-08-01")]
         [InlineData("RUI", 4, "2100-01-01")]
         [InlineData("RUI", 5, "2100-01-01")]
-        public void TypeForCodeExists_DateTime_False(string contactPreferrenceType, long code, string datetime)
+        public void TypeForCodeExists_DateTime_False(string contactPreferrenceType, long? code, string datetime)
         {
             var priorAttainReferenceDataService = new ContactPreferenceDataService();
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
 
-            priorAttainReferenceDataService.TypeForCodesExist(contactPreferrenceType, new[] { code }, validToDate).Should().BeFalse();
+            priorAttainReferenceDataService.TypeForCodeExist(contactPreferrenceType, code , validToDate).Should().BeFalse();
         }
 
         [Theory]
@@ -141,26 +141,26 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("PMC", 1, "2099-12-31")]
         [InlineData("RUI", 1, "2099-12-31")]
         [InlineData("RUI", 3, "2013-07-31")]
-        public void TypeForCodeExists_DateTime_True_Mock(string contactPreferrenceType, long code, string datetime)
+        public void TypeForCodeExists_DateTime_True_Mock(string contactPreferrenceType, long? code, string datetime)
         {
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
             var priorAttainReferenceDataService = new Mock<IContactPreferenceDataService>();
-            priorAttainReferenceDataService.Setup(x => x.TypeForCodesExist(contactPreferrenceType, new[] { code }, validToDate)).Returns(true);
+            priorAttainReferenceDataService.Setup(x => x.TypeForCodeExist(contactPreferrenceType,code , validToDate)).Returns(true);
 
-            priorAttainReferenceDataService.Object.TypeForCodesExist(contactPreferrenceType, new[] { code }, validToDate).Should().BeTrue();
+            priorAttainReferenceDataService.Object.TypeForCodeExist(contactPreferrenceType, code , validToDate).Should().BeTrue();
         }
 
         [Theory]
         [InlineData("PMC", 1, "2100-01-01")]
         [InlineData("RUI", 1, "2100-01-01")]
         [InlineData("RUI", 3, "2013-08-01")]
-        public void TypeForCodeExists_DateTime_False_Mock(string contactPreferrenceType, long code, string datetime)
+        public void TypeForCodeExists_DateTime_False_Mock(string contactPreferrenceType, long? code, string datetime)
         {
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
             var priorAttainReferenceDataService = new Mock<IContactPreferenceDataService>();
-            priorAttainReferenceDataService.Setup(x => x.TypeForCodesExist(contactPreferrenceType, new[] { code }, validToDate)).Returns(false);
+            priorAttainReferenceDataService.Setup(x => x.TypeForCodeExist(contactPreferrenceType, code , validToDate)).Returns(false);
 
-            priorAttainReferenceDataService.Object.TypeForCodesExist(contactPreferrenceType, new[] { code }, validToDate).Should().BeFalse();
+            priorAttainReferenceDataService.Object.TypeForCodeExist(contactPreferrenceType, code , validToDate).Should().BeFalse();
         }
     }
 }

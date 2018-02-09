@@ -80,14 +80,14 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType
             return _validContactPreferenceTypeCodesLookup.Any(x => x.Code == code.Value);
         }
 
-        public bool TypeForCodesExist(string type, IEnumerable<long> codes, DateTime validTo )
+        public bool TypeForCodeExist(string type, long? code, DateTime? validTo )
         {
-            if (string.IsNullOrWhiteSpace(type) || codes == null)
+            if (string.IsNullOrWhiteSpace(type) || !code.HasValue || !validTo.HasValue)
             {
                 return false;
             }
 
-            return _validContactPreferenceTypeCodesLookup.Any(x => x.Type == type && codes.Contains(x.Code) && validTo <= x.ValidTo);
+            return _validContactPreferenceTypeCodesLookup.Any(x => x.Type == type && x.Code == code.Value && validTo <= x.ValidTo);
         }
     }
 }
