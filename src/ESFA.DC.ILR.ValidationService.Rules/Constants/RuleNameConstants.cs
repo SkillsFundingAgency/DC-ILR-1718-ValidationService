@@ -84,5 +84,8 @@
         public const string ContPrefType_02Rule = "ContPrefType_02";
         public const string ContPrefType_03Rule = "ContPrefType_03";
 
+        public const string LLDDCat_01Rule = "LLDDCat_01";
+        public const string LLDDCat_02Rule = "LLDDCat_02";
+
     }
 }

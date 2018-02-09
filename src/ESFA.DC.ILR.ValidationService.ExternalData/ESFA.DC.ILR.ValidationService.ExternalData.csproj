@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LLDDCat\LlddCatDataService.cs" />
+    <Compile Include="LLDDCat\Interface\ILlddCatDataService.cs" />
     <Compile Include="ContPrefType\ContactPreferenceDataService.cs" />
     <Compile Include="ContPrefType\Interface\IContactPreferenceDataService.cs" />
     <Compile Include="ContPrefType\Models\ContactPreference.cs" />
