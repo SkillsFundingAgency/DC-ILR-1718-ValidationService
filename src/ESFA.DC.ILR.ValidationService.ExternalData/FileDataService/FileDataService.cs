@@ -1,5 +1,5 @@
 ﻿using System;
-using ESFA.DC.ILR.Model;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.ExternalData.FileDataService
@@ -8,9 +8,9 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.FileDataService
     {
         public DateTime FilePreparationDate { get; private set; }
 
-        public void Populate(Message message)
+        public void Populate(IMessage message)
         {
-            FilePreparationDate = message.Header.CollectionDetails.FilePreparationDate;
+            FilePreparationDate = message.HeaderEntity.CollectionDetailsEntity.FilePreparationDate;
         }
     }
 }
