@@ -1,14 +1,14 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
+using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType;
 using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
@@ -17,28 +17,26 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
     {
         private ContPrefType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceDataService contactPreferenceDataService = null, IDD06 dd06 = null)
         {
-            return new ContPrefType_03Rule(validationErrorHandler,contactPreferenceDataService,dd06);
+            return new ContPrefType_03Rule(validationErrorHandler, contactPreferenceDataService, dd06);
         }
 
         [Theory]
-        [InlineData("RUI", 1,"2100-01-01")]
+        [InlineData("RUI", 1, "2100-01-01")]
         [InlineData("PMC", 1, "2100-01-01")]
         [InlineData("RUI", 3, "2014-12-31")]
         public void ConditionMet_True(string type, long? code, string validTo)
         {
             var validToDate = string.IsNullOrEmpty(validTo) ? (DateTime?)null : DateTime.Parse(validTo);
 
-            var contactPreferencesServiceMock = GetContactPreferencesServiceMock(false,true);
+            var contactPreferencesServiceMock = GetContactPreferencesServiceMock(false, true);
 
             var dd06Mock = new Mock<IDD06>();
             dd06Mock.Setup(x =>
                 x.Derive(It.IsAny<IReadOnlyCollection<ILearningDelivery>>())).Returns(validToDate);
 
-            var rule = NewRule(null,contactPreferencesServiceMock.Object,dd06Mock.Object);
+            var rule = NewRule(null, contactPreferencesServiceMock.Object, dd06Mock.Object);
             rule.ConditionMet(type, code, validToDate).Should().BeTrue();
         }
-
-      
 
         [Theory]
         [InlineData(null, 1, "2013-01-01")]
@@ -47,7 +45,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
         [InlineData("RUI", null, null)]
         public void ConditionMet_False(string type, long? code, string validTo)
         {
-            var validToDate = string.IsNullOrEmpty(validTo) ? (DateTime?) null : DateTime.Parse(validTo);
+            var validToDate = string.IsNullOrEmpty(validTo) ? (DateTime?)null : DateTime.Parse(validTo);
 
             var contactPreferencesServiceMock = GetContactPreferencesServiceMock(false, true);
 
@@ -58,7 +56,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
             var rule = NewRule(null, contactPreferencesServiceMock.Object, dd06Mock.Object);
             rule.ConditionMet(type, code, validToDate).Should().BeFalse();
         }
-        
+
         [Fact]
         public void Validate_False()
         {
@@ -80,9 +78,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
 
             var dd06Mock = new Mock<IDD06>();
             dd06Mock.Setup(x =>
-                x.Derive(It.IsAny<IReadOnlyCollection<ILearningDelivery>>())).Returns(new DateTime(2100,10,10));
+                x.Derive(It.IsAny<IReadOnlyCollection<ILearningDelivery>>())).Returns(new DateTime(2100, 10, 10));
 
-            var rule = NewRule(validationErrorHandlerMock.Object,contactPreferencesServiceMock.Object,dd06Mock.Object);
+            var rule = NewRule(validationErrorHandlerMock.Object, contactPreferencesServiceMock.Object, dd06Mock.Object);
 
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
