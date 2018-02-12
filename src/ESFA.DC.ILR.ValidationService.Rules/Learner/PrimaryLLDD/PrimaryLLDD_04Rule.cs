@@ -30,7 +30,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
         public bool ConditionMet(IReadOnlyCollection<ILLDDAndHealthProblem> lLDDAndHealthProblems)
         {
             return lLDDAndHealthProblems != null &&
-                   lLDDAndHealthProblems.Count() == 1 &&
+                   lLDDAndHealthProblems.Count == 1 &&
                    !lLDDAndHealthProblems.Single().PrimaryLLDDNullable.HasValue;
         }
 
