@@ -72,6 +72,7 @@
     <Compile Include="Learner\DateOfBirth\DateOfBirth_23Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_24Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
+    <Compile Include="Learner\Ethnicity\Ethnicity_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_02Rule.cs" />

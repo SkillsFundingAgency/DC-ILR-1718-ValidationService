@@ -92,5 +92,7 @@
         public const string PrimaryLLDD_03Rule = "PrimaryLLDD_03";
         public const string PrimaryLLDD_04Rule = "PrimaryLLDD_04";
 
+        public const string Ethnicity_01Rule = "Ethnicity_01";
+
     }
 }

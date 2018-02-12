@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
     /// </summary>
     public class PrimaryLLDD_02Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly int ValidPrimaryLldd = 1;
+        private readonly int _validPrimaryLldd = 1;
         
         public PrimaryLLDD_02Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
@@ -36,7 +36,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
         }
         public bool ConditionMet(long? primaryLlddValue)
         {
-            return primaryLlddValue.HasValue && primaryLlddValue.Value != ValidPrimaryLldd;
+            return primaryLlddValue.HasValue && primaryLlddValue.Value != _validPrimaryLldd;
         }
 
     }

@@ -16,7 +16,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
     {
         private readonly int ValidPrimaryLldd = 1;
         private readonly DateTime MinimumLearningStartDateAllowed = new DateTime(2015,08,01);
-        private readonly HashSet<long> ExcludeLlddCatValues = new HashSet<long>(){ 98,99 }; 
+        private readonly HashSet<long> _excludeLlddCatValues = new HashSet<long>(){ 98,99 }; 
         private readonly IDD06 _dd06;
 
         public PrimaryLLDD_01Rule(IValidationErrorHandler validationErrorHandler, IDD06 dd06)
@@ -51,7 +51,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
         public bool Exclude(IReadOnlyCollection<ILLDDAndHealthProblem> lLDDAndHealthProblems)
         {
             return lLDDAndHealthProblems!=null &&
-                   lLDDAndHealthProblems.All(x => x.LLDDCatNullable.HasValue && ExcludeLlddCatValues.Contains(x.LLDDCatNullable.Value));
+                   lLDDAndHealthProblems.All(x => x.LLDDCatNullable.HasValue && _excludeLlddCatValues.Contains(x.LLDDCatNullable.Value));
         }
 
     }

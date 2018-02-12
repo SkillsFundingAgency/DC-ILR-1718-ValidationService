@@ -12,7 +12,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
     /// </summary>
     public class PrimaryLLDD_04Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly HashSet<long> ExcludeLlddCatValues = new HashSet<long>() { 98, 99 };
+        private readonly HashSet<long> _excludeLlddCatValues = new HashSet<long>() { 98, 99 };
 
         public PrimaryLLDD_04Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
@@ -37,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
         public bool Exclude(IReadOnlyCollection<ILLDDAndHealthProblem> lLDDAndHealthProblems)
         {
             return lLDDAndHealthProblems != null &&
-                   lLDDAndHealthProblems.All(x => x.LLDDCatNullable.HasValue && ExcludeLlddCatValues.Contains(x.LLDDCatNullable.Value));
+                   lLDDAndHealthProblems.All(x => x.LLDDCatNullable.HasValue && _excludeLlddCatValues.Contains(x.LLDDCatNullable.Value));
         }
     }
 }
