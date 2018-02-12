@@ -88,6 +88,9 @@
         public const string LLDDCat_02Rule = "LLDDCat_02";
 
         public const string PrimaryLLDD_01Rule = "PrimaryLLDD_01";
+        public const string PrimaryLLDD_02Rule = "PrimaryLLDD_02";
+        public const string PrimaryLLDD_03Rule = "PrimaryLLDD_03";
+        public const string PrimaryLLDD_04Rule = "PrimaryLLDD_04";
 
     }
 }
