@@ -32,7 +32,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
                 }
             }
         }
-        
+
         public bool ConditionMet(bool famTypeAndCodeMatch, DateTime filePreparationDate, DateTime academicYearJanuaryFirst, long? uln)
         {
             return famTypeAndCodeMatch

@@ -39,8 +39,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool ConditionMet(long? fundModel, long? uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst)
         {
-            return _fundModels.Contains(fundModel) 
-                && uln == ValidationConstants.TemporaryULN 
+            return _fundModels.Contains(fundModel)
+                && uln == ValidationConstants.TemporaryULN
                 && filePreparationDate < academicYearJanuaryFirst;
         }
 

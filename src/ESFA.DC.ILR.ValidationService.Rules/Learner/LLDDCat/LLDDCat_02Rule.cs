@@ -1,10 +1,10 @@
-﻿using System;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.LLDDCat.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
+using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat
 {
@@ -21,7 +21,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat
         {
             _llddCatDataService = llddCatDataService;
             _dd06 = dd06;
-
         }
 
         public void Validate(ILearner objectToValidate)
@@ -38,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat
         public bool ConditionMet(long? llddCategory, DateTime? minimumStartDate)
         {
             return llddCategory.HasValue &&
-                   !_llddCatDataService.CategoryExistForDate(llddCategory,minimumStartDate);
+                   !_llddCatDataService.CategoryExistForDate(llddCategory, minimumStartDate);
         }
     }
 }

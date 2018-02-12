@@ -11,29 +11,28 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
     /// </summary>
     public class PlanLearnHours_03Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly HashSet<long> _fundModels = new HashSet<long> { 25, 82};
+        private readonly HashSet<long> _fundModels = new HashSet<long> { 25, 82 };
 
         public PlanLearnHours_03Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-
         }
 
         public void Validate(ILearner objectToValidate)
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(objectToValidate.PlanLearnHoursNullable,objectToValidate.PlanEEPHoursNullable, learningDelivery.FundModelNullable))
+                if (ConditionMet(objectToValidate.PlanLearnHoursNullable, objectToValidate.PlanEEPHoursNullable, learningDelivery.FundModelNullable))
                 {
-                    HandleValidationError(RuleNameConstants.PlanLearnHours_03Rule, objectToValidate.LearnRefNumber,learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.PlanLearnHours_03Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
 
         public bool ConditionMet(long? planLearnHours, long? planEeepHours, long? fundModel)
         {
-            return planLearnHours.HasValue && 
-                   planLearnHours.Value  + (planEeepHours ?? 0) == 0 
+            return planLearnHours.HasValue &&
+                   planLearnHours.Value + (planEeepHours ?? 0) == 0
                    && FundModelConditionMet(fundModel);
         }
 
@@ -41,7 +40,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
         {
             return fundModel.HasValue && _fundModels.Contains(fundModel.Value);
         }
-
-
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Collections.Generic;
-using System.Linq;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
+using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
 {
@@ -44,7 +42,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
                    contPrefCode.HasValue &&
                    minimumStartDate.HasValue &&
                    _contactPreferenceDataService.TypeExists(contactPreferenceType) &&
-                   !_contactPreferenceDataService.TypeForCodeExist(contactPreferenceType, contPrefCode.Value,minimumStartDate.Value);
+                   !_contactPreferenceDataService.TypeForCodeExist(contactPreferenceType, contPrefCode.Value, minimumStartDate.Value);
         }
     }
 }

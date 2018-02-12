@@ -1,5 +1,4 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
@@ -20,14 +19,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
         public ContPrefType_02Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-            
         }
 
         public void Validate(ILearner objectToValidate)
         {
             foreach (var contactPreference in objectToValidate.ContactPreferences)
             {
-                if (ConditionMet(contactPreference.ContPrefType, contactPreference.ContPrefCodeNullable,objectToValidate.ContactPreferences))
+                if (ConditionMet(contactPreference.ContPrefType, contactPreference.ContPrefCodeNullable, objectToValidate.ContactPreferences))
                 {
                     HandleValidationError(RuleNameConstants.ContPrefType_02Rule, objectToValidate.LearnRefNumber);
                 }
@@ -36,17 +34,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
 
         public bool ConditionMet(string contactPreferenceType, long? contPrefCode, IReadOnlyCollection<IContactPreference> contactPreferences)
         {
-            return ConditionMetNotToBeContacted(contactPreferenceType,contPrefCode) &&
+            return ConditionMetNotToBeContacted(contactPreferenceType, contPrefCode) &&
                    (ConditionMetContactPMC(contactPreferences) || ConditionMetContactRUI(contactPreferences));
-
         }
+
         public bool ConditionMetNotToBeContacted(string contactPreferenceType, long? contPrefCode)
         {
             return !string.IsNullOrWhiteSpace(contactPreferenceType)
                    && contPrefCode.HasValue &&
                    (contactPreferenceType == ContactTypeRUI &&
                     (contPrefCode == 3 || contPrefCode == 4 || contPrefCode == 5));
-
         }
 
         public bool ConditionMetContactRUI(IReadOnlyCollection<IContactPreference> contactPreferences)

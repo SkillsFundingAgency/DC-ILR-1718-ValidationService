@@ -17,7 +17,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         }
 
         public void Validate(ILearner objectToValidate)
-        {           
+        {
             if (ConditionMet(objectToValidate.PriorAttainNullable))
             {
                 HandleValidationError(RuleNameConstants.PriorAttain_03Rule, objectToValidate.LearnRefNumber);
@@ -28,6 +28,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         {
             return priorAttain.HasValue &&
                     !_priorAttainReferenceDataService.Exists(priorAttain.Value);
-        }        
+        }
     }
 }

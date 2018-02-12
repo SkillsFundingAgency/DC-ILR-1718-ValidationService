@@ -18,7 +18,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrevUKPRN
 
         public void Validate(ILearner objectToValidate)
         {
-            if (NullConditionMet(objectToValidate.PrevUKPRNNullable) 
+            if (NullConditionMet(objectToValidate.PrevUKPRNNullable)
                 && LookupConditionMet(_organisationReferenceDataService.UkprnExists(objectToValidate.PrevUKPRNNullable.Value)))
             {
                 HandleValidationError(RuleNameConstants.PrevUKPRN_01, objectToValidate.LearnRefNumber);

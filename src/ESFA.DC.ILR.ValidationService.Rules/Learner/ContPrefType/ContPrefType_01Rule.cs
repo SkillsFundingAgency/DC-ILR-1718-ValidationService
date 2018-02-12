@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
@@ -26,7 +25,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
             {
                 if (ConditionMet(contactPreference.ContPrefType, contactPreference.ContPrefCodeNullable))
                 {
-                    HandleValidationError(RuleNameConstants.ContPrefType_01Rule, objectToValidate.LearnRefNumber,null);
+                    HandleValidationError(RuleNameConstants.ContPrefType_01Rule, objectToValidate.LearnRefNumber, null);
                 }
             }
         }
@@ -36,6 +35,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
             return !string.IsNullOrWhiteSpace(contactPreferenceType) &&
                    !_contactPreferenceDataService.CodeExists(contPrefCode);
         }
-       
     }
 }

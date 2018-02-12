@@ -13,12 +13,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
         public MathGrade_01Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-            
         }
 
         public void Validate(ILearner objectToValidate)
         {
-
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
                 if (ConditionMet(objectToValidate.MathGrade, learningDelivery.FundModelNullable))
@@ -26,14 +24,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
                     HandleValidationError(RuleNameConstants.MathGrade_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
-
         }
 
-        public bool ConditionMet(string mathGradeNullable,long? fundModelNullable)
+        public bool ConditionMet(string mathGradeNullable, long? fundModelNullable)
         {
             return string.IsNullOrWhiteSpace(mathGradeNullable) &&
                     FundModelConditionMet(fundModelNullable);
-
         }
 
         public bool FundModelConditionMet(long? fundModelNullable)
@@ -41,6 +37,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade
             return fundModelNullable.HasValue &&
                    (fundModelNullable.Value == 25 || fundModelNullable.Value == 82);
         }
-
     }
 }

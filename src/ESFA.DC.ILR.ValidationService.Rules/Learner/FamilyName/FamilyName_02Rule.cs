@@ -36,7 +36,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName
         public bool ConditionMet(long? planLearnHours, string familyName)
         {
             return planLearnHours.HasValue
-                && planLearnHours > 10 
+                && planLearnHours > 10
                 && string.IsNullOrWhiteSpace(familyName);
         }
     }

@@ -18,7 +18,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PMUKPRN
 
         public void Validate(ILearner objectToValidate)
         {
-            if (NullConditionMet(objectToValidate.PMUKPRNNullable) 
+            if (NullConditionMet(objectToValidate.PMUKPRNNullable)
                 && LookupConditionMet(_organisationReferenceDataService.UkprnExists(objectToValidate.PMUKPRNNullable.Value)))
             {
                 HandleValidationError(RuleNameConstants.PMUKPRN_01, objectToValidate.LearnRefNumber);

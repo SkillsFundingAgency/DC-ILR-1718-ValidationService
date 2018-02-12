@@ -15,22 +15,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade
         private readonly ILearnerFAMQueryService _learnerFamQueryService;
         private readonly HashSet<string> _mathGrades = new HashSet<string> { "D", "DD", "DE", "E", "EE", "EF", "F", "FF", "FG", "G", "GG", "N", "U" };
 
-
         public EngGrade_03Rule(IValidationErrorHandler validationErrorHandler, ILearnerFAMQueryService learnerFamQueryService)
             : base(validationErrorHandler)
         {
             _learnerFamQueryService = learnerFamQueryService;
-
         }
 
         public void Validate(ILearner objectToValidate)
         {
-
             if (ConditionMet(objectToValidate.EngGrade, objectToValidate.LearnerFAMs))
             {
                 HandleValidationError(RuleNameConstants.EngGrade_03Rule, objectToValidate.LearnRefNumber);
             }
-
         }
 
         public bool ConditionMet(string engGrade, IReadOnlyCollection<ILearnerFAM> learnerFams)
@@ -38,9 +34,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade
             return !string.IsNullOrWhiteSpace(engGrade) &&
                    _mathGrades.Contains(engGrade) &&
                    !_learnerFamQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamTypeConstants.EDF, 2);
-
         }
-        
-
     }
 }
