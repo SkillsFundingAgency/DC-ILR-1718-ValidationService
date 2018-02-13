@@ -17,11 +17,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Sex
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        [InlineData(" ")]
         [InlineData("f")]
         [InlineData("m")]
+        [InlineData("A")]
         public void ConditionMet_True(string sex)
         {
             var rule = NewRule();
@@ -31,6 +29,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Sex
         [Theory]
         [InlineData("F")]
         [InlineData("M")]
+        [InlineData("")]
+        [InlineData(null)]
+        [InlineData(" ")]
         public void ConditionMet_False(string sex)
         {
             var rule = NewRule();
@@ -42,7 +43,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Sex
         {
             var learner = new TestLearner()
             {
-                Sex = null
+                Sex = "X"
             };
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("Sex_01", null, null, null);

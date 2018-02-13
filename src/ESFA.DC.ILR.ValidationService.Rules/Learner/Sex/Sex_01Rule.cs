@@ -31,7 +31,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Sex
 
         public bool ConditionMet(string sex)
         {
-            return string.IsNullOrWhiteSpace(sex) || !
+            return !string.IsNullOrWhiteSpace(sex) && !
                        _validSexValues.Contains(sex);
         }
     }
