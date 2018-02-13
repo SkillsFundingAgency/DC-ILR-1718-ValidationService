@@ -22,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
         [Fact]
         public void ConditionMet_True_NullLlddCategories()
         {
-            var rule = NewRule(null, null);
+            var rule = NewRule();
             rule.ConditionMet(null, new DateTime(2015, 09, 01)).Should().BeTrue();
         }
 

@@ -28,14 +28,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Ethnicity
         [InlineData(0)]
         public void ConditionMet_True(long? ethnicity)
         {
-            var rule = new Ethnicity_01Rule(null);
+            var rule = NewRule();
             rule.ConditionMet(ethnicity).Should().BeTrue();
         }
 
         [Fact]
         public void ConditionMet_False()
         {
-            var rule = new PriorAttain_01Rule(null, null);
+            var rule = NewRule();
             var validValues = new List<long?>() { 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 98, 99 };
             foreach (var validValue in validValues)
             {

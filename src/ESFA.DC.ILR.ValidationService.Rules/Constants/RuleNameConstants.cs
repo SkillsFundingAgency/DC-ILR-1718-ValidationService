@@ -93,6 +93,7 @@
         public const string PrimaryLLDD_04Rule = "PrimaryLLDD_04";
 
         public const string Ethnicity_01Rule = "Ethnicity_01";
+        public const string Sex_01Rule = "Sex_01";
 
     }
 }
