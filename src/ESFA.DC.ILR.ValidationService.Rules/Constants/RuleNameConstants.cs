@@ -95,5 +95,10 @@
         public const string Ethnicity_01Rule = "Ethnicity_01";
         public const string Sex_01Rule = "Sex_01";
 
+        public const string LLDDHealthProb_01Rule = "LLDDHealthProb_01";
+        public const string LLDDHealthProb_04Rule = "LLDDHealthProb_04";
+        public const string LLDDHealthProb_06Rule = "LLDDHealthProb_06";
+        public const string LLDDHealthProb_07Rule = "LLDDHealthProb_07";
+
     }
 }
