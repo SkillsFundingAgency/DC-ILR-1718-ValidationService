@@ -22,19 +22,23 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb
         private readonly int _validLLDDHealthProblemValue = 1;
         private readonly IDD06 _dd06;
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
+        private readonly IDateTimeQueryService _dateTimeQueryService;
 
-        public LLDDHealthProb_06Rule(IValidationErrorHandler validationErrorHandler, IDD06 dd06, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService)
+        public LLDDHealthProb_06Rule(IValidationErrorHandler validationErrorHandler, IDD06 dd06, 
+                                ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IDateTimeQueryService dateTimeQueryService)
             : base(validationErrorHandler)
         {
             _dd06 = dd06;
             _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
+            _dateTimeQueryService = dateTimeQueryService;
         }
 
         public void Validate(ILearner objectToValidate)
         {
-            if (ConditionMet(objectToValidate.LLDDHealthProbNullable, objectToValidate.LLDDAndHealthProblems))
+            if (ConditionMet(objectToValidate.LLDDHealthProbNullable, objectToValidate.LLDDAndHealthProblems) && 
+                !Exclude(objectToValidate.LearningDeliveries,objectToValidate.DateOfBirthNullable))
             {
-                HandleValidationError(RuleNameConstants.LLDDHealthProb_04Rule, objectToValidate.LearnRefNumber);
+                HandleValidationError(RuleNameConstants.LLDDHealthProb_06Rule, objectToValidate.LearnRefNumber);
             }
         }
 
@@ -44,6 +48,29 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb
                    lldHealthProblem.Value == _validLLDDHealthProblemValue &&
                    (llddAndHealthProblems == null || !llddAndHealthProblems.Any());
         }
-    
+
+        public bool Exclude(IReadOnlyCollection<ILearningDelivery> learningDeliveries, DateTime? dateOfBirth)
+        {
+            return (learningDeliveries != null && learningDeliveries.Any(x => ExcludeConditionFamValueMet(x.FundModelNullable, x.LearningDeliveryFAMs)) ||
+                   ExcludeConditionDateOfBirthMet(dateOfBirth, _dd06.Derive(learningDeliveries))
+                   );
+        }
+
+        public bool ExcludeConditionFamValueMet(long? fundModel, IReadOnlyCollection<ILearningDeliveryFAM> fams)
+        {
+            return fundModel.HasValue &&
+                   (
+                       fundModel.Value == 10 ||
+                       (fundModel.Value == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(fams, LearningDeliveryFAMTypeConstants.SOF, "108"))
+                   );
+        }
+
+        public bool ExcludeConditionDateOfBirthMet(DateTime? dateOfBirth, DateTime? minimumLearningDeliveryStartDate)
+        {
+            return dateOfBirth.HasValue &&
+                   minimumLearningDeliveryStartDate.HasValue &&
+                   _dateTimeQueryService.YearsBetween(dateOfBirth.Value, minimumLearningDeliveryStartDate.Value) >= 25;
+        }
+
     }
 }
