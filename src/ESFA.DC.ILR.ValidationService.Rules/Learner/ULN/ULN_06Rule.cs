@@ -66,7 +66,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool LearningDatesConditionMet(DateTime? learnStartDate, DateTime? learnPlanEndDate, DateTime? learnActEndDate, DateTime filePreparationDate)
         {
-            return ((learnPlanEndDate - learnStartDate).Value.TotalDays >= 5
+            return ((learnPlanEndDate.HasValue && (learnPlanEndDate - learnStartDate).Value.TotalDays >= 5)
                 || (learnActEndDate.HasValue && (learnActEndDate - learnStartDate).Value.TotalDays >= 5))
                 && (filePreparationDate - learnStartDate).Value.TotalDays <= 60;
         }
