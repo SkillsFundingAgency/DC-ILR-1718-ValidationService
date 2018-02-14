@@ -11,7 +11,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
     {
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
-        public GivenNames_01Rule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler) 
+        public GivenNames_01Rule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _learningDeliveryFAMQueryService = learningDeliveryFAMQueryService;
@@ -25,7 +25,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
                 {
                     HandleValidationError(RuleNameConstants.GivenNames_01, objectToValidate.LearnRefNumber);
                 }
-            }            
+            }
         }
 
         public bool ConditionMet(string givenName)

@@ -7,6 +7,6 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface
     {
         bool TypeExists(string type);
         bool CodeExists(long? code);
-        bool TypeForCodesExist(string type, IEnumerable<long> codes, DateTime validTo);
+        bool TypeForCodeExist(string type, long? code, DateTime? validTo);
     }
 }

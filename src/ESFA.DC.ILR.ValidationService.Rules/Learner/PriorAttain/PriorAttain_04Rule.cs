@@ -12,7 +12,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     public class PriorAttain_04Rule : AbstractRule, IRule<ILearner>
 
     {
-
         private readonly HashSet<long> _validPriorAttainValues = new HashSet<long> { 4, 5, 10, 11, 12, 13 };
 
         public PriorAttain_04Rule(IValidationErrorHandler validationErrorHandler)
@@ -22,32 +21,27 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
         public void Validate(ILearner objectToValidate)
         {
-           
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(objectToValidate.PriorAttainNullable,learningDelivery.FundModelNullable,learningDelivery.ProgTypeNullable))
+                if (ConditionMet(objectToValidate.PriorAttainNullable, learningDelivery.FundModelNullable, learningDelivery.ProgTypeNullable))
                 {
                     HandleValidationError(RuleNameConstants.PriorAttain_04Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
-
         }
-        
 
         public bool ConditionMet(long? priorAttain, long? fundModel, long? progType)
         {
-
             return PriorAttainConditionMet(priorAttain) &&
                     FundModelConditionMet(fundModel) &&
                     ProgTypeConditionMet(progType);
-
         }
 
         public bool PriorAttainConditionMet(long? priorAttain)
         {
-            
             return priorAttain.HasValue && _validPriorAttainValues.Contains(priorAttain.Value);
         }
+
         public bool FundModelConditionMet(long? fundModel)
         {
             return fundModel.HasValue && fundModel.Value == 35;
@@ -55,10 +49,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 
         public bool ProgTypeConditionMet(long? progType)
         {
-            return progType.HasValue && (progType.Value == 2 || progType.Value == 3); 
+            return progType.HasValue && (progType.Value == 2 || progType.Value == 3);
         }
-
     }
-
-
 }

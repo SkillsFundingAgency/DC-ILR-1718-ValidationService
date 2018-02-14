@@ -36,9 +36,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames
         public bool ConditionMet(long? planLearnHours, long? uln, string givenNames)
         {
             return planLearnHours.HasValue
-                && planLearnHours <= 10 
+                && planLearnHours <= 10
                 && uln.HasValue
-                && uln != ValidationConstants.TemporaryULN 
+                && uln != ValidationConstants.TemporaryULN
                 && string.IsNullOrWhiteSpace(givenNames);
         }
     }

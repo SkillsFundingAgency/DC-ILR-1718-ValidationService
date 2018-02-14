@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ContPrefTypeCode\ContactPreferenceDataServiceTests.cs" />
     <Compile Include="FileDataService\FileDataServiceTests.cs" />
+    <Compile Include="LLDDCat\LlddCatDataServiceTests.cs" />
     <Compile Include="Organisation\OrganisationReferenceDataServiceTests.cs" />
     <Compile Include="PriorAttain\PriorAttainReferenceDataServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

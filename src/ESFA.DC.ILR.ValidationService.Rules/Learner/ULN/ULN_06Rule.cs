@@ -80,6 +80,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
         {
             return _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.LDM, "034")
                 || _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1");
-        }        
+        }
     }
 }

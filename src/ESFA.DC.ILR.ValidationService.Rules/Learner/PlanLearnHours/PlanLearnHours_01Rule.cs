@@ -23,27 +23,26 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
 
         public void Validate(ILearner objectToValidate)
         {
-
             if (ConditionMet(objectToValidate.PlanLearnHoursNullable))
             {
                 if (!HasAllLearningAimsClosedExcludeConditionMet(objectToValidate.LearningDeliveries))
                 {
                     //if there is any learning delivery not DD07 and fundmodel 70 then exclusion doesnt apply
-                    if (objectToValidate.LearningDeliveries==null || objectToValidate.LearningDeliveries.Any(x => !Exclude(x)))
+                    if (objectToValidate.LearningDeliveries == null || objectToValidate.LearningDeliveries.Any(x => !Exclude(x)))
                     {
                         HandleValidationError(RuleNameConstants.PlanLearnHours_01Rule, objectToValidate.LearnRefNumber);
                     }
                 }
             }
         }
+
         public bool ConditionMet(long? planLearnHoursNullable)
         {
-            return !planLearnHoursNullable.HasValue ;
+            return !planLearnHoursNullable.HasValue;
         }
 
         public bool Exclude(ILearningDelivery learningDelivery)
         {
-
             return HasLearningDeliveryDd07ExcludeConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable)) ||
                    HasLearningDeliveryFundModelExcludeConditionMet(learningDelivery.FundModelNullable);
         }
@@ -52,15 +51,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
         {
             return dd07 == ValidationConstants.Y;
         }
+
         public bool HasLearningDeliveryFundModelExcludeConditionMet(long? fundModelNullable)
         {
             return fundModelNullable.HasValue && fundModelNullable.Value == 70;
-
         }
 
         public bool HasAllLearningAimsClosedExcludeConditionMet(IReadOnlyCollection<ILearningDelivery> learningDeliveries)
         {
-            return learningDeliveries!=null && learningDeliveries.All(x => x.LearnActEndDateNullable.HasValue);
+            return learningDeliveries != null && learningDeliveries.All(x => x.LearnActEndDateNullable.HasValue);
         }
     }
 }

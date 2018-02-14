@@ -1,10 +1,10 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
+using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using System;
 using System.Linq;
-using ESFA.DC.ILR.ValidationService.Rules.Constants;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
@@ -32,7 +32,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             }
 
             var sixteenthBirthday = BirthdayAt(objectToValidate.DateOfBirthNullable, 16);
-            var lastFridayJuneAcademicYearLearnerSixteen =  _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
+            var lastFridayJuneAcademicYearLearnerSixteen = _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
 
             foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld.ProgTypeNullable)))
             {

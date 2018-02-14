@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
         }
 
         public void Validate(ILearner objectToValidate)
-        {            
+        {
             if (ConditionMet(objectToValidate.ULNNullable, objectToValidate.DateOfBirthNullable))
             {
                 HandleValidationError(RuleNameConstants.DateOfBirth_24, objectToValidate.LearnRefNumber);

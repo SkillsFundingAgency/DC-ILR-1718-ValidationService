@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LLDDCat\LlddCatDataService.cs" />
+    <Compile Include="LLDDCat\Interface\ILlddCatDataService.cs" />
     <Compile Include="ContPrefType\ContactPreferenceDataService.cs" />
     <Compile Include="ContPrefType\Interface\IContactPreferenceDataService.cs" />
     <Compile Include="ContPrefType\Models\ContactPreference.cs" />
@@ -63,6 +65,9 @@
       <Project>{9F3B213B-B743-4F46-BEA8-122B4AD66CDE}</Project>
       <Name>ESFA.DC.ILR.Model.Interface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ethnicity\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -43,7 +43,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours
 
         public bool FundModelConditionMet(long? fundModelNullable)
         {
-            return fundModelNullable.HasValue && 
+            return fundModelNullable.HasValue &&
                    (fundModelNullable.Value == 25 || fundModelNullable.Value == 82);
         }
 
@@ -60,7 +60,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours
 
         public bool HasLearningDeliveryFundModelExcludeConditionMet(long? fundModelNullable)
         {
-            return fundModelNullable.HasValue 
+            return fundModelNullable.HasValue
                 && fundModelNullable.Value == 70;
         }
 

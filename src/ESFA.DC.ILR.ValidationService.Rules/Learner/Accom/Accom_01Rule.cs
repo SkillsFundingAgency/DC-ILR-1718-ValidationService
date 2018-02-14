@@ -11,7 +11,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Accom
 
         public Accom_01Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
-        {            
+        {
         }
 
         public void Validate(ILearner objectToValidate)
@@ -24,7 +24,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.Accom
 
         public bool ConditionMet(long? accomValue)
         {
-            return accomValue.HasValue 
+            return accomValue.HasValue
                 && accomValue.Value != AccomValue;
         }
     }

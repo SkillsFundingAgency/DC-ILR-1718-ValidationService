@@ -39,7 +39,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             return !dateofBirth.HasValue
                 && fundModel.HasValue
                 && fundModel == 99
-                && hasADL;                
+                && hasADL;
         }
     }
 }

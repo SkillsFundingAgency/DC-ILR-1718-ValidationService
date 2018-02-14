@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1
 {
@@ -18,29 +14,24 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1
     public class AddLine1_03Rule : AbstractRule, IRule<ILearner>
     {
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFamQueryService;
-         
 
         public AddLine1_03Rule(IValidationErrorHandler validationErrorHandler, ILearningDeliveryFAMQueryService learningDeliveryFamQueryService)
             : base(validationErrorHandler)
         {
             _learningDeliveryFamQueryService = learningDeliveryFamQueryService;
-
         }
 
         public void Validate(ILearner objectToValidate)
         {
-            
-            if (ConditionMet(objectToValidate.AddLine1) && !Exclude(objectToValidate.LearningDeliveries,objectToValidate.PlanLearnHoursNullable))
+            if (ConditionMet(objectToValidate.AddLine1) && !Exclude(objectToValidate.LearningDeliveries, objectToValidate.PlanLearnHoursNullable))
             {
                 HandleValidationError(RuleNameConstants.AddLine1_03Rule, objectToValidate.LearnRefNumber);
             }
-
         }
 
         public bool ConditionMet(string addLine1)
         {
             return string.IsNullOrWhiteSpace(addLine1);
-
         }
 
         public bool Exclude(IReadOnlyCollection<ILearningDelivery> learningDeliveries, long? planLearnHours)
@@ -55,8 +46,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1
         {
             return fundModel.HasValue &&
                    (
-                       fundModel.Value == 10 || 
-                       (fundModel.Value == 99 && _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(fams,LearningDeliveryFAMTypeConstants.SOF, "108"))
+                       fundModel.Value == 10 ||
+                       (fundModel.Value == 99 && _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(fams, LearningDeliveryFAMTypeConstants.SOF, "108"))
                     );
         }
 
@@ -64,6 +55,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1
         {
             return planLearnHours.HasValue && planLearnHours.Value <= 10;
         }
-
     }
 }
