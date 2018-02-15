@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ESFA.DC.ILR.Model.Interface;
+﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
 {
@@ -15,11 +13,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
     public class PrimaryLLDD_03Rule : AbstractRule, IRule<ILearner>
     {
         private readonly int _validPrimaryLldd = 1;
-        
+
         public PrimaryLLDD_03Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-            
         }
 
         public void Validate(ILearner objectToValidate)
@@ -28,7 +25,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
             {
                 HandleValidationError(RuleNameConstants.PrimaryLLDD_03Rule, objectToValidate.LearnRefNumber);
             }
-
         }
 
         public bool ConditionMet(IReadOnlyCollection<ILLDDAndHealthProblem> lLDDAndHealthProblems)
@@ -37,7 +33,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
                    lLDDAndHealthProblems.Count(x =>
                        x.PrimaryLLDDNullable.HasValue && x.PrimaryLLDDNullable.Value == _validPrimaryLldd) > 1;
         }
-
-
     }
 }

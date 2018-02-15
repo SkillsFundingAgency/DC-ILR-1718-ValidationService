@@ -1,22 +1,21 @@
-﻿using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
+﻿using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
 using FluentAssertions;
 using Moq;
 using System;
 using Xunit;
 
-namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
+namespace ESFA.DC.ILR.ValidationService.InternalData.Tests.ContPrefTypeCode
 {
-    public class ContactPreferenceDataServiceTests
+    public class ContactPreferenceInternalDataServiceTests
     {
         [Theory]
         [InlineData("PMC")]
         [InlineData("RUI")]
         public void TypeExists_True(string contactPreferrenceType)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
 
-            contactPreferenceDataService .TypeExists(contactPreferrenceType).Should().BeTrue();
+            contactPreferenceDataService.TypeExists(contactPreferrenceType).Should().BeTrue();
         }
 
         [Theory]
@@ -26,9 +25,9 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("")]
         public void TypeExists_False(string contactPreferrenceType)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
 
-            contactPreferenceDataService .TypeExists(contactPreferrenceType).Should().BeFalse();
+            contactPreferenceDataService.TypeExists(contactPreferrenceType).Should().BeFalse();
         }
 
         [Theory]
@@ -42,7 +41,7 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI", 5)]
         public void TypeForCodeExists_True(string contactPreferrenceType, long? code)
         {
-            var contactPreferenceDataService = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
 
             contactPreferenceDataService.TypeForCodeExist(contactPreferrenceType, code, new DateTime(2010, 10, 10)).Should().BeTrue();
         }
@@ -52,9 +51,9 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI", 50)]
         public void TypeForCodeExists_False(string contactPreferrenceType, long? code)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
 
-            contactPreferenceDataService .TypeForCodeExist(contactPreferrenceType, code, new DateTime(2010, 10, 10)).Should().BeFalse();
+            contactPreferenceDataService.TypeForCodeExist(contactPreferrenceType, code, new DateTime(2010, 10, 10)).Should().BeFalse();
         }
 
         [Theory]
@@ -68,10 +67,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI", 5, "2099-12-31")]
         public void TypeForCodeExists_DateTime_True(string contactPreferrenceType, long? code, string datetime)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
 
-            contactPreferenceDataService .TypeForCodeExist(contactPreferrenceType,  code , validToDate).Should().BeTrue();
+            contactPreferenceDataService.TypeForCodeExist(contactPreferrenceType, code, validToDate).Should().BeTrue();
         }
 
         [Theory]
@@ -85,10 +84,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI", 5, "2100-01-01")]
         public void TypeForCodeExists_DateTime_False(string contactPreferrenceType, long? code, string datetime)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
 
-            contactPreferenceDataService .TypeForCodeExist(contactPreferrenceType, code , validToDate).Should().BeFalse();
+            contactPreferenceDataService.TypeForCodeExist(contactPreferrenceType, code, validToDate).Should().BeFalse();
         }
 
         [Theory]
@@ -99,9 +98,9 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData(5)]
         public void CodeExists_True(long? code)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
 
-            contactPreferenceDataService .CodeExists(code).Should().BeTrue();
+            contactPreferenceDataService.CodeExists(code).Should().BeTrue();
         }
 
         [Theory]
@@ -110,9 +109,9 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData(null)]
         public void CodeExists_False(long? code)
         {
-            var contactPreferenceDataService  = new ContactPreferenceDataService();
+            var contactPreferenceDataService = new ContactPreferenceInternalDataService();
 
-            contactPreferenceDataService .CodeExists(code).Should().BeFalse();
+            contactPreferenceDataService.CodeExists(code).Should().BeFalse();
         }
 
         [Theory]
@@ -120,10 +119,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("RUI")]
         public void TypeExists_True_Mock(string contactPreferrenceType)
         {
-            var contactPreferenceDataService  = new Mock<IContactPreferenceDataService>();
-            contactPreferenceDataService .Setup(x => x.TypeExists(contactPreferrenceType)).Returns(true);
+            var contactPreferenceDataService = new Mock<IContactPreferenceInternalDataService>();
+            contactPreferenceDataService.Setup(x => x.TypeExists(contactPreferrenceType)).Returns(true);
 
-            contactPreferenceDataService .Object.TypeExists(contactPreferrenceType).Should().BeTrue();
+            contactPreferenceDataService.Object.TypeExists(contactPreferrenceType).Should().BeTrue();
         }
 
         [Theory]
@@ -131,10 +130,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         [InlineData("XYZ")]
         public void TypeExists_False_Mock(string contactPreferrenceType)
         {
-            var contactPreferenceDataService  = new Mock<IContactPreferenceDataService>();
-            contactPreferenceDataService .Setup(x => x.TypeExists(contactPreferrenceType)).Returns(false);
+            var contactPreferenceDataService = new Mock<IContactPreferenceInternalDataService>();
+            contactPreferenceDataService.Setup(x => x.TypeExists(contactPreferrenceType)).Returns(false);
 
-            contactPreferenceDataService .Object.TypeExists(contactPreferrenceType).Should().BeFalse();
+            contactPreferenceDataService.Object.TypeExists(contactPreferrenceType).Should().BeFalse();
         }
 
         [Theory]
@@ -144,10 +143,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         public void TypeForCodeExists_DateTime_True_Mock(string contactPreferrenceType, long? code, string datetime)
         {
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
-            var contactPreferenceDataService  = new Mock<IContactPreferenceDataService>();
-            contactPreferenceDataService .Setup(x => x.TypeForCodeExist(contactPreferrenceType,code , validToDate)).Returns(true);
+            var contactPreferenceDataService = new Mock<IContactPreferenceInternalDataService>();
+            contactPreferenceDataService.Setup(x => x.TypeForCodeExist(contactPreferrenceType, code, validToDate)).Returns(true);
 
-            contactPreferenceDataService .Object.TypeForCodeExist(contactPreferrenceType, code , validToDate).Should().BeTrue();
+            contactPreferenceDataService.Object.TypeForCodeExist(contactPreferrenceType, code, validToDate).Should().BeTrue();
         }
 
         [Theory]
@@ -157,10 +156,10 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.ContPrefTypeCode
         public void TypeForCodeExists_DateTime_False_Mock(string contactPreferrenceType, long? code, string datetime)
         {
             var validToDate = DateTime.ParseExact(datetime, "yyyy-MM-dd", null);
-            var contactPreferenceDataService  = new Mock<IContactPreferenceDataService>();
-            contactPreferenceDataService .Setup(x => x.TypeForCodeExist(contactPreferrenceType, code , validToDate)).Returns(false);
+            var contactPreferenceDataService = new Mock<IContactPreferenceInternalDataService>();
+            contactPreferenceDataService.Setup(x => x.TypeForCodeExist(contactPreferrenceType, code, validToDate)).Returns(false);
 
-            contactPreferenceDataService .Object.TypeForCodeExist(contactPreferrenceType, code , validToDate).Should().BeFalse();
+            contactPreferenceDataService.Object.TypeForCodeExist(contactPreferrenceType, code, validToDate).Should().BeFalse();
         }
     }
 }

@@ -1,63 +1,62 @@
-﻿using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Models;
+﻿using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType
+namespace ESFA.DC.ILR.ValidationService.InternalData.ContPrefType
 {
-    public class ContactPreferenceDataService : IContactPreferenceDataService
+    public class ContactPreferenceInternalDataService : IContactPreferenceInternalDataService
     {
-        private readonly IReadOnlyCollection<ContactPreference> _validContactPreferenceTypeCodesLookup;
+        private readonly IReadOnlyCollection<ContactPreferenceInternalData> _validContactPreferenceTypeCodesLookup;
 
-        public ContactPreferenceDataService()
+        public ContactPreferenceInternalDataService()
         {
-            _validContactPreferenceTypeCodesLookup = new ReadOnlyCollection<ContactPreference>(new List<ContactPreference>()
+            _validContactPreferenceTypeCodesLookup = new ReadOnlyCollection<ContactPreferenceInternalData>(new List<ContactPreferenceInternalData>()
             {
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "PMC",
                     Code = 1,
                     ValidTo = new DateTime(2099, 12, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "PMC",
                     Code = 2,
                     ValidTo = new DateTime(2099, 12, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "PMC",
                     Code = 3,
                     ValidTo = new DateTime(2099, 12, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "RUI",
                     Code = 1,
                     ValidTo = new DateTime(2099, 12, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "RUI",
                     Code = 2,
                     ValidTo = new DateTime(2099, 12, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "RUI",
                     Code = 3,
                     ValidTo = new DateTime(2013, 07, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "RUI",
                     Code = 4,
                     ValidTo = new DateTime(2099, 12, 31)
                 },
-                new ContactPreference()
+                new ContactPreferenceInternalData()
                 {
                     Type = "RUI",
                     Code = 5,
@@ -80,7 +79,7 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType
             return _validContactPreferenceTypeCodesLookup.Any(x => x.Code == code.Value);
         }
 
-        public bool TypeForCodeExist(string type, long? code, DateTime? validTo )
+        public bool TypeForCodeExist(string type, long? code, DateTime? validTo)
         {
             if (string.IsNullOrWhiteSpace(type) || !code.HasValue || !validTo.HasValue)
             {

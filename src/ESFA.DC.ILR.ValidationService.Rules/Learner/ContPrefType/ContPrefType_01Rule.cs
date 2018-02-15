@@ -1,6 +1,6 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 
@@ -11,9 +11,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
     /// </summary>
     public class ContPrefType_01Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly IContactPreferenceDataService _contactPreferenceDataService;
+        private readonly IContactPreferenceInternalDataService _contactPreferenceDataService;
 
-        public ContPrefType_01Rule(IValidationErrorHandler validationErrorHandler, IContactPreferenceDataService contactPreferenceDataService)
+        public ContPrefType_01Rule(IValidationErrorHandler validationErrorHandler, IContactPreferenceInternalDataService contactPreferenceDataService)
             : base(validationErrorHandler)
         {
             _contactPreferenceDataService = contactPreferenceDataService;
