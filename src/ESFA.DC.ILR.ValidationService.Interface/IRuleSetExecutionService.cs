@@ -1,7 +1,9 @@
-﻿namespace ESFA.DC.ILR.ValidationService.Interface
+﻿using System.Collections.Generic;
+
+namespace ESFA.DC.ILR.ValidationService.Interface
 {
-    public interface IRuleSetExecutionService<in T> where T: class
+    public interface IRuleSetExecutionService<T> where T: class
     {
-        void Execute(T objectToValidate);
+        void Execute(IEnumerable<IRule<T>> ruleSet, T objectToValidate);
     }
 }
