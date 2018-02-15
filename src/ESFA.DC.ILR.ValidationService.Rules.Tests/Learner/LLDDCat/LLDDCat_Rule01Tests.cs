@@ -1,7 +1,7 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
-using ESFA.DC.ILR.ValidationService.ExternalData.LLDDCat.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat;
 using FluentAssertions;
 using Moq;
@@ -15,7 +15,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
 {
     public class LLDDCat_Rule01Tests
     {
-        private LLDDCat_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatDataService llddCatDataService = null)
+        private LLDDCat_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatInternalDataService llddCatDataService = null)
         {
             return new LLDDCat_01Rule(validationErrorHandler, llddCatDataService);
         }
@@ -26,7 +26,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
         [InlineData(0)]
         public void ConditionMet_True(long? category)
         {
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExists(category)).Returns(false);
             var rule = NewRule(null, lldCatServiceMock.Object);
 
@@ -36,7 +36,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
         [Fact]
         public void ConditionMet_False()
         {
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExists(It.IsAny<long?>())).Returns(true);
 
             var rule = NewRule(null, lldCatServiceMock.Object);
@@ -67,7 +67,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
                 }
             };
 
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExists(1)).Returns(true);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -92,7 +92,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
                 }
             };
 
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExists(20)).Returns(false);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();

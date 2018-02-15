@@ -1,6 +1,6 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR.ValidationService.ExternalData.LLDDCat.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
@@ -13,10 +13,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat
     /// </summary>
     public class LLDDCat_02Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly ILlddCatDataService _llddCatDataService;
+        private readonly ILlddCatInternalDataService _llddCatDataService;
         private readonly IDD06 _dd06;
 
-        public LLDDCat_02Rule(IValidationErrorHandler validationErrorHandler, ILlddCatDataService llddCatDataService, IDD06 dd06)
+        public LLDDCat_02Rule(IValidationErrorHandler validationErrorHandler, ILlddCatInternalDataService llddCatDataService, IDD06 dd06)
             : base(validationErrorHandler)
         {
             _llddCatDataService = llddCatDataService;

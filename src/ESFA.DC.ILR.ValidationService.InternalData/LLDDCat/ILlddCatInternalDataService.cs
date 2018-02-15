@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ESFA.DC.ILR.ValidationService.ExternalData.LLDDCat.Interface
+namespace ESFA.DC.ILR.ValidationService.InternalData.LLDDCat
 {
-    public interface ILlddCatDataService
+    public interface ILlddCatInternalDataService
     {
         bool CategoryExists(long? category);
+
         bool CategoryExistForDate(long? category, DateTime? validTo);
     }
 }

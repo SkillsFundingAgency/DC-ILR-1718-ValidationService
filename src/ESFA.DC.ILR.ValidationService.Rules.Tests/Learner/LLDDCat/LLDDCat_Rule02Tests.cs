@@ -1,24 +1,23 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
-using ESFA.DC.ILR.ValidationService.ExternalData.LLDDCat.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
+using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat;
 using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
 {
     public class LLDDCat_Rule02Tests
     {
-        private LLDDCat_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatDataService llddCatDataService = null, IDD06 dd06 = null)
+        private LLDDCat_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatInternalDataService llddCatDataService = null, IDD06 dd06 = null)
         {
-            return new LLDDCat_02Rule(validationErrorHandler, llddCatDataService,dd06);
+            return new LLDDCat_02Rule(validationErrorHandler, llddCatDataService, dd06);
         }
 
         [Theory]
@@ -29,11 +28,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
         [InlineData(17, "2100-01-01")]
         [InlineData(93, "2100-01-01")]
         [InlineData(99, "2100-01-01")]
-        public void ConditionMet_True( long? category, string validTo)
+        public void ConditionMet_True(long? category, string validTo)
         {
             var validToDate = string.IsNullOrEmpty(validTo) ? (DateTime?)null : DateTime.Parse(validTo);
 
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExistForDate(It.IsAny<long?>(), It.IsAny<DateTime?>())).Returns(false);
 
             var dd06Mock = new Mock<IDD06>();
@@ -58,9 +57,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
         {
             var validToDate = string.IsNullOrEmpty(validTo) ? (DateTime?)null : DateTime.Parse(validTo);
 
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
-            lldCatServiceMock.Setup(x => x.CategoryExistForDate(It.IsAny<long?>(),It.IsAny<DateTime?>())).Returns(true);
-
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
+            lldCatServiceMock.Setup(x => x.CategoryExistForDate(It.IsAny<long?>(), It.IsAny<DateTime?>())).Returns(true);
 
             var dd06Mock = new Mock<IDD06>();
             dd06Mock.Setup(x =>
@@ -74,7 +72,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
         public void ConditionMet_Null_False()
         {
             var rule = NewRule();
-            rule.ConditionMet(null,null).Should().BeFalse();
+            rule.ConditionMet(null, null).Should().BeFalse();
         }
 
         [Fact]
@@ -91,12 +89,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
                 }
             };
 
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExistForDate(It.IsAny<long?>(), It.IsAny<DateTime?>())).Returns(true);
 
             var dd06Mock = new Mock<IDD06>();
             dd06Mock.Setup(x =>
-                x.Derive(It.IsAny<IReadOnlyCollection<ILearningDelivery>>())).Returns(new DateTime(2010,10,10));
+                x.Derive(It.IsAny<IReadOnlyCollection<ILearningDelivery>>())).Returns(new DateTime(2010, 10, 10));
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("LLDDCat_02", null, null, null);
@@ -120,7 +118,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
                 }
             };
 
-            var lldCatServiceMock = new Mock<ILlddCatDataService>();
+            var lldCatServiceMock = new Mock<ILlddCatInternalDataService>();
             lldCatServiceMock.Setup(x => x.CategoryExistForDate(It.IsAny<long?>(), It.IsAny<DateTime?>())).Returns(false);
 
             var dd06Mock = new Mock<IDD06>();
@@ -130,10 +128,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("LLDDCat_02", null, null, null);
 
-            var rule = NewRule(validationErrorHandlerMock.Object, lldCatServiceMock.Object,dd06Mock.Object);
+            var rule = NewRule(validationErrorHandlerMock.Object, lldCatServiceMock.Object, dd06Mock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
-
     }
 }

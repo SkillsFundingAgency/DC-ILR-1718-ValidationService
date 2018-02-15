@@ -1,15 +1,12 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
-using ESFA.DC.ILR.ValidationService.ExternalData.LLDDCat.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD;
 using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
@@ -38,7 +35,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
             var rule = NewRule();
             rule.ConditionMet(primaryLldValue).Should().BeFalse();
         }
-
 
         [Fact]
         public void Validate_True()

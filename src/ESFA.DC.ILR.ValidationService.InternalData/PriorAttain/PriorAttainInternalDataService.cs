@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using ESFA.DC.ILR.ValidationService.ExternalData.PriorAttain.Interface;
 
-namespace ESFA.DC.ILR.ValidationService.ExternalData.PriorAttain
+namespace ESFA.DC.ILR.ValidationService.InternalData.PriorAttain
 {
-    public class PriorAttainReferenceDataService : IPriorAttainReferenceDataService
+    public class PriorAttainInternalDataService : IPriorAttainInternalDataService
     {
         private readonly HashSet<long> _validPriorAttainLookupValues = new HashSet<long> { 2, 3, 4, 5, 10, 11, 12, 13, 97, 98 };
 

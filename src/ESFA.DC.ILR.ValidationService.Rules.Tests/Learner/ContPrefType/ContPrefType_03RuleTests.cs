@@ -1,7 +1,7 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType;
 using FluentAssertions;
@@ -15,7 +15,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
 {
     public class ContPrefType_03RuleTests
     {
-        private ContPrefType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceDataService contactPreferenceDataService = null, IDD06 dd06 = null)
+        private ContPrefType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceInternalDataService contactPreferenceDataService = null, IDD06 dd06 = null)
         {
             return new ContPrefType_03Rule(validationErrorHandler, contactPreferenceDataService, dd06);
         }
@@ -70,7 +70,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ContPrefType_03", null, null, null);
 
-            var contactPreferencesServiceMock = new Mock<IContactPreferenceDataService>();
+            var contactPreferencesServiceMock = new Mock<IContactPreferenceInternalDataService>();
             contactPreferencesServiceMock.Setup(x =>
                 x.TypeForCodeExist(It.IsAny<string>(), It.IsAny<long?>(), It.IsAny<DateTime>())).Returns(false);
 
@@ -111,9 +111,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
-        private Mock<IContactPreferenceDataService> GetContactPreferencesServiceMock(bool typeForCodeExistResult, bool typeExistsResult)
+        private Mock<IContactPreferenceInternalDataService> GetContactPreferencesServiceMock(bool typeForCodeExistResult, bool typeExistsResult)
         {
-            var contactPreferencesServiceMock = new Mock<IContactPreferenceDataService>();
+            var contactPreferencesServiceMock = new Mock<IContactPreferenceInternalDataService>();
             contactPreferencesServiceMock.Setup(x =>
                 x.TypeForCodeExist(It.IsAny<string>(), It.IsAny<long?>(), It.IsAny<DateTime>())).Returns(typeForCodeExistResult);
             contactPreferencesServiceMock.Setup(x => x.TypeExists(It.IsAny<string>())).Returns(typeExistsResult);
