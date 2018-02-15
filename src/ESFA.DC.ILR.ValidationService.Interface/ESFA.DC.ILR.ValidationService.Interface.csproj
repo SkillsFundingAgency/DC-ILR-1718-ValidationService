@@ -53,6 +53,8 @@
     <Compile Include="IAcademicYearCalendarService.cs" />
     <Compile Include="IDateTimeProvider.cs" />
     <Compile Include="IRule.cs" />
+    <Compile Include="IRuleSetExecutionService.cs" />
+    <Compile Include="IRuleSetResolutionService.cs" />
     <Compile Include="IValidationDataService.cs" />
     <Compile Include="IValidationErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
