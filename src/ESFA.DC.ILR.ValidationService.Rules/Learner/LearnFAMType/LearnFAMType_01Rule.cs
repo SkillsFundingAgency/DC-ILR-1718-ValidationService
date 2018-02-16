@@ -1,5 +1,7 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.LearnFAMTypeCode;
+using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
@@ -7,27 +9,32 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
     /// <summary>
     /// If a FAM type is returned, the FAM code must be a valid lookup for that FAM type
     /// </summary>
-    public class LearnFAMType_01Rule : AbstractLearnFAMTypeRule
+    public class LearnFAMType_01Rule : AbstractRule, IRule<ILearner>
     {
-        public LearnFAMType_01Rule(IValidationErrorHandler validationErrorHandler)
+        private readonly ILearnFAMTypeCodeInternalDataService _learnFAMTypeCodeInternalDataService;
+
+        public LearnFAMType_01Rule(IValidationErrorHandler validationErrorHandler, ILearnFAMTypeCodeInternalDataService learnFAMTypeCodeInternalDataService)
             : base(validationErrorHandler)
         {
+            _learnFAMTypeCodeInternalDataService = learnFAMTypeCodeInternalDataService;
         }
 
-        public override void Validate(ILearner objectToValidate)
+        public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDeliveries)
+            foreach (var learnerFam in objectToValidate.LearnerFAMs)
             {
-                if (ConditionMet(objectToValidate.EngGrade, learningDelivery.FundModelNullable))
+                if (ConditionMet(learnerFam.LearnFAMType, learnerFam.LearnFAMCodeNullable))
                 {
-                    HandleValidationError(RuleNameConstants.EngGrade_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.LearnFAMType_01Rule, objectToValidate.LearnRefNumber);
                 }
             }
         }
 
-        public bool ConditionMet(string engGradeNullable, long? fundModelNullable)
+        public bool ConditionMet(string famType, long? famCode)
         {
-            return string.IsNullOrWhiteSpace(engGradeNullable);
+            return !string.IsNullOrWhiteSpace(famType) &&
+                   famCode.HasValue &&
+                  !_learnFAMTypeCodeInternalDataService.TypeCodeExists(famType, famCode);
         }
     }
 }

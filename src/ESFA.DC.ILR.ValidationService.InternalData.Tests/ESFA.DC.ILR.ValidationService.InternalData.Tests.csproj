@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContPrefTypeCode\ContactPreferenceInternalDataServiceTests.cs" />
+    <Compile Include="LearnFAMTypeCode\LearnFAMTypeCodeInternalDataServiceTests.cs" />
     <Compile Include="LLDDCat\LlddCatDataServiceTests.cs" />
     <Compile Include="PriorAttain\PriorAttainReferenceDataServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
