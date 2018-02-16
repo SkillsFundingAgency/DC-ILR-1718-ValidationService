@@ -83,6 +83,7 @@
     <Compile Include="AutoFacRuleSetResolutionServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuleSetExecutionServiceTests.cs" />
+    <Compile Include="RuleSetOrchestrationServiceTests.cs" />
     <Compile Include="Rules\RuleTwo.cs" />
     <Compile Include="Rules\RuleOne.cs" />
   </ItemGroup>
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\ESFA.DC.ILR.Model.Interface\ESFA.DC.ILR.Model.Interface.csproj">
       <Project>{9f3b213b-b743-4f46-bea8-122b4ad66cde}</Project>
       <Name>ESFA.DC.ILR.Model.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj">
+      <Project>{991F0564-9702-4B47-8B5F-7C5794563F05}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.ExternalData</Name>
     </ProjectReference>
     <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.Interface\ESFA.DC.ILR.ValidationService.Interface.csproj">
       <Project>{513C4F05-55F4-4AEF-B3EB-427C024DA043}</Project>

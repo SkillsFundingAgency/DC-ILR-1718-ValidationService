@@ -54,9 +54,12 @@
     <Compile Include="IDateTimeProvider.cs" />
     <Compile Include="IRule.cs" />
     <Compile Include="IRuleSetExecutionService.cs" />
+    <Compile Include="IRuleSetOrchestrationService.cs" />
     <Compile Include="IRuleSetResolutionService.cs" />
+    <Compile Include="IValidationContext.cs" />
     <Compile Include="IValidationDataService.cs" />
     <Compile Include="IValidationErrorHandler.cs" />
+    <Compile Include="IValidationItemProviderService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
