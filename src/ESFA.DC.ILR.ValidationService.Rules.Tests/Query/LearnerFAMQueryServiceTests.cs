@@ -74,7 +74,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         {
             var learnerFams = SetupLearnerFams();
             var queryService = new LearnerFAMQueryService();
-            queryService.HasLearnerFAMType(learnerFams, "FamA");
+            queryService.HasLearnerFAMType(learnerFams, "FamA").Should().BeTrue();
         }
 
         [Fact]
@@ -82,15 +82,41 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         {
             var learnerFams = SetupLearnerFams();
             var queryService = new LearnerFAMQueryService();
-            queryService.HasLearnerFAMType(learnerFams, "TYPENOTFOUND");
+            queryService.HasLearnerFAMType(learnerFams, "TYPENOTFOUND").Should().BeFalse();
         }
 
         [Fact]
         public void HasLearnerFAMType_False_NullLearnerFams()
         {
             var queryService = new LearnerFAMQueryService();
-            queryService.HasLearnerFAMType(null, It.IsAny<string>());
+            queryService.HasLearnerFAMType(null, It.IsAny<string>()).Should().BeFalse();
         }
+
+        [Fact]
+        public void HasLearnerFAMTypes_True()
+        {
+            var learnerFams = SetupLearnerFams();
+            var queryService = new LearnerFAMQueryService();
+            queryService.HasAnyLearnerFAMTypes(learnerFams, new List<string>() {"FamA", "TYPENOTFOUND" }).Should().BeTrue();
+        }
+
+        [Fact]
+        public void HasLearnerFAMTypes_False()
+        {
+            var learnerFams = SetupLearnerFams();
+            var queryService = new LearnerFAMQueryService();
+            queryService.HasAnyLearnerFAMTypes(learnerFams, new List<string>() { "XXXX", "TYPENOTFOUND" }).Should().BeFalse();
+        }
+        [Fact]
+        public void HasLearnerFAMTypes_Null()
+        {
+            var learnerFams = SetupLearnerFams();
+            var queryService = new LearnerFAMQueryService();
+            queryService.HasAnyLearnerFAMTypes(learnerFams, null).Should().BeFalse();
+        }
+
+
+
 
         private ILearnerFAM[] SetupLearnerFams()
         {

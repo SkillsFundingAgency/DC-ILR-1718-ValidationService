@@ -107,6 +107,7 @@
         public const string LearnFAMType_11Rule = "LearnFAMType_11";
         public const string LearnFAMType_14Rule = "LearnFAMType_14";
         public const string LearnFAMType_15Rule = "LearnFAMType_15";
+        public const string LearnFAMType_16Rule = "LearnFAMType_16";
 
     }
 }

@@ -38,6 +38,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             return learnerFams.Any(ldfam => ldfam.LearnFAMType == famType);
         }
 
-        
+        public bool HasAnyLearnerFAMTypes(IEnumerable<ILearnerFAM> learnerFams, IEnumerable<string> famTypes)
+        {
+            if (learnerFams == null || famTypes == null)
+            {
+                return false;
+            }
+
+            return learnerFams.Any(ldfam => famTypes.Contains(ldfam.LearnFAMType));
+        }
+
+
     }
 }

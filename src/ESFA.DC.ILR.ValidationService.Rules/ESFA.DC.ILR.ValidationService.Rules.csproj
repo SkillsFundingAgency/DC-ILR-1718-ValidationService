@@ -82,6 +82,8 @@
     <Compile Include="Learner\EngGrade\EngGrade_01Rule.cs" />
     <Compile Include="Learner\EngGrade\EngGrade_03Rule.cs" />
     <Compile Include="Learner\EngGrade\EngGrade_04Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_16Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_15Rule.cs" />
     <Compile Include="Learner\LearnFAMType\LearnFAMType_14Rule.cs" />
     <Compile Include="Learner\LearnFAMType\LearnFAMType_11Rule.cs" />
     <Compile Include="Learner\LearnFAMType\LearnFAMType_10Rule.cs" />
