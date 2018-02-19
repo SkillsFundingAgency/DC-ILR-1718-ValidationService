@@ -1,15 +1,22 @@
-﻿using Autofac;
+﻿using System;
+using System.Collections.Generic;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.Accom;
+using ESFA.DC.ILR.ValidationService.RuleSet.Modules.Abstract;
 
 namespace ESFA.DC.ILR.ValidationService.RuleSet.Modules
 {
-    public class ConsoleRuleSetModule : Module
+    public class ConsoleRuleSetModule : AbstractRuleSetModule
     {
-        protected override void Load(ContainerBuilder builder)
+        public ConsoleRuleSetModule()
         {
-            builder.RegisterType<Accom_01Rule>().As<IRule<ILearner>>();
+            RuleSetType = typeof(IRule<ILearner>);
+
+            Rules = new List<Type>()
+            {
+                typeof(Accom_01Rule)
+            };
         }
     }
 }

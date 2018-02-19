@@ -29,6 +29,8 @@ namespace ESFA.DC.ILR.ValidationService.RuleSet.Modules.Tests
             rules.Should().ContainItemsAssignableTo<IRule<ILearner>>();
 
             rules.Should().ContainSingle(r => r.GetType() == typeof(Accom_01Rule));
+
+            rules.Should().HaveCount(1);
         }
 
         private void RegisterDependencies(ContainerBuilder builder)

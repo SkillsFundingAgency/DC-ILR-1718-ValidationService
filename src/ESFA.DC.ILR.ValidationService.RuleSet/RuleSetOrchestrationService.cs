@@ -4,7 +4,7 @@ using ESFA.DC.ILR.ValidationService.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.RuleSet
 {
-    public class RuleSetOrchestrationService<T> : IRuleSetOrchestrationService where T : class
+    public class RuleSetOrchestrationService<T> : IRuleSetOrchestrationService<T> where T : class
     {
         private readonly IRuleSetResolutionService<T> _ruleSetResolutionService;
         private readonly IRuleSetExecutionService<T> _ruleSetExecutionService;
