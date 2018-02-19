@@ -2,12 +2,12 @@
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
@@ -16,14 +16,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
     {
         private LearnFAMType_14Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearnerFAMQueryService learnerFamQueryService = null)
         {
-            return new LearnFAMType_14Rule(validationErrorHandler,learnerFamQueryService);
+            return new LearnFAMType_14Rule(validationErrorHandler, learnerFamQueryService);
         }
 
         [Fact]
         public void ConditionMet_True()
         {
-            
-
             var famTypesList = new List<ILearnerFAM>()
             {
                 new TestLearnerFAM()
@@ -42,7 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
             learnerFamQueryServiceMock
                 .Setup(x => x.HasLearnerFAMCodeForType(famTypesList, It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(true);
-            var rule = NewRule(null,learnerFamQueryServiceMock.Object);
+            var rule = NewRule(null, learnerFamQueryServiceMock.Object);
             rule.ConditionMet(famTypesList).Should().BeTrue();
         }
 
@@ -70,7 +68,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
         }
 
         [Theory]
-        [InlineData(null,null)]
+        [InlineData(null, null)]
         [InlineData(null, 1)]
         [InlineData(null, 2)]
         [InlineData(1, 2)]
@@ -78,7 +76,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
         [InlineData(1, null)]
         public void ConditionMet_False_CodeNotMatched(long? code1, long? code2)
         {
-
             var famTypesList = new List<ILearnerFAM>()
             {
                 new TestLearnerFAM()
@@ -93,14 +90,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
                 }
             };
             var learnerFamQueryServiceMock = new Mock<ILearnerFAMQueryService>();
-            learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(famTypesList,"SEN", It.IsAny<long>())).Returns(code1 == 1 ? true : false);
+            learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(famTypesList, "SEN", It.IsAny<long>())).Returns(code1 == 1 ? true : false);
             learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(famTypesList, "EHC", It.IsAny<long>())).Returns(code2 == 1 ? true : false);
 
             var rule = NewRule(null, learnerFamQueryServiceMock.Object);
 
             rule.ConditionMet(famTypesList).Should().BeFalse();
         }
-
 
         [Fact]
         public void ConditionMet_False_NullEmpty()
@@ -110,12 +106,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
                 .Setup(x => x.HasLearnerFAMCodeForType(null, It.IsAny<string>(), It.IsAny<long>()))
                 .Returns(false);
 
-            var rule = NewRule(null,learnerFamQueryServiceMock.Object);
+            var rule = NewRule(null, learnerFamQueryServiceMock.Object);
 
             rule.ConditionMet(null).Should().BeFalse();
         }
-
-        
 
         [Fact]
         public void Validate_False()
@@ -148,7 +142,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
             learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(learner.LearnerFAMs, "EHC", 1)).Returns(true);
             learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(learner.LearnerFAMs, "SEN", 1)).Returns(true);
 
-            var rule = NewRule(validationErrorHandlerMock.Object,learnerFamQueryServiceMock.Object);
+            var rule = NewRule(validationErrorHandlerMock.Object, learnerFamQueryServiceMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
