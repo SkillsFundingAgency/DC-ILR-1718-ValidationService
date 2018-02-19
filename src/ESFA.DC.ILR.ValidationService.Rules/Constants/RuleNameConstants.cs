@@ -100,5 +100,13 @@
         public const string LLDDHealthProb_06Rule = "LLDDHealthProb_06";
         public const string LLDDHealthProb_07Rule = "LLDDHealthProb_07";
 
+        public const string LearnFAMType_01Rule = "LearnFAMType_01";
+        public const string LearnFAMType_03Rule = "LearnFAMType_03";
+        public const string LearnFAMType_09Rule = "LearnFAMType_09";
+        public const string LearnFAMType_10Rule = "LearnFAMType_10";
+        public const string LearnFAMType_11Rule = "LearnFAMType_11";
+        public const string LearnFAMType_14Rule = "LearnFAMType_14";
+        public const string LearnFAMType_15Rule = "LearnFAMType_15";
+
     }
 }
