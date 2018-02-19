@@ -35,7 +35,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
         {
             var learnFamTypeCodeInternalDataServiceMock = SetupLearnFamTypeMockService("ECF", 1, new DateTime(2099, 12, 31), true);
             var rule = NewRule(null, learnFamTypeCodeInternalDataServiceMock.Object);
-            rule.ConditionMet("ECF", 1, new DateTime(2099, 12, 31)).Should().BeTrue();
+            rule.ConditionMet("ECF", 1, new DateTime(2099, 12, 31)).Should().BeFalse();
         }
 
         [Theory]
@@ -108,7 +108,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
         private Mock<ILearnFAMTypeCodeInternalDataService> SetupLearnFamTypeMockService(string famType, long? famCode, DateTime? validTo, bool result)
         {
             var learnFamTypeCodeInternalDataServiceMock = new Mock<ILearnFAMTypeCodeInternalDataService>();
-            learnFamTypeCodeInternalDataServiceMock.Setup(x => x.TypeCodeExists(famType, famCode)).Returns(result);
+            learnFamTypeCodeInternalDataServiceMock.Setup(x => x.TypeCodeForDateExists(famType, famCode, validTo)).Returns(result);
             return learnFamTypeCodeInternalDataServiceMock;
         }
 
