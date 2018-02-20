@@ -120,6 +120,7 @@
     <Compile Include="Learner\PriorAttain\PriorAttain_05Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_04Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_01Rule.cs" />
+    <Compile Include="Learner\ProvSpecLearnMonOccur\ProvSpecLearnMonOccur_01Rule.cs" />
     <Compile Include="Learner\Sex\Sex_01Rule.cs" />
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />
