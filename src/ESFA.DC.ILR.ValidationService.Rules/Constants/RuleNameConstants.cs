@@ -109,5 +109,7 @@
         public const string LearnFAMType_15Rule = "LearnFAMType_15";
         public const string LearnFAMType_16Rule = "LearnFAMType_16";
 
+        public const string ProvSpecLearnMonOccur_01Rule = "ProvSpecLearnMonOccur_01";
+
     }
 }
