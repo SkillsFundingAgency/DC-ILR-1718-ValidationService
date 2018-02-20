@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
 {
@@ -13,8 +13,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
     /// </summary>
     public class ContPrefType_02Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly string ContactTypeRUI = "RUI";
-        private readonly string ContactTypePMC = "PMC";
+        private const string ContactTypeRUI = "RUI";
+        private const string ContactTypePMC = "PMC";
 
         public ContPrefType_02Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)

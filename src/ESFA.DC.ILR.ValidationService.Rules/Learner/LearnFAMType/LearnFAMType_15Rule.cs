@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
 {
@@ -33,14 +33,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
             return ConditionMetForValidFamType(learnerFams) &&
                    ConditionMetSENOrEHCNotFound(learnerFams);
         }
+
         public bool ConditionMetSENOrEHCNotFound(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
             return !_learnerFAMQueryService.HasAnyLearnerFAMTypes(learnerFams, new[] { "SEN", "EHC" });
         }
+
         public bool ConditionMetForValidFamType(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
             return _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, "MCF", 1);
-
         }
     }
 }

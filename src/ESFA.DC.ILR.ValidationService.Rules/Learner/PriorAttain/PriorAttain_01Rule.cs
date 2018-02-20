@@ -1,19 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 {
-    /// <summary>
-    /// The Prior attainment code must be returned
-    //Exclusion : This rule is not triggered by community learning aims (LearningDelivery.FundModel = 10) or
-    //(LearningDelivery.FundModel = 99 and  (LearningDeliveryFAM.LearnDelFAMType = SOF and LearningDeliveryFAM.LearnDelFAMCode = 108)).
-    //This rule is also not triggered by EFA funded learners (LearningDelivery.FundModel = 25 or 82)
-    /// </summary>
+    // <summary>
+    // The Prior attainment code must be returned
+    // Exclusion : This rule is not triggered by community learning aims (LearningDelivery.FundModel = 10) or
+    // (LearningDelivery.FundModel = 99 and  (LearningDeliveryFAM.LearnDelFAMType = SOF and LearningDeliveryFAM.LearnDelFAMCode = 108)).
+    // This rule is also not triggered by EFA funded learners (LearningDelivery.FundModel = 25 or 82)
+    // </summary>
     public class PriorAttain_01Rule : AbstractRule, IRule<ILearner>
     {
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFamQueryService;

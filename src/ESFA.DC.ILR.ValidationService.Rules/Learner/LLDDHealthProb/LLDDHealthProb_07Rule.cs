@@ -1,17 +1,17 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb
 {
     /// <summary>
-    ///If the LLDD and health problem is 'Learner considers himself or herself to have a learning difficulty and/or disability or health problem',
+    /// If the LLDD and health problem is 'Learner considers himself or herself to have a learning difficulty and/or disability or health problem',
     /// then a LLDD and Health Problem record must be returned if the Planned learning hours > 10
     /// </summary>
     public class LLDDHealthProb_07Rule : AbstractRule, IRule<ILearner>
@@ -21,8 +21,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
         private readonly IDateTimeQueryService _dateTimeQueryService;
 
-        public LLDDHealthProb_07Rule(IValidationErrorHandler validationErrorHandler, IDD06 dd06,
-                                ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IDateTimeQueryService dateTimeQueryService)
+        public LLDDHealthProb_07Rule(IValidationErrorHandler validationErrorHandler, IDD06 dd06, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IDateTimeQueryService dateTimeQueryService)
             : base(validationErrorHandler)
         {
             _dd06 = dd06;
@@ -32,7 +31,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb
 
         public void Validate(ILearner objectToValidate)
         {
-            if (ConditionMet(objectToValidate.LLDDHealthProbNullable,
+            if (ConditionMet(
+                    objectToValidate.LLDDHealthProbNullable,
                     objectToValidate.PlanLearnHoursNullable,
                     objectToValidate.LLDDAndHealthProblems,
                     objectToValidate.LearningDeliveries) &&
@@ -67,8 +67,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb
             return fundModel.HasValue &&
                    (
                        fundModel.Value == 10 ||
-                       (fundModel.Value == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(fams, LearningDeliveryFAMTypeConstants.SOF, "108"))
-                   );
+                       (fundModel.Value == 99 && _learningDeliveryFAMQueryService.HasLearningDeliveryFAMCodeForType(fams, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
         public bool ConditionPlannedLearnHoursMet(long? planLearnHours)

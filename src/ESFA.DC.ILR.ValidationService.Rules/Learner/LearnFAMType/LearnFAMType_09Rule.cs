@@ -1,10 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
 {
@@ -22,7 +21,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
 
         public void Validate(ILearner objectToValidate)
         {
-            foreach (var learnerFam in objectToValidate.LearnerFAMs.GroupBy(x=> x.LearnFAMType).Select(x=> x.Key))
+            foreach (var learnerFam in objectToValidate.LearnerFAMs.GroupBy(x => x.LearnFAMType).Select(x => x.Key))
             {
                 if (ConditionMet(learnerFam, objectToValidate.LearnerFAMs))
                 {
@@ -35,7 +34,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
         {
             return !string.IsNullOrWhiteSpace(famType) &&
                    FamTypesListCheckConditionMet(famType) &&
-                   FamTypeCountConditionMet(famType,learnerFams);
+                   FamTypeCountConditionMet(famType, learnerFams);
         }
 
         public bool FamTypesListCheckConditionMet(string famType)

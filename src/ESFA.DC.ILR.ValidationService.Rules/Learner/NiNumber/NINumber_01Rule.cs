@@ -1,8 +1,8 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Text.RegularExpressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Text.RegularExpressions;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
 {
@@ -12,7 +12,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
     /// 3 to 8 must be numeric and character 9 must be A, B, C, D or space
     /// </summary>
     public class NINumber_01Rule : AbstractRule, IRule<ILearner>
-
     {
         private readonly Regex _regex = new Regex("^[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z]{1}[0-9]{6}[A-D]{0,1}$", RegexOptions.Compiled);
 

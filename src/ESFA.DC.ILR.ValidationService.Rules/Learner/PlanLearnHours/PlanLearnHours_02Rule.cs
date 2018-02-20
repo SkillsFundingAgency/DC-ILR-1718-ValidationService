@@ -1,8 +1,8 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
 {
@@ -33,7 +33,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
         {
             return planLearnHoursNullable.HasValue &&
                    planLearnHoursNullable.Value == 0 &&
-                    FundModelConditionMet((fundModel));
+                    FundModelConditionMet(fundModel);
         }
 
         public bool FundModelConditionMet(long? fundModel)

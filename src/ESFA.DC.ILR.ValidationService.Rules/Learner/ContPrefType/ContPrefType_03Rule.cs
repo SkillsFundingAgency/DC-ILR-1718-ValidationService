@@ -1,10 +1,10 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
-using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
 {
@@ -27,7 +27,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
         {
             foreach (var contactPreference in objectToValidate.ContactPreferences)
             {
-                if (ConditionMet(contactPreference.ContPrefType,
+                if (ConditionMet(
+                    contactPreference.ContPrefType,
                     contactPreference.ContPrefCodeNullable,
                     _dd06.Derive(objectToValidate.LearningDeliveries)))
                 {

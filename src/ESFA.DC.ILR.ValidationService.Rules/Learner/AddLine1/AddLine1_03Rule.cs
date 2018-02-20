@@ -1,10 +1,10 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1
 {
@@ -38,17 +38,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1
         {
             return learningDeliveries != null &&
                     ExcludeConditionPlannedLearnHours(planLearnHours) &&
-                   learningDeliveries.All(x => ExcludeConditionFamValueMet(x.FundModelNullable, x.LearningDeliveryFAMs)
-                   );
+                   learningDeliveries.All(x => ExcludeConditionFamValueMet(x.FundModelNullable, x.LearningDeliveryFAMs));
         }
 
         public bool ExcludeConditionFamValueMet(long? fundModel, IReadOnlyCollection<ILearningDeliveryFAM> fams)
         {
             return fundModel.HasValue &&
-                   (
-                       fundModel.Value == 10 ||
-                       (fundModel.Value == 99 && _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(fams, LearningDeliveryFAMTypeConstants.SOF, "108"))
-                    );
+                   (fundModel.Value == 10 ||
+                       (fundModel.Value == 99 && _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(fams, LearningDeliveryFAMTypeConstants.SOF, "108")));
         }
 
         public bool ExcludeConditionPlannedLearnHours(long? planLearnHours)

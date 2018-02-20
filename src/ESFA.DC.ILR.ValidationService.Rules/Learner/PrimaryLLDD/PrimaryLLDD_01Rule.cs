@@ -1,11 +1,11 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
 {
@@ -14,8 +14,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
     /// </summary>
     public class PrimaryLLDD_01Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly int ValidPrimaryLldd = 1;
-        private readonly DateTime MinimumLearningStartDateAllowed = new DateTime(2015, 08, 01);
+        private const int ValidPrimaryLldd = 1;
+        private readonly DateTime _minimumLearningStartDateAllowed = new DateTime(2015, 08, 01);
         private readonly HashSet<long> _excludeLlddCatValues = new HashSet<long>() { 98, 99 };
         private readonly IDD06 _dd06;
 
@@ -36,7 +36,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD
         public bool ConditionMet(IReadOnlyCollection<ILLDDAndHealthProblem> lLDDAndHealthProblems, DateTime? minimumStartDate)
         {
             return minimumStartDate.HasValue &&
-                   minimumStartDate.Value >= MinimumLearningStartDateAllowed &&
+                   minimumStartDate.Value >= _minimumLearningStartDateAllowed &&
                    ConditionMetAnyValidPrimaryLldd(lLDDAndHealthProblems);
         }
 

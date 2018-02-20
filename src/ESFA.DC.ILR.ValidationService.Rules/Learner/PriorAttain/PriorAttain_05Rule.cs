@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System;
-using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
 {
@@ -11,7 +11,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
     /// If the prior attainment is level 4 or above, then the learner must not be on an Adult skills funded intermediate or advanced apprenticeship
     /// </summary>
     public class PriorAttain_05Rule : AbstractRule, IRule<ILearner>
-
     {
         private readonly HashSet<long> _validPriorAttainValues = new HashSet<long> { 4, 5, 10, 11, 12, 13 };
         private readonly DateTime _startConditionDate = new DateTime(2015, 8, 1);
@@ -25,10 +24,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(objectToValidate.PriorAttainNullable,
-                                learningDelivery.FundModelNullable,
-                                learningDelivery.ProgTypeNullable,
-                                learningDelivery.LearnStartDateNullable))
+                if (ConditionMet(
+                    objectToValidate.PriorAttainNullable,
+                    learningDelivery.FundModelNullable,
+                    learningDelivery.ProgTypeNullable,
+                    learningDelivery.LearnStartDateNullable))
                 {
                     HandleValidationError(RuleNameConstants.PriorAttain_05Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }

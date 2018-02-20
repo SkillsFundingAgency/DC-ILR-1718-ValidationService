@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ProvSpecLearnMonOccur
 {
@@ -21,15 +21,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ProvSpecLearnMonOccur
 
         public void Validate(ILearner objectToValidate)
         {
-            //ILR Spec and ILR validation rules spreadsheet is suggesting that there will be only one value for ProviderSpecLearnerMonitoring, however xsd has it as list so treating it as a list
+            // ILR Spec and ILR validation rules spreadsheet is suggesting that there will be only one value for ProviderSpecLearnerMonitoring, however xsd has it as list so treating it as a list
             if (objectToValidate.ProviderSpecLearnerMonitorings != null && objectToValidate.ProviderSpecLearnerMonitorings.Any())
             {
                 foreach (var providerSpecLearnerMonitoring in objectToValidate.ProviderSpecLearnerMonitorings)
                 {
                     if (ConditionMet(providerSpecLearnerMonitoring.ProvSpecLearnMonOccur))
                     {
-                        HandleValidationError(RuleNameConstants.ProvSpecLearnMonOccur_01Rule,
-                            objectToValidate.LearnRefNumber);
+                        HandleValidationError(RuleNameConstants.ProvSpecLearnMonOccur_01Rule, objectToValidate.LearnRefNumber);
                     }
                 }
             }
@@ -37,8 +36,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ProvSpecLearnMonOccur
 
         public bool ConditionMet(string provSpecLearnMonOccur)
         {
-            return !string.IsNullOrWhiteSpace(provSpecLearnMonOccur) && !
-                       _validProvSpecLearnMonOccurValues.Contains(provSpecLearnMonOccur);
+            return !string.IsNullOrWhiteSpace(provSpecLearnMonOccur) && !_validProvSpecLearnMonOccurValues.Contains(provSpecLearnMonOccur);
         }
     }
 }

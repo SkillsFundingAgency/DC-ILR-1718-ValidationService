@@ -8,7 +8,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Extensions
         public static IEnumerable<int> ToDigitEnumerable(this long i)
         {
             IList<int> result = new List<int>();
-            
+
             if (i == 0)
             {
                 return new List<int> { 0 };

@@ -1,9 +1,8 @@
 ﻿using System;
-using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Derived
 {
@@ -20,10 +19,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Derived
                 .Where(ld => ld.LearnStartDateNullable.HasValue)
                 .OrderBy(ld => ld.LearnStartDateNullable)
                 .FirstOrDefault(
-                    ld => 
-                    ld.AimTypeNullable == aimType 
-                    && ld.ProgTypeNullable == progType 
-                    && ld.FworkCodeNullable == fworkCode 
+                    ld =>
+                    ld.AimTypeNullable == aimType
+                    && ld.ProgTypeNullable == progType
+                    && ld.FworkCodeNullable == fworkCode
                     && ld.PwayCodeNullable == pwayCode)?
                 .LearnStartDateNullable;
         }
