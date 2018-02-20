@@ -1,11 +1,8 @@
 ﻿using Autofac;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.ValidationService.Console.Modules;
 using ESFA.DC.ILR.ValidationService.Console.Stubs;
-using ESFA.DC.ILR.ValidationService.ExternalData.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.RuleSet;
-using ESFA.DC.ILR.ValidationService.RuleSet.Modules;
-using ESFA.DC.ILR.ValidationService.Service.ErrorHandler;
 
 namespace ESFA.DC.ILR.ValidationService.Console
 {
@@ -31,16 +28,7 @@ namespace ESFA.DC.ILR.ValidationService.Console
         {
             var containerBuilder = new ContainerBuilder();
 
-            containerBuilder.RegisterType<RuleSetOrchestrationService<ILearner>>().As<IRuleSetOrchestrationService<ILearner>>();
-            containerBuilder.RegisterType<AutoFacRuleSetResolutionService<ILearner>>().As<IRuleSetResolutionService<ILearner>>();
-            containerBuilder.RegisterType<RuleSetExecutionService<ILearner>>().As<IRuleSetExecutionService<ILearner>>();
-            containerBuilder.RegisterType<ReferenceDataCacheStub>().As<IReferenceDataCache>();
-            containerBuilder.RegisterType<ReferenceDataCachePopulationServiceStub>().As<IReferenceDataCachePopulationService<ILearner>>();
-            containerBuilder.RegisterType<ValidationItemProviderServiceStub>().As<IValidationItemProviderService<ILearner>>();
-
-            containerBuilder.RegisterType<ValidationErrorHandler>().As<IValidationErrorHandler>().InstancePerLifetimeScope();
-
-            containerBuilder.RegisterModule<ConsoleRuleSetModule>();
+            containerBuilder.RegisterModule<ValidationServiceConsoleModule>();
 
             return containerBuilder.Build();
         }
