@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
@@ -6,20 +9,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
 {
     public class LLDDCat_Rule02Tests
     {
-        private LLDDCat_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatInternalDataService llddCatDataService = null, IDD06 dd06 = null)
-        {
-            return new LLDDCat_02Rule(validationErrorHandler, llddCatDataService, dd06);
-        }
-
         [Theory]
         [InlineData(1, "2015-08-10")]
         [InlineData(2, "2015-08-10")]
@@ -131,6 +126,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
             var rule = NewRule(validationErrorHandlerMock.Object, lldCatServiceMock.Object, dd06Mock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private LLDDCat_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatInternalDataService llddCatDataService = null, IDD06 dd06 = null)
+        {
+            return new LLDDCat_02Rule(validationErrorHandler, llddCatDataService, dd06);
         }
     }
 }

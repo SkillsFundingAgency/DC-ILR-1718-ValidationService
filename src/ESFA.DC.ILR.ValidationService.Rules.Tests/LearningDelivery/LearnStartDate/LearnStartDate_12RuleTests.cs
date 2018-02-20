@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartDate
 {
     public class LearnStartDate_12RuleTests
     {
-        private LearnStartDate_12Rule NewRule(IDD07 dd07 = null, IValidationDataService validationDataService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new LearnStartDate_12Rule(dd07, validationDataService, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -108,6 +103,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private LearnStartDate_12Rule NewRule(IDD07 dd07 = null, IValidationDataService validationDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LearnStartDate_12Rule(dd07, validationDataService, validationErrorHandler);
         }
     }
 }

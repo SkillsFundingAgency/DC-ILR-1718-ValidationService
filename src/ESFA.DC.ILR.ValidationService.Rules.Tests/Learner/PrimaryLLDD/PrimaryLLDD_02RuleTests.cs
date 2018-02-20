@@ -1,23 +1,18 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
 {
     public class PrimaryLLDD_02RuleTests
     {
-        private PrimaryLLDD_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PrimaryLLDD_02Rule(validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(0)]
         [InlineData(2)]
@@ -71,6 +66,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             return validationErrorHandlerMock;
+        }
+
+        private PrimaryLLDD_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PrimaryLLDD_02Rule(validationErrorHandler);
         }
     }
 }

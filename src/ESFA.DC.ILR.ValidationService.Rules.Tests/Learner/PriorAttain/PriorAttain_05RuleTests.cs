@@ -1,23 +1,18 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
 {
     public class PriorAttain_05RuleTests
     {
-        private PriorAttain_05Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PriorAttain_05Rule(validationErrorHandler);
-        }
-
         [Fact]
         public void RuleConditionMet_True()
         {
@@ -151,10 +146,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                         LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { },
                         FundModelNullable = 35,
                         ProgTypeNullable = 20,
-                        LearnStartDateNullable = learnStartDate,                        
+                        LearnStartDateNullable = learnStartDate,
                     }
                 }
             };
+        }
+
+        private PriorAttain_05Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PriorAttain_05Rule(validationErrorHandler);
         }
     }
 }

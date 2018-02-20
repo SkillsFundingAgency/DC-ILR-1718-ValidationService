@@ -1,23 +1,18 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
 {
     public class LearnFAMType_11RuleTests
     {
-        private LearnFAMType_11Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new LearnFAMType_11Rule(validationErrorHandler);
-        }
-
         [Theory]
         [InlineData("NLM")]
         [InlineData("PPE")]
@@ -129,11 +124,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
                     new TestLearnerFAM()
                     {
                         LearnFAMType = famType
-                    }
-                );
+                    });
             }
 
             return items;
+        }
+
+        private LearnFAMType_11Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LearnFAMType_11Rule(validationErrorHandler);
         }
     }
 }

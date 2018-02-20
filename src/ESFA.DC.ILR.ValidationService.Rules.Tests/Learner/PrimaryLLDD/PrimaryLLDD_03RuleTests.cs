@@ -1,23 +1,18 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
 {
     public class PrimaryLLDD_03RuleTests
     {
-        private PrimaryLLDD_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PrimaryLLDD_03Rule(validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -82,6 +77,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             return validationErrorHandlerMock;
+        }
+
+        private PrimaryLLDD_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PrimaryLLDD_03Rule(validationErrorHandler);
         }
 
         private TestLLDDAndHealthProblem SetupLlddHealthAndProblem(long? primarylldValue)

@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
@@ -6,20 +9,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_10RuleTests
     {
-        private ULN_10Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ULN_10Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void Exclude_True()
         {
@@ -31,7 +26,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "LDM", "034")).Returns(true);
-            
+
             var rule = NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
@@ -52,7 +47,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var rule = NewRule(learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDelivery).Should().BeFalse();
-        }        
+        }
 
         [Fact]
         public void FundModelConditionMet_True()
@@ -65,11 +60,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         {
             NewRule().FundModelConditionMet(98).Should().BeFalse();
         }
-        
+
         [Fact]
         public void FAMConditionMet_True()
         {
-            NewRule().FAMConditionMet(true).Should().BeTrue();            
+            NewRule().FAMConditionMet(true).Should().BeTrue();
         }
 
         [Fact]
@@ -141,7 +136,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveries = new TestLearningDelivery[]
                 {
                     new TestLearningDelivery()
-                    {                       
+                    {
                         FundModelNullable = 99,
                         LearnStartDateNullable = new DateTime(2018, 1, 2),
                         LearnPlanEndDateNullable = new DateTime(2017, 1, 7),
@@ -198,10 +193,15 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             validationDataMock.SetupGet(vd => vd.AcademicYearJanuaryFirst).Returns(new DateTime(2018, 1, 1));
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "LDM", "034")).Returns(false);
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "1")).Returns(false);
-            
+
             var rule = NewRule(fileDataMock.Object, validationDataMock.Object, learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
+        }
+
+        private ULN_10Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_10Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

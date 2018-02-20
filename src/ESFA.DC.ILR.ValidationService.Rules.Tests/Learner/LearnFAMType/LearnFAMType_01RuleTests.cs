@@ -1,24 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.LearnFAMTypeCode;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
 {
     public class LearnFAMType_01RuleTests
     {
-        private LearnFAMType_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearnFAMTypeCodeInternalDataService ilLearnFamTypeCodeInternalDataService = null)
-        {
-            return new LearnFAMType_01Rule(validationErrorHandler, ilLearnFamTypeCodeInternalDataService);
-        }
-
         [Theory]
         [InlineData("XYZ", 1)]
         [InlineData("LSR", 99)]
@@ -88,6 +83,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
             var rule = NewRule(validationErrorHandlerMock.Object, learnFamTypeCodeInternalDataServiceMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private LearnFAMType_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearnFAMTypeCodeInternalDataService ilLearnFamTypeCodeInternalDataService = null)
+        {
+            return new LearnFAMType_01Rule(validationErrorHandler, ilLearnFamTypeCodeInternalDataService);
         }
 
         private Mock<ILearnFAMTypeCodeInternalDataService> SetupLearnFamTypeMockService(string famType, long famCode, bool result)

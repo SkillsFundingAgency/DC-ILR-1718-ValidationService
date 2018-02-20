@@ -1,25 +1,25 @@
-﻿using ESFA.DC.ILR.ValidationService.Rules.Query;
+﻿using System.Collections.Generic;
+using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
+using ESFA.DC.ILR.ValidationService.Rules.Query;
 using FluentAssertions;
-using System.Collections.Generic;
 using Moq;
 using Xunit;
-using ESFA.DC.ILR.Tests.Model;
-using ESFA.DC.ILR.Model.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
 {
     public class LearnerFAMQueryServiceTests
-    {   
+    {
         [Fact]
         public void HasAnyLearnerFAMCodesForType_True()
         {
             var learnerFams = SetupLearnerFams();
 
-            var codes = new long[] { 1,3 };
+            var codes = new long[] { 1, 3 };
             var queryService = new LearnerFAMQueryService();
             queryService.HasAnyLearnerFAMCodesForType(learnerFams, "FamC", codes).Should().BeTrue();
         }
-        
+
         [Fact]
         public void HasAnyLearnerFAMCodesForType_NullFams()
         {
@@ -35,7 +35,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
 
             queryService.HasAnyLearnerFAMCodesForType(learnerFams, "FamB", null).Should().BeFalse();
         }
-        
+
         [Fact]
         public void HasAnyLearnerFAMCodesForType_False_Mismatch()
         {
@@ -97,7 +97,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
         {
             var learnerFams = SetupLearnerFams();
             var queryService = new LearnerFAMQueryService();
-            queryService.HasAnyLearnerFAMTypes(learnerFams, new List<string>() {"FamA", "TYPENOTFOUND" }).Should().BeTrue();
+            queryService.HasAnyLearnerFAMTypes(learnerFams, new List<string>() { "FamA", "TYPENOTFOUND" }).Should().BeTrue();
         }
 
         [Fact]
@@ -107,6 +107,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
             var queryService = new LearnerFAMQueryService();
             queryService.HasAnyLearnerFAMTypes(learnerFams, new List<string>() { "XXXX", "TYPENOTFOUND" }).Should().BeFalse();
         }
+
         [Fact]
         public void HasLearnerFAMTypes_Null()
         {
@@ -114,9 +115,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
             var queryService = new LearnerFAMQueryService();
             queryService.HasAnyLearnerFAMTypes(learnerFams, null).Should().BeFalse();
         }
-
-
-
 
         private ILearnerFAM[] SetupLearnerFams()
         {
@@ -127,6 +125,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query
                 new TestLearnerFAM() { LearnFAMType = "FamC", LearnFAMCodeNullable = 3 },
                 new TestLearnerFAM() { LearnFAMType = "FamC", LearnFAMCodeNullable = 5 },
             };
+
             return learnerFams;
         }
     }

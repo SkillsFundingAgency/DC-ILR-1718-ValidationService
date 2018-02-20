@@ -1,24 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
 {
     public class LearnFAMType_16RuleTests
     {
-        private LearnFAMType_16Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearnerFAMQueryService learnerFamQueryService = null)
-        {
-            return new LearnFAMType_16Rule(validationErrorHandler, learnerFamQueryService);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -139,7 +134,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
                 .Setup(x => x.HasAnyLearnerFAMTypes(famTypesList, It.IsAny<IEnumerable<string>>()))
                 .Returns(true);
             var rule = NewRule(null, learnerFamQueryServiceMock.Object);
-            
+
             rule.ConditionMetSENOrEHCNotFound(famTypesList).Should().BeFalse();
         }
 
@@ -162,7 +157,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
                 .Setup(x => x.HasAnyLearnerFAMTypes(famTypesList, It.IsAny<IEnumerable<string>>()))
                 .Returns(false);
             var rule = NewRule(null, learnerFamQueryServiceMock.Object);
-            
+
             rule.ConditionMetSENOrEHCNotFound(famTypesList).Should().BeTrue();
         }
 
@@ -202,7 +197,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
             var learnerFamQueryServiceMock = new Mock<ILearnerFAMQueryService>();
-            learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(learner.LearnerFAMs, "ECF",1)).Returns(true);
+            learnerFamQueryServiceMock.Setup(x => x.HasLearnerFAMCodeForType(learner.LearnerFAMs, "ECF", 1)).Returns(true);
             learnerFamQueryServiceMock.Setup(x => x.HasAnyLearnerFAMTypes(learner.LearnerFAMs, It.IsAny<IEnumerable<string>>())).Returns(false);
 
             var rule = NewRule(validationErrorHandlerMock.Object, learnerFamQueryServiceMock.Object);
@@ -239,6 +234,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
             var rule = NewRule(validationErrorHandlerMock.Object, learnerFamQueryServiceMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private LearnFAMType_16Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearnerFAMQueryService learnerFamQueryService = null)
+        {
+            return new LearnFAMType_16Rule(validationErrorHandler, learnerFamQueryService);
         }
     }
 }

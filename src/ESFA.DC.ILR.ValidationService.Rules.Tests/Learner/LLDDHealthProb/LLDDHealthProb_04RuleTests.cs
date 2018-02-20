@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.Sex;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -17,17 +13,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
 {
     public class LLDDHealthProb_04RuleTests
     {
-
-        private LLDDHealthProb_04Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new LLDDHealthProb_04Rule(validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True_Null()
         {
             var rule = NewRule();
-            rule.ConditionMet(2,null).Should().BeTrue();
+            rule.ConditionMet(2, null).Should().BeTrue();
         }
 
         [Fact]
@@ -47,7 +37,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             };
             rule.ConditionMet(2, llddAndHealthProblems).Should().BeFalse();
         }
-
 
         [Fact]
         public void Validate_False()
@@ -83,6 +72,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private LLDDHealthProb_04Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LLDDHealthProb_04Rule(validationErrorHandler);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Rules.Derived;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
@@ -39,7 +39,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
         [Fact]
         public void Derive_ForOne_OneLearningDeliveryStartNull()
         {
-
             var learningDeliveries = new TestLearningDelivery[]
              {
                     new TestLearningDelivery()
@@ -59,8 +58,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
             var dd06 = new DD06();
             dd06.Derive(learningDeliveries).Should().Be(new DateTime(2015, 1, 1));
         }
-
-        
-
     }
 }

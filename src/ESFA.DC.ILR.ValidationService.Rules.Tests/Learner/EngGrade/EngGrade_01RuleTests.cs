@@ -1,28 +1,23 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
 {
     public class EngGrade_01RuleTests
     {
-        private EngGrade_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new EngGrade_01Rule(validationErrorHandler);
-        }
-
         [Theory]
-        [InlineData(null,25)]
-        [InlineData(null,82)]
-        [InlineData(" ",82)]
+        [InlineData(null, 25)]
+        [InlineData(null, 82)]
+        [InlineData(" ", 82)]
         [InlineData("", 25)]
-        public void ConditionMet_True(string engGrade , long? fundModel)
+        public void ConditionMet_True(string engGrade, long? fundModel)
         {
             NewRule().ConditionMet(engGrade, fundModel).Should().BeTrue();
         }
@@ -52,11 +47,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
         [Fact]
         public void Validate_Error()
         {
-            var learner = SetupLearner("");
+            var learner = SetupLearner(string.Empty);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("EngGrade_01", null, null, null);
-            
+
             var rule = NewRule(validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
@@ -71,12 +66,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("EngGrade_01", null, null, null);
-            
+
             var rule = NewRule(validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private EngGrade_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new EngGrade_01Rule(validationErrorHandler);
         }
 
         private ILearner SetupLearner(string engGrade)

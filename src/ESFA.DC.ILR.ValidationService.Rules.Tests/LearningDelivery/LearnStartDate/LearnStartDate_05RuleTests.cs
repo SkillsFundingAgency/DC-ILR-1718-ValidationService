@@ -1,21 +1,16 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartDate
 {
     public class LearnStartDate_05RuleTests
     {
-        private LearnStartDate_05Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new LearnStartDate_05Rule(validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -45,7 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         {
             var learner = new TestLearner()
             {
-                DateOfBirthNullable = new DateTime(1988, 12, 25),                
+                DateOfBirthNullable = new DateTime(1988, 12, 25),
                 LearningDeliveries = new TestLearningDelivery[]
                 {
                     new TestLearningDelivery()
@@ -84,6 +79,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private LearnStartDate_05Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LearnStartDate_05Rule(validationErrorHandler);
         }
     }
 }

@@ -1,25 +1,20 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDCat;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
 {
     public class LLDDCat_Rule01Tests
     {
-        private LLDDCat_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatInternalDataService llddCatDataService = null)
-        {
-            return new LLDDCat_01Rule(validationErrorHandler, llddCatDataService);
-        }
-
         [Theory]
         [InlineData(18)]
         [InlineData(100)]
@@ -101,6 +96,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDCat
             var rule = NewRule(validationErrorHandlerMock.Object, lldCatServiceMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private LLDDCat_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILlddCatInternalDataService llddCatDataService = null)
+        {
+            return new LLDDCat_01Rule(validationErrorHandler, llddCatDataService);
         }
     }
 }

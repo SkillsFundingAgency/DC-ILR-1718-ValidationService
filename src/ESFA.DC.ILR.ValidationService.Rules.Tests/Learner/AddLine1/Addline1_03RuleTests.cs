@@ -1,25 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.AddLine1;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
 {
     public class Addline1_03RuleTests
     {
-
-        private AddLine1_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearningDeliveryFAMQueryService learningDeliveryFamQueryService = null)
-        {
-            return new AddLine1_03Rule(validationErrorHandler, learningDeliveryFamQueryService);
-        }
-
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
@@ -39,7 +33,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             rule.ConditionMet("test").Should().BeFalse();
         }
 
-
         [Theory]
         [InlineData(10)]
         public void ExcludePlanLearnHoursConditionMet_True(long? planLearnHours)
@@ -58,7 +51,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
 
             rule.ExcludeConditionPlannedLearnHours(planLearnHours).Should().BeFalse();
         }
-
 
         [Theory]
         [InlineData(null)]
@@ -84,7 +76,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [InlineData("SOF", "9999")]
         public void ExcludeFundMode99Met_False(string famType, string famCode)
         {
-
             var learningDeliveryFams = new[]
             {
                 new TestLearningDeliveryFAM()
@@ -106,7 +97,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
         [Fact]
         public void ExcludeFundMode99Met_True()
         {
-
             var learningDeliveryFams = new[]
             {
                 new TestLearningDeliveryFAM()
@@ -162,7 +152,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
                 }
             };
 
-
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
@@ -172,7 +161,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
 
             rule.Exclude(learningDeliveries, 10).Should().BeTrue();
         }
-
 
         [Fact]
         public void Exclude_False()
@@ -198,7 +186,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
                 }
             };
 
-
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
@@ -208,7 +195,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
 
             rule.Exclude(learningDeliveries, 10).Should().BeFalse();
         }
-
 
         [Fact]
         public void Validate_Error()
@@ -240,6 +226,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.AddLine1
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
+        private AddLine1_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearningDeliveryFAMQueryService learningDeliveryFamQueryService = null)
+        {
+            return new AddLine1_03Rule(validationErrorHandler, learningDeliveryFamQueryService);
+        }
     }
-
 }

@@ -1,6 +1,6 @@
-﻿using ESFA.DC.ILR.ValidationService.Rules.Extensions;
+﻿using System.Collections.Generic;
+using ESFA.DC.ILR.ValidationService.Rules.Extensions;
 using FluentAssertions;
-using System.Collections.Generic;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Extensions

@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ALSCost;
@@ -6,20 +9,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Query;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
 {
     public class ALSCost_02RuleTests
     {
-        private ALSCost_02Rule NewRule(ILearnerFAMQueryService learnerFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ALSCost_02Rule(learnerFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -39,9 +34,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
         }
 
         [Theory]
-        [InlineData(null,"XYZ")]
-        [InlineData(100,"HNS")]
-        public void ConditionMet_False(long? alsCost,string famType)
+        [InlineData(null, "XYZ")]
+        [InlineData(100, "HNS")]
+        public void ConditionMet_False(long? alsCost, string famType)
         {
             var learnerFamQueryService = new LearnerFAMQueryService();
 
@@ -56,7 +51,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
             var rule = NewRule(learnerFamQueryService);
 
             rule.ConditionMet(alsCost, fams).Should().BeFalse();
-        }       
+        }
 
         [Fact]
         public void Validate_Error()
@@ -65,7 +60,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ALSCost_02", null, null, null);
-            
+
             var rule = NewRule(new LearnerFAMQueryService(), validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
@@ -80,7 +75,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ALSCost_02", null, null, null);
-            
+
             var rule = NewRule(new LearnerFAMQueryService(), validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
@@ -101,6 +96,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ALSCost
                     }
                 }
             };
+        }
+
+        private ALSCost_02Rule NewRule(ILearnerFAMQueryService learnerFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ALSCost_02Rule(learnerFAMQueryService, validationErrorHandler);
         }
     }
 }

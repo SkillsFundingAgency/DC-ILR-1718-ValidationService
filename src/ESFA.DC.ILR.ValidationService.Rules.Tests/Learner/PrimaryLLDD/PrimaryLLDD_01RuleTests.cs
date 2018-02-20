@@ -1,24 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PrimaryLLDD;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
 {
     public class PrimaryLLDD_01RuleTests
     {
-        private PrimaryLLDD_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IDD06 dd06 = null)
-        {
-            return new PrimaryLLDD_01Rule(validationErrorHandler, dd06);
-        }
-
         [Fact]
         public void ConditionMet_True_NullLlddCategories()
         {
@@ -106,9 +101,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
 
             var llDDAndHealthProblems = new List<ILLDDAndHealthProblem>()
             {
-                SetupLlddHealthAndProblem(null,9999),
-                SetupLlddHealthAndProblem(null,100),
-                SetupLlddHealthAndProblem(null,null)
+                SetupLlddHealthAndProblem(null, 9999),
+                SetupLlddHealthAndProblem(null, 100),
+                SetupLlddHealthAndProblem(null, null)
             };
             rule.Exclude(llDDAndHealthProblems).Should().BeFalse();
         }
@@ -122,13 +117,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
 
             var llDDAndHealthProblems = new List<ILLDDAndHealthProblem>()
             {
-                SetupLlddHealthAndProblem(null,excludeCatValue),
-                SetupLlddHealthAndProblem(200,excludeCatValue),
-                
+                SetupLlddHealthAndProblem(null, excludeCatValue),
+                SetupLlddHealthAndProblem(200, excludeCatValue),
             };
             rule.Exclude(llDDAndHealthProblems).Should().BeTrue();
         }
-
 
         [Fact]
         public void Validate_False()
@@ -144,7 +137,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
             var validationErrorHandlerMock = SetupForValidate(1);
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PrimaryLLDD_01", null, null, null);
             validationErrorHandlerMock.Verify(handle, Times.Never);
-
         }
 
         private Mock<IValidationErrorHandler> SetupForValidate(long? primaryLldValue)
@@ -168,6 +160,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrimaryLLDD
             var rule = NewRule(validationErrorHandlerMock.Object, dd06Mock.Object);
             rule.Validate(learner);
             return validationErrorHandlerMock;
+        }
+
+        private PrimaryLLDD_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IDD06 dd06 = null)
+        {
+            return new PrimaryLLDD_01Rule(validationErrorHandler, dd06);
         }
 
         private TestLLDDAndHealthProblem SetupLlddHealthAndProblem(long? primarylldValue, long? lldCat = 1)

@@ -1,24 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_12RuleTests
     {
-        private ULN_12Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ULN_12Rule(learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(null)]
         [InlineData(9999999999)]
@@ -45,7 +40,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var learner = new TestLearner()
             {
                 ULNNullable = 1,
-                LearningDeliveries = new TestLearningDelivery[] { }                
+                LearningDeliveries = new TestLearningDelivery[] { }
             };
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
@@ -59,7 +54,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 
         [Fact]
         public void Validate_Error()
-        {            
+        {
             var learner = new TestLearner()
             {
                 LearningDeliveries = new TestLearningDelivery[]
@@ -75,7 +70,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1")).Returns(true);
-            
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("ULN_12", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
@@ -85,6 +80,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
-        }        
+        }
+
+        private ULN_12Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_12Rule(learningDeliveryFAMQueryService, validationErrorHandler);
+        }
     }
 }

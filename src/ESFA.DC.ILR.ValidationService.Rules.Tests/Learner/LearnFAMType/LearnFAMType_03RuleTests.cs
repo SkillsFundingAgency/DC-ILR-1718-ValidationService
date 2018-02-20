@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.LearnFAMTypeCode;
@@ -6,22 +9,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
 {
     public class LearnFAMType_03RuleTests
     {
-        private LearnFAMType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null,
-                                        ILearnFAMTypeCodeInternalDataService ilLearnFamTypeCodeInternalDataService = null,
-                                        IDD06 dd06 = null)
-        {
-            return new LearnFAMType_03Rule(validationErrorHandler, ilLearnFamTypeCodeInternalDataService, dd06);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -110,6 +103,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LearnFAMType
             var learnFamTypeCodeInternalDataServiceMock = new Mock<ILearnFAMTypeCodeInternalDataService>();
             learnFamTypeCodeInternalDataServiceMock.Setup(x => x.TypeCodeForDateExists(famType, famCode, validTo)).Returns(result);
             return learnFamTypeCodeInternalDataServiceMock;
+        }
+
+        private LearnFAMType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, ILearnFAMTypeCodeInternalDataService ilLearnFamTypeCodeInternalDataService = null, IDD06 dd06 = null)
+        {
+            return new LearnFAMType_03Rule(validationErrorHandler, ilLearnFamTypeCodeInternalDataService, dd06);
         }
 
         private Mock<IDD06> SetupDD06MockService(DateTime? result)

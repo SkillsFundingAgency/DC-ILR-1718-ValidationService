@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.Sex;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -16,12 +11,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
 {
     public class LLDDHealthProb_01RuleTests
     {
-
-        private LLDDHealthProb_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new LLDDHealthProb_01Rule(validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(100)]
         [InlineData(0)]
@@ -72,6 +61,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private LLDDHealthProb_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LLDDHealthProb_01Rule(validationErrorHandler);
         }
     }
 }

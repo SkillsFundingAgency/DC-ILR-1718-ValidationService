@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.PriorAttain;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
 {
     public class PriorAttain_03RuleTests
     {
-        private PriorAttain_03Rule NewRule(IPriorAttainInternalDataService priorAttainReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PriorAttain_03Rule(priorAttainReferenceDataService, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -80,6 +75,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private PriorAttain_03Rule NewRule(IPriorAttainInternalDataService priorAttainReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PriorAttain_03Rule(priorAttainReferenceDataService, validationErrorHandler);
         }
     }
 }

@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.ULN.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_05RuleTests
     {
-        private ULN_05Rule NewRule(IULNReferenceDataService uLNReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ULN_05Rule(uLNReferenceDataService, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -74,6 +69,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private ULN_05Rule NewRule(IULNReferenceDataService uLNReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_05Rule(uLNReferenceDataService, validationErrorHandler);
         }
     }
 }

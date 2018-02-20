@@ -1,7 +1,7 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Rules.Derived;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
@@ -63,7 +63,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
                     FworkCodeNullable = 1,
                     PwayCodeNullable = 1,
                 }
-            };            
+            };
 
             var dd04 = new DD04();
 
@@ -163,6 +163,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Derived
             var dd04 = new DD04();
 
             dd04.EarliestLearningDeliveryLearnStartDateFor(learningDeliveries, 1, 1, 1, 1).Should().Be(earliestLearnStartDate);
-        }        
+        }
     }
 }

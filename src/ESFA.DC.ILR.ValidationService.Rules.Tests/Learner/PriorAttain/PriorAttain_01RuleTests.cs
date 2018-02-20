@@ -1,16 +1,11 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
@@ -32,11 +27,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
         }
 
         [Theory]
-        [InlineData(100,"ACT","1")]
-        [InlineData(50,"SOF","108")]
-        [InlineData(99,"SOF","99")]
+        [InlineData(100, "ACT", "1")]
+        [InlineData(50, "SOF", "108")]
+        [InlineData(99, "SOF", "99")]
         [InlineData(99, "ACT", "108")]
-        public void ExcludeCondition_False_FundModel(long? fundModel,string famType, string famCode)
+        public void ExcludeCondition_False_FundModel(long? fundModel, string famType, string famCode)
         {
             var learningDelivery = new TestLearningDelivery()
             {
@@ -51,7 +46,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             var rule = new PriorAttain_01Rule(null, famQueryService.Object);
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
-        
 
         [Theory]
         [InlineData(10, "ACT", "1")]
@@ -63,12 +57,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             var learningDelivery = new TestLearningDelivery()
             {
                 LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { },
-                FundModelNullable = fundModel                
+                FundModelNullable = fundModel
             };
 
             var famQueryService = new Mock<ILearningDeliveryFAMQueryService>();
 
-            famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, famType, famCode)).Returns(famType=="SOF");
+            famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, famType, famCode)).Returns(famType == "SOF");
 
             var rule = new PriorAttain_01Rule(null, famQueryService.Object);
 

@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
 {
     public class ContPrefType_02RuleTests
     {
-        private ContPrefType_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ContPrefType_02Rule(validationErrorHandler);
-        }
-
         [Theory]
         [InlineData("RUI", 1)]
         [InlineData("PMC", 1)]
@@ -159,6 +154,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
                 },
             };
             return contactPreferences;
+        }
+
+        private ContPrefType_02Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ContPrefType_02Rule(validationErrorHandler);
         }
     }
 }

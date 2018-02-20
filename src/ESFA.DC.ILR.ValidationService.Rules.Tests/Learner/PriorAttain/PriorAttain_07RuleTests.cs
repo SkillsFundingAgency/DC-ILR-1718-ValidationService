@@ -1,24 +1,18 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
 {
     public class PriorAttain_07RuleTests
-    {   
-        private PriorAttain_07Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PriorAttain_07Rule(validationErrorHandler);
-        }
-
+    {
         [Fact]
         public void RuleConditionMet_True()
         {
@@ -28,7 +22,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
 
             foreach (var item in priorAttainValues)
             {
-                rule.ConditionMet(item,35,24,new DateTime(2016,8,01)).Should().BeTrue();
+                rule.ConditionMet(item, 35, 24, new DateTime(2016, 8, 01)).Should().BeTrue();
             }
         }
 
@@ -110,14 +104,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
         [Fact]
         public void LearnStartDateConditionMet_True()
         {
-            NewRule().LearnStartDateConditionMet(new DateTime(2016,08,01)).Should().BeTrue();
+            NewRule().LearnStartDateConditionMet(new DateTime(2016, 08, 01)).Should().BeTrue();
         }
 
         [Fact]
         public void Validate_Error()
         {
-            var learner = SetupLearner(5, new DateTime(2016,08,02));
-            
+            var learner = SetupLearner(5, new DateTime(2016, 08, 02));
+
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PriorAttain_07", null, null, null);
@@ -132,7 +126,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
         [Fact]
         public void Validate_NoError()
         {
-            var learner = SetupLearner(999, new DateTime(2015,07,31));
+            var learner = SetupLearner(999, new DateTime(2015, 07, 31));
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
@@ -143,6 +137,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private PriorAttain_07Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PriorAttain_07Rule(validationErrorHandler);
         }
 
         private ILearner SetupLearner(long priorAttain, DateTime learnStartDate)
@@ -156,11 +155,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                     {
                         FundModelNullable = 35,
                         ProgTypeNullable = 24,
-                        LearnStartDateNullable = learnStartDate,                        
+                        LearnStartDateNullable = learnStartDate,
                         LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                     }
                 }
-            };            
+            };
         }
     }
 }

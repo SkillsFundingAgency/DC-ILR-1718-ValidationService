@@ -1,21 +1,16 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.Sex;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Sex
 {
     public class Sex_01RuleTests
     {
-        private Sex_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new Sex_01Rule(validationErrorHandler);
-        }
-
         [Theory]
         [InlineData("f")]
         [InlineData("m")]
@@ -59,7 +54,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Sex
         {
             var learner = new TestLearner()
             {
-                Sex= "F"
+                Sex = "F"
             };
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("Sex_01", null, null, null);
@@ -68,6 +63,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Sex
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private Sex_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new Sex_01Rule(validationErrorHandler);
         }
     }
 }

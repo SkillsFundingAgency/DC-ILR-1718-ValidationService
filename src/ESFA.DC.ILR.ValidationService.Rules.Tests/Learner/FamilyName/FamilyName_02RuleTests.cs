@@ -1,13 +1,13 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
@@ -59,7 +59,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
-            
+
             var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object);
 
             rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeTrue();
@@ -77,7 +77,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                 new TestLearningDelivery()
                 {
                     FundModelNullable = 99,
-                    LearningDeliveryFAMs = new TestLearningDeliveryFAM[]{ }
+                    LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
                 }
             };
 
@@ -85,7 +85,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 
             rule.CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeFalse();
         }
-        
+
         [Fact]
         public void CrossLearningDeliveryConditionMet_False_Null()
         {
@@ -103,7 +103,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             var rule = NewRule();
 
             rule.ConditionMet(planLearnHours, familyName).Should().BeTrue();
-        }        
+        }
 
         [Theory]
         [InlineData(3)]

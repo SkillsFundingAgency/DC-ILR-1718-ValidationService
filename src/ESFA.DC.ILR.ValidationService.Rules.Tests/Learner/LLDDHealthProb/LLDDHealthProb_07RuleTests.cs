@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.LLDDHealthProb;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.Sex;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
@@ -19,13 +16,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
 {
     public class LLDDHealthProb_07RuleTests
     {
-
-        private LLDDHealthProb_07Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IDD06 dd06 = null,
-                                 ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService =null , IDateTimeQueryService dateTimeQueryService = null)
-        {
-            return new LLDDHealthProb_07Rule(validationErrorHandler, dd06,learningDeliveryFAMQueryService,dateTimeQueryService);
-        }
-
         [Fact]
         public void ConditionMet_True_NullLLDHealthAndProblems()
         {
@@ -73,7 +63,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             rule.ConditionPlannedLearnHoursMet(planLearnHours).Should().BeFalse();
         }
 
-        
         [Theory]
         [InlineData(null)]
         [InlineData(2)]
@@ -85,9 +74,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), It.IsAny<string>(), It.IsAny<string>())).Returns(false);
 
-            rule.ConditionMet(llddHealthProblem,It.IsAny<long>(),It.IsAny<IReadOnlyCollection<ILLDDAndHealthProblem>>(),It.IsAny<IReadOnlyCollection<ILearningDelivery>>()).Should().BeFalse();
+            rule.ConditionMet(llddHealthProblem, It.IsAny<long>(), It.IsAny<IReadOnlyCollection<ILLDDAndHealthProblem>>(), It.IsAny<IReadOnlyCollection<ILearningDelivery>>()).Should().BeFalse();
         }
-
 
         [Fact]
         public void ConditionMet_True()
@@ -100,7 +88,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
 
             rule.ConditionMet(1, It.IsAny<long>(), It.IsAny<IReadOnlyCollection<ILLDDAndHealthProblem>>(), It.IsAny<IReadOnlyCollection<ILearningDelivery>>()).Should().BeFalse();
         }
-
 
         [Theory]
         [InlineData(null)]
@@ -126,7 +113,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
         [InlineData("SOF", "9999")]
         public void ConditionFundModel99Met_False(string famType, string famCode)
         {
-
             var learningDeliveryFams = new[]
             {
                 new TestLearningDeliveryFAM()
@@ -141,14 +127,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), It.IsAny<string>(), It.IsAny<string>())).Returns(false);
 
-            var rule = NewRule(null,null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, null, learningDeliveryFAMQueryServiceMock.Object);
             rule.ConditionFamValueMet(99, learningDeliveryFams).Should().BeFalse();
         }
 
         [Fact]
         public void ConditionFundMode99Met_True()
         {
-
             var learningDeliveryFams = SetupLearningDeliveries(It.IsAny<long>()).First().LearningDeliveryFAMs;
 
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
@@ -156,7 +141,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
 
-            var rule = NewRule(null,null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, null, learningDeliveryFAMQueryServiceMock.Object);
 
             rule.ConditionFamValueMet(99, learningDeliveryFams).Should().BeTrue();
         }
@@ -176,7 +161,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), It.IsAny<string>(), It.IsAny<string>())).Returns(false);
 
-            var rule = NewRule(null, null,learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, null, learningDeliveryFAMQueryServiceMock.Object);
             var learningDeliveries = SetupLearningDeliveries(108);
             rule.LearningDeliveriesConditionMet(learningDeliveries).Should().BeFalse();
         }
@@ -189,7 +174,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                 It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
 
-            var rule = NewRule(null,null, learningDeliveryFAMQueryServiceMock.Object);
+            var rule = NewRule(null, null, learningDeliveryFAMQueryServiceMock.Object);
 
             var learningDeliveries = new[]
             {
@@ -215,9 +200,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
         }
 
         [Theory]
-        [InlineData(null,null)]
+        [InlineData(null, null)]
         [InlineData("1996-01-01", null)]
-        [InlineData( null, "2017-10-10")]
+        [InlineData(null, "2017-10-10")]
         [InlineData("1992-10-11", "2017-10-10")]
         public void Exclude_False(string dateOfBirth, string minimumLearnStart)
         {
@@ -228,9 +213,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             dateTimeQueryServiceMock.Setup(x =>
                 x.YearsBetween(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(24);
 
-            var rule = NewRule(null,null,null,dateTimeQueryServiceMock.Object);
-          
-            rule.Exclude(dateofBirthDate,minimumLearnStartDate).Should().BeFalse();
+            var rule = NewRule(null, null, null, dateTimeQueryServiceMock.Object);
+
+            rule.Exclude(dateofBirthDate, minimumLearnStartDate).Should().BeFalse();
         }
 
         [Fact]
@@ -239,14 +224,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
             dateTimeQueryServiceMock.Setup(x =>
                 x.YearsBetween(new DateTime(1992, 10, 10), new DateTime(2017, 10, 10))).Returns(25);
-            var rule = NewRule(null,null,null,dateTimeQueryServiceMock.Object);
+            var rule = NewRule(null, null, null, dateTimeQueryServiceMock.Object);
 
-            rule.Exclude(new DateTime(1992,10,10), new DateTime(2017, 10, 10)).Should().BeTrue();
+            rule.Exclude(new DateTime(1992, 10, 10), new DateTime(2017, 10, 10)).Should().BeTrue();
         }
 
-
-       
-       
         [Fact]
         public void Validate_False()
         {
@@ -254,16 +236,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("LLDDHealthProb_07", null, null, null);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
-        
+
         [Fact]
         public void Validate_True()
         {
-            var validationErrorHandlerMock = SetupLearnerForValidate(new List<ILLDDAndHealthProblem>(){new TestLLDDAndHealthProblem()});
+            var validationErrorHandlerMock = SetupLearnerForValidate(new List<ILLDDAndHealthProblem>() { new TestLLDDAndHealthProblem() });
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("LLDDHealthProb_07", null, null, null);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
-        private Mock<IValidationErrorHandler> SetupLearnerForValidate( IReadOnlyCollection<ILLDDAndHealthProblem> lldHealthProblems)
+        private Mock<IValidationErrorHandler> SetupLearnerForValidate(IReadOnlyCollection<ILLDDAndHealthProblem> lldHealthProblems)
         {
             var learner = new TestLearner()
             {
@@ -271,7 +253,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
                 PlanLearnHoursNullable = 11,
                 LearningDeliveries = SetupLearningDeliveries(10),
                 LLDDAndHealthProblems = lldHealthProblems
-                
             };
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -288,14 +269,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             dateTimeQueryServiceMock.Setup(x =>
                 x.YearsBetween(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(24);
 
-            var rule = NewRule(validationErrorHandlerMock.Object,dd06Mock.Object,learningDeliveryFAMQueryServiceMock.Object, dateTimeQueryServiceMock.Object);
+            var rule = NewRule(validationErrorHandlerMock.Object, dd06Mock.Object, learningDeliveryFAMQueryServiceMock.Object, dateTimeQueryServiceMock.Object);
             rule.Validate(learner);
 
             return validationErrorHandlerMock;
         }
 
-       
-        private TestLearningDelivery[] SetupLearningDeliveries(long? fundModelNullable, string famType ="SOF")
+        private LLDDHealthProb_07Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IDD06 dd06 = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IDateTimeQueryService dateTimeQueryService = null)
+        {
+            return new LLDDHealthProb_07Rule(validationErrorHandler, dd06, learningDeliveryFAMQueryService, dateTimeQueryService);
+        }
+
+        private TestLearningDelivery[] SetupLearningDeliveries(long? fundModelNullable, string famType = "SOF")
         {
             var learningDeliveries = new[]
             {
@@ -319,7 +304,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.LLDDHealthProb
             };
             return learningDeliveries;
         }
-
-
     }
 }

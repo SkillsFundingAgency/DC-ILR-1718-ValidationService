@@ -1,28 +1,23 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ProvSpecLearnMonOccur;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ProvSpecLearnMonOccur
 {
     public class ProvSpecLearnMonOccur_01RuleTests
     {
-        private ProvSpecLearnMonOccur_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ProvSpecLearnMonOccur_01Rule(validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
             var rule = NewRule();
-            for (char letter = 'C'; letter <= 'Z'; letter++)
+            for (var letter = 'C'; letter <= 'Z'; letter++)
             {
                 rule.ConditionMet(letter.ToString()).Should().BeTrue();
             }
@@ -97,6 +92,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ProvSpecLearnMonOccu
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private ProvSpecLearnMonOccur_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ProvSpecLearnMonOccur_01Rule(validationErrorHandler);
         }
     }
 }

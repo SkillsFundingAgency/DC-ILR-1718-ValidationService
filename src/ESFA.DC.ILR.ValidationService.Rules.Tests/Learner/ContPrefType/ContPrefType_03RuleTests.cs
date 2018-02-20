@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
@@ -6,20 +9,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
 {
     public class ContPrefType_03RuleTests
     {
-        private ContPrefType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceInternalDataService contactPreferenceDataService = null, IDD06 dd06 = null)
-        {
-            return new ContPrefType_03Rule(validationErrorHandler, contactPreferenceDataService, dd06);
-        }
-
         [Theory]
         [InlineData("RUI", 1, "2100-01-01")]
         [InlineData("PMC", 1, "2100-01-01")]
@@ -137,6 +132,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
                 },
             };
             return contactPreferences;
+        }
+
+        private ContPrefType_03Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceInternalDataService contactPreferenceDataService = null, IDD06 dd06 = null)
+        {
+            return new ContPrefType_03Rule(validationErrorHandler, contactPreferenceDataService, dd06);
         }
     }
 }

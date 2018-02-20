@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
 {
     public class GivenNames_01RuleTests
     {
-        private GivenNames_01Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new GivenNames_01Rule(learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void Exclude_True_FundModel10()
         {
@@ -103,8 +98,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
             {
                 GivenNames = "Not Null"
             };
-            
-            NewRule().Validate(learner);            
+
+            NewRule().Validate(learner);
         }
 
         [Fact]
@@ -123,6 +118,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.GivenNames
             };
 
             NewRule().Validate(learner);
+        }
+
+        private GivenNames_01Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new GivenNames_01Rule(learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

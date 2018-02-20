@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade;
@@ -6,9 +9,6 @@ using ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
@@ -28,7 +28,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
         [InlineData("G")]
         [InlineData("GG")]
         [InlineData("N")]
-        [InlineData("U" )]
+        [InlineData("U")]
     public void ConditionMet_True(string mathGrade)
         {
             var learnerFamQueryService = new Mock<ILearnerFAMQueryService>();
@@ -39,7 +39,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
 
             rule.ConditionMet(mathGrade, It.IsAny<IReadOnlyCollection<ILearnerFAM>>()).Should().BeTrue();
         }
-
 
         [Theory]
         [InlineData(null)]
@@ -60,10 +59,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
         public void ConditionMet_False(string mathGrade)
         {
             var learnerFamQueryService = new Mock<ILearnerFAMQueryService>();
-            learnerFamQueryService.Setup(x=> x.HasLearnerFAMCodeForType(It.IsAny<IEnumerable<ILearnerFAM>>(),"EDF",2))
+            learnerFamQueryService.Setup(x => x.HasLearnerFAMCodeForType(It.IsAny<IEnumerable<ILearnerFAM>>(), "EDF", 2))
                                     .Returns(true);
 
-            var rule = new EngGrade_03Rule(null,learnerFamQueryService.Object);
+            var rule = new EngGrade_03Rule(null, learnerFamQueryService.Object);
             var learnerFams = new[]
             {
                 new TestLearnerFAM
@@ -81,7 +80,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
             rule.ConditionMet(mathGrade, learnerFams).Should().BeFalse();
         }
 
-        
         [Fact]
         public void Validate_Error()
         {
@@ -121,16 +119,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
             var learner = new TestLearner()
             {
                 EngGrade = engGrade,
-                LearnerFAMs = new []
+                LearnerFAMs = new[]
                 {
-                    new TestLearnerFAM() 
+                    new TestLearnerFAM()
                 }
             };
             return learner;
         }
-
-
-
-
     }
 }

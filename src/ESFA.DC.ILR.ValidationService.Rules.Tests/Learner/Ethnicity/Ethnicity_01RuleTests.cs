@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.Ethnicity;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -18,11 +12,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Ethnicity
 {
     public class Ethnicity_01RuleTests
     {
-        private Ethnicity_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new Ethnicity_01Rule(validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(100)]
         [InlineData(0)]
@@ -41,7 +30,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Ethnicity
             {
                 rule.ConditionMet(validValue).Should().BeFalse();
             }
-
         }
 
         [Fact]
@@ -51,7 +39,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Ethnicity
             {
                 EthnicityNullable = 10
             };
-            
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("Ethnicity_01", null, null, null);
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
@@ -74,6 +62,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Ethnicity
             var rule = NewRule(validationErrorHandlerMock.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
+        }
+
+        private Ethnicity_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new Ethnicity_01Rule(validationErrorHandler);
         }
     }
 }

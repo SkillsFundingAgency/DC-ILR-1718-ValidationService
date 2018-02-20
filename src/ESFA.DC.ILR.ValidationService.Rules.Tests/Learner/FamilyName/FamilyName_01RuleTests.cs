@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.GivenNames;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 {
     public class FamilyName_01RuleTests
     {
-        private FamilyName_01Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new FamilyName_01Rule(learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void Exclude_True_FundModel10()
         {
@@ -40,7 +35,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, "SOF", "108")).Returns(true);
-            
+
             var rule = NewRule(learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Exclude(learningDelivery).Should().BeTrue();
@@ -103,8 +98,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             {
                 FamilyName = "Not Null"
             };
-            
-            NewRule().Validate(learner);            
+
+            NewRule().Validate(learner);
         }
 
         [Fact]
@@ -121,8 +116,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
                     }
                 }
             };
-            
+
             NewRule().Validate(learner);
+        }
+
+        private FamilyName_01Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new FamilyName_01Rule(learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

@@ -1,39 +1,34 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PlanEEPHours;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
 {
     public class PlanEEPHours_01RuleTests
     {
-        private PlanEEPHours_01Rule NewRule(IDD07 dd07 = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PlanEEPHours_01Rule(dd07, validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(25)]
         [InlineData(82)]
         public void ConditionMet_True(long? fundModel)
         {
-            NewRule().ConditionMet(null,fundModel).Should().BeTrue();
+            NewRule().ConditionMet(null, fundModel).Should().BeTrue();
         }
 
         [Theory]
-        [InlineData(null,10)]
+        [InlineData(null, 10)]
         [InlineData(10, 82)]
         [InlineData(10, 25)]
-        public void ConditionMet_False(long? planEepHours, long? fundModel )
+        public void ConditionMet_False(long? planEepHours, long? fundModel)
         {
-            NewRule().ConditionMet(10,82).Should().BeFalse();
+            NewRule().ConditionMet(10, 82).Should().BeFalse();
         }
 
         [Fact]
@@ -47,7 +42,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
                 },
                 new TestLearningDelivery()
                 {
-                    LearnActEndDateNullable = new DateTime(2018, 1, 1)                    
+                    LearnActEndDateNullable = new DateTime(2018, 1, 1)
                 }
             };
 
@@ -104,7 +99,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
         [Fact]
         public void ExcludeConditionDD07_False()
         {
-            NewRule().HasLearningDeliveryDd07ExcludeConditionMet("").Should().BeFalse();
+            NewRule().HasLearningDeliveryDd07ExcludeConditionMet(string.Empty).Should().BeFalse();
         }
 
         [Fact]
@@ -177,7 +172,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
                         FundModelNullable = 25,
                     }
                 }
-            };            
+            };
+        }
+
+        private PlanEEPHours_01Rule NewRule(IDD07 dd07 = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PlanEEPHours_01Rule(dd07, validationErrorHandler);
         }
 
         private ILearningDelivery SetupLearningDelivery(long? fundModel, long? progType)
@@ -185,7 +185,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanEEPHours
             return new TestLearningDelivery()
             {
                 FundModelNullable = fundModel,
-                ProgTypeNullable = progType,                
+                ProgTypeNullable = progType,
             };
         }
     }
