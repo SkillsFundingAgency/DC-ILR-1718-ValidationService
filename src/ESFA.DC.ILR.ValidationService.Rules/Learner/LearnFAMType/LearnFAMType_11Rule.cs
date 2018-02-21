@@ -12,7 +12,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
     /// </summary>
     public class LearnFAMType_11Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly HashSet<string> _famTypesToCheck = new HashSet<string>() { "NLM", "EDF", "PPE" };
+        private readonly HashSet<string> _famTypesToCheck = new HashSet<string>()
+        {
+            LearnerFamTypeConstants.NLM,
+            LearnerFamTypeConstants.EDF,
+            LearnerFamTypeConstants.PPE
+        };
 
         public LearnFAMType_11Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)

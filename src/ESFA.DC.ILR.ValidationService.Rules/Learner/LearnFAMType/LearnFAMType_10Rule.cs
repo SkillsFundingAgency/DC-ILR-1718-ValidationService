@@ -12,8 +12,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
     /// </summary>
     public class LearnFAMType_10Rule : AbstractRule, IRule<ILearner>
     {
-        private const string FamTypeToCheck = "LSR";
-
         public LearnFAMType_10Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
@@ -30,7 +28,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
         public bool ConditionMet(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
             return learnerFams != null &&
-                   learnerFams.Count(x => x.LearnFAMType == FamTypeToCheck) > 4;
+                   learnerFams.Count(x => x.LearnFAMType == LearnerFamTypeConstants.LSR) > 4;
         }
     }
 }

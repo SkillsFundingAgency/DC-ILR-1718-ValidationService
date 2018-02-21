@@ -12,7 +12,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
     /// </summary>
     public class LearnFAMType_09Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly HashSet<string> _famTypesToCheck = new HashSet<string>() { "HNS", "EHC", "DLA", "SEN", "MCF", "ECF", "FME" };
+        private readonly HashSet<string> _famTypesToCheck = new HashSet<string>()
+        {
+            LearnerFamTypeConstants.HNS,
+            LearnerFamTypeConstants.EHC,
+            LearnerFamTypeConstants.DLA,
+            LearnerFamTypeConstants.SEN,
+            LearnerFamTypeConstants.MCF,
+            LearnerFamTypeConstants.ECF,
+            LearnerFamTypeConstants.FME
+        };
 
         public LearnFAMType_09Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)

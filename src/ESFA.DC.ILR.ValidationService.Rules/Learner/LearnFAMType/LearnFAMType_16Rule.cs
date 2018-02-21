@@ -13,6 +13,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
     public class LearnFAMType_16Rule : AbstractRule, IRule<ILearner>
     {
         private readonly ILearnerFAMQueryService _learnerFAMQueryService;
+        private readonly IEnumerable<string> _senOrEhcFamStrings = new[] { LearnerFamTypeConstants.SEN, LearnerFamTypeConstants.EHC };
 
         public LearnFAMType_16Rule(IValidationErrorHandler validationErrorHandler, ILearnerFAMQueryService learnerFAMQueryService)
             : base(validationErrorHandler)
@@ -36,12 +37,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
 
         public bool ConditionMetSENOrEHCNotFound(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
-            return !_learnerFAMQueryService.HasAnyLearnerFAMTypes(learnerFams, new[] { "SEN", "EHC" });
+            return !_learnerFAMQueryService.HasAnyLearnerFAMTypes(learnerFams, _senOrEhcFamStrings);
         }
 
         public bool ConditionMetForValidFamType(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
-            return _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, "ECF", 1);
+            return _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamTypeConstants.ECF, 1);
         }
     }
 }

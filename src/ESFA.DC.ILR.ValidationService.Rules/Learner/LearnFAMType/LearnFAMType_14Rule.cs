@@ -30,8 +30,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.LearnFAMType
 
         public bool ConditionMet(IReadOnlyCollection<ILearnerFAM> learnerFams)
         {
-            return _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, "SEN", 1) &&
-                   _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, "EHC", 1);
+            return _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamTypeConstants.SEN, 1) &&
+                   _learnerFAMQueryService.HasLearnerFAMCodeForType(learnerFams, LearnerFamTypeConstants.EHC, 1);
         }
     }
 }
