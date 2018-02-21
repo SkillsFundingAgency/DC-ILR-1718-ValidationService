@@ -1,21 +1,16 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_24RuleTests
     {
-        private DateOfBirth_24Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new DateOfBirth_24Rule(validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -57,7 +52,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             };
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
-            
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("DateOfBirth_24", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
@@ -76,11 +71,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             {
                 ULNNullable = 1234,
                 DateOfBirthNullable = new DateTime(2112, 1, 1)
-            };            
+            };
 
             var rule = NewRule();
 
-            rule.Validate(learner);            
+            rule.Validate(learner);
+        }
+
+        private DateOfBirth_24Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_24Rule(validationErrorHandler);
         }
     }
 }

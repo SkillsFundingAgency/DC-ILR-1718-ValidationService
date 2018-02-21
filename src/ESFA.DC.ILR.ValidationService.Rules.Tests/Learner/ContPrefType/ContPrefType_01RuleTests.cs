@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
-using ESFA.DC.ILR.ValidationService.ExternalData.ContPrefType.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType;
 using FluentAssertions;
 using Moq;
@@ -14,22 +14,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
 {
     public class ContPrefType_01RuleTests
     {
-        private ContPrefType_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceDataService contactPreferenceDataService = null)
-        {
-            return new ContPrefType_01Rule(validationErrorHandler, contactPreferenceDataService);
-        }
-
         [Theory]
-        [InlineData("PMC",10)]
+        [InlineData("PMC", 10)]
         [InlineData("RUI", 99)]
         [InlineData("XXXX", 100)]
         public void ConditionMet_True(string type, long? code)
         {
-            var contactPreferenceService = new Mock<IContactPreferenceDataService>();
+            var contactPreferenceService = new Mock<IContactPreferenceInternalDataService>();
             contactPreferenceService.Setup(x => x.CodeExists(code)).Returns(false);
 
-            var rule = NewRule(null,contactPreferenceService.Object);
-            rule.ConditionMet(type,code).Should().BeTrue();
+            var rule = NewRule(null, contactPreferenceService.Object);
+            rule.ConditionMet(type, code).Should().BeTrue();
         }
 
         [Theory]
@@ -44,9 +39,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
         [InlineData("RUI", 5)]
         [InlineData("XXXX", 1)]
         public void ConditionMet_False(string type, long? code)
-
         {
-            var contactPreferenceService = new Mock<IContactPreferenceDataService>();
+            var contactPreferenceService = new Mock<IContactPreferenceInternalDataService>();
             contactPreferenceService.Setup(x => x.CodeExists(code)).Returns(true);
 
             var rule = NewRule(null, contactPreferenceService.Object);
@@ -54,7 +48,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
         }
 
         [Fact]
-        public void Validte_True()
+        public void Validate_True()
         {
             var learner = new TestLearner()
             {
@@ -68,7 +62,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
                 }
             };
 
-            var contactPreferenceService = new Mock<IContactPreferenceDataService>();
+            var contactPreferenceService = new Mock<IContactPreferenceInternalDataService>();
             contactPreferenceService.Setup(x => x.CodeExists(1)).Returns(true);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -77,11 +71,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
             var rule = NewRule(validationErrorHandlerMock.Object, contactPreferenceService.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
-
         }
 
         [Fact]
-        public void Validte_False()
+        public void Validate_False()
         {
             var learner = new TestLearner()
             {
@@ -95,7 +88,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
                 }
             };
 
-            var contactPreferenceService = new Mock<IContactPreferenceDataService>();
+            var contactPreferenceService = new Mock<IContactPreferenceInternalDataService>();
             contactPreferenceService.Setup(x => x.CodeExists(1)).Returns(false);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -104,8 +97,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ContPrefType
             var rule = NewRule(validationErrorHandlerMock.Object, contactPreferenceService.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Once);
-
         }
 
+        private ContPrefType_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null, IContactPreferenceInternalDataService contactPreferenceDataService = null)
+        {
+            return new ContPrefType_01Rule(validationErrorHandler, contactPreferenceDataService);
+        }
     }
 }

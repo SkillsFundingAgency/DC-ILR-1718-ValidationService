@@ -1,28 +1,23 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
 {
     public class MathGrade_01RuleTests
     {
-        private MathGrade_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new MathGrade_01Rule(validationErrorHandler);
-        }
-
         [Theory]
-        [InlineData(null,25)]
-        [InlineData(null,82)]
-        [InlineData(" ",82)]
+        [InlineData(null, 25)]
+        [InlineData(null, 82)]
+        [InlineData(" ", 82)]
         [InlineData("", 25)]
-        public void ConditionMet_True(string mathGrade , long? fundModel)
+        public void ConditionMet_True(string mathGrade, long? fundModel)
         {
             NewRule().ConditionMet(mathGrade, fundModel).Should().BeTrue();
         }
@@ -52,12 +47,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
         [Fact]
         public void Validate_Error()
         {
-            var learner = SetupLearner("");
+            var learner = SetupLearner(string.Empty);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("MathGrade_01", null, null, null);
-            
+
             var rule = NewRule(validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
@@ -73,7 +68,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("MathGrade_01", null, null, null);
-            
+
             var rule = NewRule(validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
@@ -96,6 +91,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.MathGrade
             };
 
             return learner;
+        }
+
+        private MathGrade_01Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new MathGrade_01Rule(validationErrorHandler);
         }
     }
 }

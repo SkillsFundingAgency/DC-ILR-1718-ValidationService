@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_04RuleTests
     {
-        private ULN_04Rule NewRule(IDD01 dd01 = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ULN_04Rule(dd01, validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(1000000043)]
         [InlineData(null)]
@@ -71,6 +66,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private ULN_04Rule NewRule(IDD01 dd01 = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_04Rule(dd01, validationErrorHandler);
         }
     }
 }

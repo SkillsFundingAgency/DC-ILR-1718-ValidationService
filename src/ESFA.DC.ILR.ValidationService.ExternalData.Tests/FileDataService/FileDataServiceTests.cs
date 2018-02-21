@@ -1,4 +1,4 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using ESFA.DC.ILR.Tests.Model;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -14,11 +14,11 @@ namespace ESFA.DC.ILR.ValidationService.ExternalData.Tests.FileDataService
 
             var filePreparationDate = new DateTime(2018, 1, 5);
 
-            var message = new Message()
+            var message = new TestMessage()
             {
-                Header = new MessageHeader()
+                HeaderEntity = new TestHeader()
                 {
-                    CollectionDetails = new MessageHeaderCollectionDetails()
+                    CollectionDetailsEntity = new TestCollectionDetails()
                     {
                         FilePreparationDate = filePreparationDate
                     }

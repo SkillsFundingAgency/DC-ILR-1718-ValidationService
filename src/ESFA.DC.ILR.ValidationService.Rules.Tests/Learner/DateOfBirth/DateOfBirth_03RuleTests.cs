@@ -1,23 +1,17 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_03RuleTests
     {
-        private DateOfBirth_03Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new DateOfBirth_03Rule(validationDataService, dateTimeQueryService, validationErrorHandler);
-        }
-
         [Theory]
         [InlineData(100)]
         [InlineData(115)]
@@ -102,11 +96,16 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 
             var validationDataServiceMock = new Mock<IValidationDataService>();
 
-            validationDataServiceMock.SetupGet(vds => vds.AcademicYearStart).Returns(academicYearStart);           
+            validationDataServiceMock.SetupGet(vds => vds.AcademicYearStart).Returns(academicYearStart);
 
             var rule = NewRule(validationDataServiceMock.Object);
 
             rule.Validate(learner);
+        }
+
+        private DateOfBirth_03Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_03Rule(validationDataService, dateTimeQueryService, validationErrorHandler);
         }
     }
 }

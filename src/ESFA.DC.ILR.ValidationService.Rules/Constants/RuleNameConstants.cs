@@ -84,5 +84,31 @@
         public const string ContPrefType_02Rule = "ContPrefType_02";
         public const string ContPrefType_03Rule = "ContPrefType_03";
 
+        public const string LLDDCat_01Rule = "LLDDCat_01";
+        public const string LLDDCat_02Rule = "LLDDCat_02";
+
+        public const string PrimaryLLDD_01Rule = "PrimaryLLDD_01";
+        public const string PrimaryLLDD_02Rule = "PrimaryLLDD_02";
+        public const string PrimaryLLDD_03Rule = "PrimaryLLDD_03";
+        public const string PrimaryLLDD_04Rule = "PrimaryLLDD_04";
+
+        public const string Ethnicity_01Rule = "Ethnicity_01";
+        public const string Sex_01Rule = "Sex_01";
+
+        public const string LLDDHealthProb_01Rule = "LLDDHealthProb_01";
+        public const string LLDDHealthProb_04Rule = "LLDDHealthProb_04";
+        public const string LLDDHealthProb_06Rule = "LLDDHealthProb_06";
+        public const string LLDDHealthProb_07Rule = "LLDDHealthProb_07";
+
+        public const string LearnFAMType_01Rule = "LearnFAMType_01";
+        public const string LearnFAMType_03Rule = "LearnFAMType_03";
+        public const string LearnFAMType_09Rule = "LearnFAMType_09";
+        public const string LearnFAMType_10Rule = "LearnFAMType_10";
+        public const string LearnFAMType_11Rule = "LearnFAMType_11";
+        public const string LearnFAMType_14Rule = "LearnFAMType_14";
+        public const string LearnFAMType_15Rule = "LearnFAMType_15";
+        public const string LearnFAMType_16Rule = "LearnFAMType_16";
+
+        public const string ProvSpecLearnMonOccur_01Rule = "ProvSpecLearnMonOccur_01";
     }
 }

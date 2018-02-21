@@ -10,7 +10,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IULNReferenceDataService _ulnReferenceDataService;
 
-        public ULN_05Rule(IULNReferenceDataService ulnReferenceDataService, IValidationErrorHandler validationErrorHandler) 
+        public ULN_05Rule(IULNReferenceDataService ulnReferenceDataService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _ulnReferenceDataService = ulnReferenceDataService;

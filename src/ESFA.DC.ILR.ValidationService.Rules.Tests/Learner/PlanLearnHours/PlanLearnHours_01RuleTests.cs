@@ -1,30 +1,24 @@
-﻿using ESFA.DC.ILR.ValidationService.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.Tests.Model;
+using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using ESFA.DC.ILR.Model;
-using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using Xunit;
-using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR.Tests.Model;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
 {
     public class PlanLearnHours_01RuleTests : PlanLearnHoursTestsBase
     {
-        private PlanLearnHours_01Rule NewRule(IDD07 dd07 = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PlanLearnHours_01Rule(dd07, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
             NewRule().ConditionMet(null).Should().BeTrue();
-        }        
+        }
 
         [Fact]
         public void ConditionMet_False()
@@ -39,7 +33,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
             {
                 new TestLearningDelivery()
                 {
-                    LearnActEndDateNullable = new DateTime(2018, 1, 1)                    
+                    LearnActEndDateNullable = new DateTime(2018, 1, 1)
                 },
                 new TestLearningDelivery()
                 {
@@ -66,7 +60,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         }
 
         [Theory]
-        [InlineData(70,null)]
+        [InlineData(70, null)]
         [InlineData(null, 2)]
         public void ExcludeConditionMet_True(long? fundModel, long? progType)
         {
@@ -95,11 +89,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
             rule.Exclude(learningDelivery).Should().BeFalse();
         }
 
-
         [Fact]
         public void ExcludeConditionDD07_False()
         {
-            NewRule().HasLearningDeliveryDd07ExcludeConditionMet("").Should().BeFalse();
+            NewRule().HasLearningDeliveryDd07ExcludeConditionMet(string.Empty).Should().BeFalse();
         }
 
         [Fact]
@@ -118,7 +111,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         public void ExcludeConditionFundModel_False()
         {
             NewRule().HasLearningDeliveryFundModelExcludeConditionMet(10).Should().BeFalse();
-        }        
+        }
 
         [Fact]
         public void Validate_Error()
@@ -145,7 +138,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanLearnHours_01", null, null, null);
-                      
+
             var rule = NewRule(validationErrorHandler: validationErrorHandlerMock.Object);
 
             rule.Validate(learner);
@@ -153,12 +146,17 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
+        private PlanLearnHours_01Rule NewRule(IDD07 dd07 = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PlanLearnHours_01Rule(dd07, validationErrorHandler);
+        }
+
         private ILearningDelivery SetupLearningDelivery(long? fundModel, long? progType)
         {
             return new TestLearningDelivery()
             {
                 FundModelNullable = fundModel,
-                ProgTypeNullable = progType,                
+                ProgTypeNullable = progType,
             };
         }
     }

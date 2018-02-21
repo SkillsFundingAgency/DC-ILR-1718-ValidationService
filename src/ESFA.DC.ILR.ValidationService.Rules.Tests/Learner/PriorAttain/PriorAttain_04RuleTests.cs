@@ -1,23 +1,18 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
 {
     public class PriorAttain_04RuleTests
     {
-        private PriorAttain_04Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PriorAttain_04Rule(validationErrorHandler);
-        }
-       
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
@@ -42,7 +37,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
         [InlineData(4, 9999, 3)]
         public void ConditionMet_False(long? priorAttain, long? fundModel, long? progType)
         {
-            NewRule().ConditionMet(priorAttain,fundModel,progType).Should().BeFalse();            
+            NewRule().ConditionMet(priorAttain, fundModel, progType).Should().BeFalse();
         }
 
         [Theory]
@@ -124,6 +119,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
 
+        private PriorAttain_04Rule NewRule(IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PriorAttain_04Rule(validationErrorHandler);
+        }
+
         private ILearner SetupLearner(long priorAttain)
         {
             return new TestLearner()
@@ -138,7 +138,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PriorAttain
                         LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { },
                     }
                 }
-            };            
+            };
         }
     }
 }

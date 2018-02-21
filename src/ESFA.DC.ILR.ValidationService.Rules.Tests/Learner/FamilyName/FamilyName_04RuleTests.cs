@@ -1,24 +1,19 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.FamilyName;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
-{    
+{
     public class FamilyName_04RuleTests
     {
-        private FamilyName_04Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new FamilyName_04Rule(learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void CrossLearningDeliveryConditionMet_True_FundModel10()
         {
@@ -57,7 +52,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             var learningDeliveryFAMQueryServiceMock = new Mock<ILearningDeliveryFAMQueryService>();
 
             learningDeliveryFAMQueryServiceMock.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "SOF", "108")).Returns(true);
-            
+
             NewRule(learningDeliveryFAMQueryServiceMock.Object).CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeTrue();
         }
 
@@ -86,7 +81,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
 
             NewRule().CrossLearningDeliveryConditionMet(learningDeliveries).Should().BeFalse();
         }
-        
+
         [Fact]
         public void CrossLearningDeliveryConditionMet_False_Null()
         {
@@ -100,7 +95,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         public void ConditionMet_True(long planLearnHours, string familyName)
         {
             NewRule().ConditionMet(planLearnHours, 1, familyName).Should().BeTrue();
-        }        
+        }
 
         [Fact]
         public void ConditionMet_False_PlanLearnHours()
@@ -112,7 +107,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
         public void ConditionMet_False_Uln()
         {
             NewRule().ConditionMet(3, 9999999999, null);
-
         }
 
         [Fact]
@@ -158,6 +152,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.FamilyName
             };
 
             NewRule().Validate(learner);
+        }
+
+        private FamilyName_04Rule NewRule(ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new FamilyName_04Rule(learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

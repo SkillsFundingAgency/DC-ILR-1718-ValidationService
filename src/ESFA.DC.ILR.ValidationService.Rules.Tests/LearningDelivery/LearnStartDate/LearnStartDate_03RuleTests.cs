@@ -1,25 +1,20 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.LearningDelivery.LearnStartDate;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartDate
 {
     public class LearnStartDate_03RuleTests
     {
-        private LearnStartDate_03Rule NewRule(IDD07 dd07 = null, IValidationDataService validationDataService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new LearnStartDate_03Rule(dd07, validationDataService, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
-        {            
+        {
             NewRule().ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 1, "N").Should().BeTrue();
         }
 
@@ -28,7 +23,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         {
             NewRule().ConditionMet(new DateTime(2017, 1, 1), new DateTime(2018, 7, 31), 1, "N").Should().BeFalse();
         }
-        
+
         [Fact]
         public void ConditionMet_False_LearnStartDate_Null()
         {
@@ -40,7 +35,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
         {
             NewRule().ConditionMet(new DateTime(2018, 8, 1), new DateTime(2018, 7, 31), 24, "N").Should().BeFalse();
         }
-
 
         [Fact]
         public void ConditionMet_False_DD07()
@@ -109,6 +103,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.LearningDelivery.LearnStartD
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private LearnStartDate_03Rule NewRule(IDD07 dd07 = null, IValidationDataService validationDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new LearnStartDate_03Rule(dd07, validationDataService, validationErrorHandler);
         }
     }
 }

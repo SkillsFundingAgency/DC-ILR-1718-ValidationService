@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
@@ -11,7 +11,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
     {
         private readonly IDD01 _dd01;
 
-        public ULN_04Rule(IDD01 dd01, IValidationErrorHandler validationErrorHandler) 
+        public ULN_04Rule(IDD01 dd01, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _dd01 = dd01;
@@ -34,8 +34,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
             var ulnString = uln.ToString();
 
-            return (dd01 == ValidationConstants.N 
-                || (dd01 != ValidationConstants.Y && ulnString.Length >= 10 && dd01 != ulnString.ElementAt(9).ToString()));
+            return dd01 == ValidationConstants.N
+                   || (dd01 != ValidationConstants.Y && ulnString.Length >= 10 && dd01 != ulnString.ElementAt(9).ToString());
         }
     }
 }

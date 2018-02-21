@@ -1,4 +1,7 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
@@ -6,20 +9,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Learner.ULN;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
 {
     public class ULN_11RuleTests
     {
-        private ULN_11Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new ULN_11Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void Exclude_True()
         {
@@ -65,11 +60,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
         {
             NewRule().FundModelConditionMet(98).Should().BeFalse();
         }
-        
+
         [Fact]
         public void FAMConditionMet_True()
         {
-            NewRule().FAMConditionMet(true).Should().BeTrue();            
+            NewRule().FAMConditionMet(true).Should().BeTrue();
         }
 
         [Fact]
@@ -141,7 +136,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
                 LearningDeliveries = new TestLearningDelivery[]
                 {
                     new TestLearningDelivery()
-                    {                       
+                    {
                         FundModelNullable = 99,
                         LearnStartDateNullable = new DateTime(2018, 1, 2),
                         LearnPlanEndDateNullable = new DateTime(2017, 1, 7),
@@ -200,6 +195,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.ULN
             var rule = new ULN_11Rule(fileDataMock.Object, validationDataMock.Object, learningDeliveryFAMQueryServiceMock.Object, null);
 
             rule.Validate(learner);
+        }
+
+        private ULN_11Rule NewRule(IFileDataService fileDataService = null, IValidationDataService validationDataService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new ULN_11Rule(fileDataService, validationDataService, learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

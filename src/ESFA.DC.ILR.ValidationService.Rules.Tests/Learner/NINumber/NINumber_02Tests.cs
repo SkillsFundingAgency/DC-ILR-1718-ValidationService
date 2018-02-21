@@ -1,4 +1,6 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
@@ -6,14 +8,10 @@ using ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
 {
-
     public class NINumber_02Tests
     {
         [Theory]
@@ -21,9 +19,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [InlineData(null)]
         public void ConditionMet_True(string niNumber)
         {
-            
-            var rule = new NINumber_02Rule(null,null);
-            rule.ConditionMet(niNumber,true).Should().BeTrue();
+            var rule = new NINumber_02Rule(null, null);
+            rule.ConditionMet(niNumber, true).Should().BeTrue();
         }
 
         [Fact]
@@ -40,10 +37,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             rule.ConditionMet(null, false).Should().BeFalse();
         }
 
-       
-
         [Theory]
-        [InlineData(" ","ACT","2")]
+        [InlineData(" ", "ACT", "2")]
         [InlineData(null, "ACT", "2")]
         [InlineData(null, "XYZ", "1")]
         [InlineData("AZ123456C", "ACT", "1")]
@@ -53,11 +48,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             {
                 LearningDeliveryFAMs = new TestLearningDeliveryFAM[] { }
             };
-            
+
             var learner = new TestLearner()
             {
                 NINumber = niNumber,
-                LearningDeliveries = new TestLearningDelivery[] { learningDeliveries}
+                LearningDeliveries = new TestLearningDelivery[] { learningDeliveries }
             };
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
@@ -67,14 +62,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
 
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                                         It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), famType, famCode))
-                                        .Returns(famType=="ACT" && famCode=="1");
+                                        .Returns(famType == "ACT" && famCode == "1");
 
-
-            var rule = new NINumber_02Rule(validationErrorHandlerMock.Object,famQueryService.Object);
+            var rule = new NINumber_02Rule(validationErrorHandlerMock.Object, famQueryService.Object);
 
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
-
         }
 
         [Theory]
@@ -101,7 +94,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
             famQueryService.Setup(qs => qs.HasLearningDeliveryFAMCodeForType(
                                         It.IsAny<IEnumerable<ILearningDeliveryFAM>>(), "ACT", "1"))
                                         .Returns(true);
-
 
             var rule = new NINumber_02Rule(validationErrorHandlerMock.Object, famQueryService.Object);
 

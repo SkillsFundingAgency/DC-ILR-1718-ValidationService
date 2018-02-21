@@ -24,18 +24,19 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber
         {
             foreach (var learningDelivery in objectToValidate.LearningDeliveries)
             {
-                if (ConditionMet(objectToValidate.NINumber, 
-                                _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1")))
+                if (ConditionMet(
+                    objectToValidate.NINumber,
+                    _learningDeliveryFamQueryService.HasLearningDeliveryFAMCodeForType(learningDelivery.LearningDeliveryFAMs, LearningDeliveryFAMTypeConstants.ACT, "1")))
                 {
                     HandleValidationError(RuleNameConstants.NINumber_02, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
-                }                
-            }           
+                }
+            }
         }
 
         public bool ConditionMet(string niNumber, bool hasApplicableFam)
         {
-            return string.IsNullOrWhiteSpace(niNumber) 
-                && hasApplicableFam;                    
+            return string.IsNullOrWhiteSpace(niNumber)
+                && hasApplicableFam;
         }
     }
 }

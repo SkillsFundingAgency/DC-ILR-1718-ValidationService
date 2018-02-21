@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_13RuleTests
     {
-        private DateOfBirth_13Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new DateOfBirth_13Rule(validationDataService, dateTimeQueryService, learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void ConditionMet_True()
         {
@@ -73,7 +68,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var rule = NewRule();
 
             rule.ConditionMet(99, null, learnStartDate, true).Should().BeFalse();
-        }                
+        }
 
         [Fact]
         public void ConditionMet_False_Age_17()
@@ -159,6 +154,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var rule = NewRule(validationDataServiceMock.Object, learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
+        }
+
+        private DateOfBirth_13Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_13Rule(validationDataService, dateTimeQueryService, learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

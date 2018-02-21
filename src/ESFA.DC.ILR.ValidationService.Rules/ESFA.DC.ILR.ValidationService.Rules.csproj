@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ESFA.DC.ILR.ValidationService.Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ESFA.DC.ILR.ValidationService.Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,10 +44,12 @@
   <ItemGroup>
     <Compile Include="Abstract\AbstractRule.cs" />
     <Compile Include="Derived\DD01.cs" />
+    <Compile Include="Derived\DD06.cs" />
     <Compile Include="Derived\DD04.cs" />
     <Compile Include="Derived\DD07.cs" />
     <Compile Include="Derived\Interface\IDD01.cs" />
     <Compile Include="Derived\Interface\IDD04.cs" />
+    <Compile Include="Derived\Interface\IDD06.cs" />
     <Compile Include="Derived\Interface\IDD07.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Constants\LearnerFamTypeConstants.cs" />
@@ -53,6 +57,8 @@
     <Compile Include="Learner\AddLine1\AddLine1_03Rule.cs" />
     <Compile Include="Learner\ALSCost\ALSCost_02Rule.cs" />
     <Compile Include="Learner\ContPrefType\ContPrefType_01Rule.cs" />
+    <Compile Include="Learner\ContPrefType\ContPrefType_03Rule.cs" />
+    <Compile Include="Learner\ContPrefType\ContPrefType_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_02Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_01Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_07Rule.cs" />
@@ -68,6 +74,7 @@
     <Compile Include="Learner\DateOfBirth\DateOfBirth_23Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_24Rule.cs" />
     <Compile Include="Learner\DateOfBirth\DateOfBirth_48Rule.cs" />
+    <Compile Include="Learner\Ethnicity\Ethnicity_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_01Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_04Rule.cs" />
     <Compile Include="Learner\FamilyName\FamilyName_02Rule.cs" />
@@ -77,6 +84,20 @@
     <Compile Include="Learner\EngGrade\EngGrade_01Rule.cs" />
     <Compile Include="Learner\EngGrade\EngGrade_03Rule.cs" />
     <Compile Include="Learner\EngGrade\EngGrade_04Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_16Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_15Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_14Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_11Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_10Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_09Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_03Rule.cs" />
+    <Compile Include="Learner\LearnFAMType\LearnFAMType_01Rule.cs" />
+    <Compile Include="Learner\LLDDCat\LLDDCat_02Rule.cs" />
+    <Compile Include="Learner\LLDDCat\LLDDCat_01Rule.cs" />
+    <Compile Include="Learner\LLDDHealthProb\LLDDHealthProb_04Rule.cs" />
+    <Compile Include="Learner\LLDDHealthProb\LLDDHealthProb_07Rule.cs" />
+    <Compile Include="Learner\LLDDHealthProb\LLDDHealthProb_06Rule.cs" />
+    <Compile Include="Learner\LLDDHealthProb\LLDDHealthProb_01Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_04Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_03Rule.cs" />
     <Compile Include="Learner\MathGrade\MathGrade_01Rule.cs" />
@@ -92,11 +113,17 @@
     <Compile Include="Learner\Postcode\Postcode_15Rule.cs" />
     <Compile Include="Learner\PostcodePrior\PostcodePrior_02Rule.cs" />
     <Compile Include="Learner\PrevUKPRN\PrevUKPRN_01Rule.cs" />
+    <Compile Include="Learner\PrimaryLLDD\PrimaryLLDD_04Rule.cs" />
+    <Compile Include="Learner\PrimaryLLDD\PrimaryLLDD_03Rule.cs" />
+    <Compile Include="Learner\PrimaryLLDD\PrimaryLLDD_02Rule.cs" />
+    <Compile Include="Learner\PrimaryLLDD\PrimaryLLDD_01Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_03Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_07Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_05Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_04Rule.cs" />
     <Compile Include="Learner\PriorAttain\PriorAttain_01Rule.cs" />
+    <Compile Include="Learner\ProvSpecLearnMonOccur\ProvSpecLearnMonOccur_01Rule.cs" />
+    <Compile Include="Learner\Sex\Sex_01Rule.cs" />
     <Compile Include="Learner\ULN\ULN_02Rule.cs" />
     <Compile Include="Learner\ULN\ULN_03Rule.cs" />
     <Compile Include="Learner\ULN\ULN_04Rule.cs" />
@@ -135,7 +162,18 @@
       <Project>{513C4F05-55F4-4AEF-B3EB-427C024DA043}</Project>
       <Name>ESFA.DC.ILR.ValidationService.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.InternalData\ESFA.DC.ILR.ValidationService.InternalData.csproj">
+      <Project>{de0f3c7c-9269-4b98-9ce0-9b91f1886c47}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.InternalData</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ESFA.DC.ILR.ValidationService.Rules.ruleset" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,8 +1,8 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System.Collections.Generic;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System.Collections.Generic;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
 {
@@ -11,13 +11,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
     /// </summary>
     public class PlanLearnHours_02Rule : AbstractRule, IRule<ILearner>
     {
-        private readonly HashSet<long> _fundModels = new HashSet<long> { 25,82,35,36,81,10,99 };
-
+        private readonly HashSet<long> _fundModels = new HashSet<long> { 25, 82, 35, 36, 81, 10, 99 };
 
         public PlanLearnHours_02Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
-
         }
 
         public void Validate(ILearner objectToValidate)
@@ -26,23 +24,21 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours
             {
                 if (ConditionMet(objectToValidate.PlanLearnHoursNullable, learningDelivery.FundModelNullable))
                 {
-                    HandleValidationError(RuleNameConstants.PlanLearnHours_02Rule, objectToValidate.LearnRefNumber,learningDelivery.AimSeqNumberNullable);
+                    HandleValidationError(RuleNameConstants.PlanLearnHours_02Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
                 }
             }
         }
 
         public bool ConditionMet(long? planLearnHoursNullable, long? fundModel)
         {
-            return planLearnHoursNullable.HasValue && 
+            return planLearnHoursNullable.HasValue &&
                    planLearnHoursNullable.Value == 0 &&
-                    FundModelConditionMet((fundModel));
+                    FundModelConditionMet(fundModel);
         }
 
         public bool FundModelConditionMet(long? fundModel)
         {
             return fundModel.HasValue && _fundModels.Contains(fundModel.Value);
         }
-
-
     }
 }

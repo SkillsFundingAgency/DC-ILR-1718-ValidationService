@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_48RuleTests
     {
-        private DateOfBirth_48Rule NewRule(IDD04 dd04 = null, IDD07 dd07 = null, IValidationDataService validationDataService = null, IAcademicYearCalendarService academicYearCalendarService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new DateOfBirth_48Rule(dd04, dd07, validationDataService, academicYearCalendarService, validationErrorHandler);
-        }
-
         [Fact]
         public void Exclude_True()
         {
@@ -142,6 +137,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             rule.Validate(learner);
 
             validationErrorHandlerMock.Verify(handle, Times.Once);
+        }
+
+        private DateOfBirth_48Rule NewRule(IDD04 dd04 = null, IDD07 dd07 = null, IValidationDataService validationDataService = null, IAcademicYearCalendarService academicYearCalendarService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_48Rule(dd04, dd07, validationDataService, academicYearCalendarService, validationErrorHandler);
         }
     }
 }

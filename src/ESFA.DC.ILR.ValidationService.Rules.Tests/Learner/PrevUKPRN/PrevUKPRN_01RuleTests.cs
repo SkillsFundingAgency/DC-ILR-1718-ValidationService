@@ -1,22 +1,17 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PrevUKPRN;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrevUKPRN
 {
     public class PrevUKPRN_01RuleTests
     {
-        private PrevUKPRN_01Rule NewRule(IOrganisationReferenceDataService organisationReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new PrevUKPRN_01Rule(organisationReferenceDataService, validationErrorHandler);
-        }
-
         [Fact]
         public void NullConditionMet_True()
         {
@@ -53,7 +48,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrevUKPRN
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
 
             organisationReferenceDataServiceMock.Setup(ord => ord.UkprnExists(1)).Returns(false);
-            
+
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PrevUKPRN_01", null, null, null);
 
             validationErrorHandlerMock.Setup(handle);
@@ -69,8 +64,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PrevUKPRN
         public void Validate_NoErrors()
         {
             var learner = new TestLearner();
-         
+
             NewRule().Validate(learner);
+        }
+
+        private PrevUKPRN_01Rule NewRule(IOrganisationReferenceDataService organisationReferenceDataService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new PrevUKPRN_01Rule(organisationReferenceDataService, validationErrorHandler);
         }
     }
 }

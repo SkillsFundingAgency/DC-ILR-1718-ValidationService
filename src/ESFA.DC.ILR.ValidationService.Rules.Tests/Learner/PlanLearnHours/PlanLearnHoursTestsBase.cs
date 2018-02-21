@@ -15,10 +15,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
                 {
                     new TestLearningDelivery()
                     {
-                        FundModelNullable = fundModel,                        
+                        FundModelNullable = fundModel,
                     }
                 }
-            };            
-        }      
+            };
+        }
     }
 }

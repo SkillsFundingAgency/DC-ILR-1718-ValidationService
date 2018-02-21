@@ -1,20 +1,18 @@
-﻿using ESFA.DC.ILR.Model.Interface;
-using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.Postcode;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.PostcodePrior;
-using FluentAssertions;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.Postcode;
+using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
 {
     public class Postcode_15RuleTests
     {
-
         [Theory]
         [InlineData("b01 1WX")]
         [InlineData("bc1 1WX")]
@@ -71,7 +69,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
             rule.ConditionMet("B111EW").Should().BeTrue();
         }
 
-
         [Fact]
         public void ConditionMet_False_Space()
         {
@@ -79,13 +76,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
             rule.ConditionMet("B11 1EW").Should().BeFalse();
         }
 
-
         [Fact]
         public void ConditionMet_True_AfterSpaceNumbers()
         {
             var rule = new Postcode_15Rule(null);
             rule.ConditionMet("B11 EEW").Should().BeTrue();
-
         }
 
         [Fact]
@@ -93,7 +88,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
         {
             var rule = new Postcode_15Rule(null);
             rule.ConditionMet("B11 9XX").Should().BeFalse();
-
         }
 
         [Theory]
@@ -106,10 +100,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
 
             foreach (char letter in notAllowed)
             {
-                var niNumber = string.Format(postCodeTemplate,letter);
+                var niNumber = string.Format(postCodeTemplate, letter);
                 rule.ConditionMet(niNumber).Should().BeTrue();
             }
-
         }
 
         [Theory]
@@ -118,7 +111,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
         public void ConditionMet_False_AfterSpaceNotAllowedCharacters(string postCodeTemplate)
         {
             var notAllowed = new List<char>() { 'C', 'I', 'K', 'M', 'O', 'V' };
-            char[] allowedCharacters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (Char)i).Where(x => !notAllowed.Contains(x)).ToArray();
+            char[] allowedCharacters = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i).Where(x => !notAllowed.Contains(x)).ToArray();
 
             var rule = new Postcode_15Rule(null);
 
@@ -127,7 +120,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
                 var niNumber = string.Format(postCodeTemplate, letter);
                 rule.ConditionMet(niNumber).Should().BeFalse();
             }
-
         }
 
         [Fact]
@@ -143,7 +135,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
 
             rule.Validate(learner.Object);
             validationErrorHandlerMock.Verify(handle, Times.Never);
-
         }
 
         [Fact]
@@ -160,7 +151,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.Postcode
             rule.Validate(learner.Object);
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
-
-
     }
 }

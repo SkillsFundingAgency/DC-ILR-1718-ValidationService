@@ -1,5 +1,4 @@
 ﻿using ESFA.DC.ILR.Model.Interface;
-using System;
 
 namespace ESFA.DC.ILR.Tests.Model
 {

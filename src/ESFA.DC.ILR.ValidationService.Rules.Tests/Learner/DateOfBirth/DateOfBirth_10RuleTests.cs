@@ -1,4 +1,5 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Derived.Interface;
@@ -6,19 +7,12 @@ using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_10RuleTests
     {
-        private DateOfBirth_10Rule NewRule(IDD04 dd04 = null, IDD07 dd07 = null, IAcademicYearCalendarService academicYearCalendarService = null, IDateTimeQueryService dateTimeQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new DateOfBirth_10Rule(dd04, dd07, academicYearCalendarService, dateTimeQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void LearnerNullConditionMet_True()
         {
@@ -66,7 +60,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 
             rule.DD04ConditionMet(new DateTime(2014, 8, 1)).Should().BeTrue();
         }
-        
 
         [Theory]
         [InlineData("2012-8-1")]
@@ -76,7 +69,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var rule = NewRule();
 
             rule.DD04ConditionMet(DateTime.Parse(dd04)).Should().BeFalse();
-        }        
+        }
 
         [Fact]
         public void DD07ConditionMet_True()
@@ -266,7 +259,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             validationErrorHandlerMock.Verify(handle, Times.Once);
         }
 
-    
         [Fact]
         public void Validate_NoErrors()
         {
@@ -274,5 +266,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 
             NewRule().Validate(learner);
         }
-    }    
+
+        private DateOfBirth_10Rule NewRule(IDD04 dd04 = null, IDD07 dd07 = null, IAcademicYearCalendarService academicYearCalendarService = null, IDateTimeQueryService dateTimeQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_10Rule(dd04, dd07, academicYearCalendarService, dateTimeQueryService, validationErrorHandler);
+        }
+    }
 }

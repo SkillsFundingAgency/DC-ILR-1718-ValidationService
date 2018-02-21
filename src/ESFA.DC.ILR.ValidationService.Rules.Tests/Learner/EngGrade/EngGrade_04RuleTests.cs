@@ -1,15 +1,14 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.MathGrade;
+using ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade;
 using ESFA.DC.ILR.ValidationService.Rules.Query;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
@@ -31,23 +30,21 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
                     LearnFAMCodeNullable = famCode
                 }
             };
-          
+
             var rule = new EngGrade_04Rule(null, learnerFamQueryService);
-         
-            rule.ConditionMet("XYZ",learnerFams).Should().BeTrue();
+
+            rule.ConditionMet("XYZ", learnerFams).Should().BeTrue();
         }
 
-
-       
         [Fact]
         public void ConditionMet_False_NoneGrade()
         {
             var learnerFamQueryService = new Mock<ILearnerFAMQueryService>();
-            learnerFamQueryService.Setup(x=> x.HasAnyLearnerFAMCodesForType(It.IsAny<IEnumerable<ILearnerFAM>>(),"ECF",new[]{(long)2}))
+            learnerFamQueryService.Setup(x => x.HasAnyLearnerFAMCodesForType(It.IsAny<IEnumerable<ILearnerFAM>>(), "ECF", new[] { (long)2 }))
                                     .Returns(true);
 
             var rule = new EngGrade_04Rule(null, learnerFamQueryService.Object);
-          
+
             rule.ConditionMet("NONE", It.IsAny<IReadOnlyCollection<ILearnerFAM>>()).Should().BeFalse();
         }
 
@@ -58,11 +55,10 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
             learnerFamQueryService.Setup(x => x.HasAnyLearnerFAMCodesForType(It.IsAny<IEnumerable<ILearnerFAM>>(), It.IsAny<string>(), It.IsAny<IEnumerable<long>>()))
                 .Returns(false);
 
-            var rule = new MathGrade_03Rule(null, learnerFamQueryService.Object);
+            var rule = new EngGrade_04Rule(null, learnerFamQueryService.Object);
 
             rule.ConditionMet("ABCC", It.IsAny<IReadOnlyCollection<ILearnerFAM>>()).Should().BeFalse();
         }
-
 
         [Fact]
         public void Validate_Error()
@@ -93,7 +89,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
             learnerFamQueryService.Setup(x => x.HasAnyLearnerFAMCodesForType(It.IsAny<IEnumerable<ILearnerFAM>>(), It.IsAny<string>(), It.IsAny<IEnumerable<long>>()))
                 .Returns(true);
 
-            var rule = new MathGrade_04Rule(validationErrorHandlerMock.Object, learnerFamQueryService.Object);
+            var rule = new EngGrade_04Rule(validationErrorHandlerMock.Object, learnerFamQueryService.Object);
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
@@ -103,16 +99,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.EngGrade
             var learner = new TestLearner()
             {
                 EngGrade = engGrade,
-                LearnerFAMs = new []
+                LearnerFAMs = new TestLearnerFAM[]
                 {
-                    new TestLearnerFAM() 
+                    new TestLearnerFAM()
                 }
             };
             return learner;
         }
-
-
-
-
     }
 }

@@ -1,12 +1,12 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.FileDataService.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 {
@@ -39,8 +39,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ULN
 
         public bool ConditionMet(long? fundModel, long? uln, DateTime filePreparationDate, DateTime academicYearJanuaryFirst)
         {
-            return _fundModels.Contains(fundModel) 
-                && uln == ValidationConstants.TemporaryULN 
+            return _fundModels.Contains(fundModel)
+                && uln == ValidationConstants.TemporaryULN
                 && filePreparationDate < academicYearJanuaryFirst;
         }
 

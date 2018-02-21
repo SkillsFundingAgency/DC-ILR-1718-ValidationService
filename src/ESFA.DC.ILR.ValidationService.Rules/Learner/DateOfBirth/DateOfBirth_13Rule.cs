@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
@@ -13,7 +13,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
         private readonly IDateTimeQueryService _dateTimeQueryService;
         private readonly ILearningDeliveryFAMQueryService _learningDeliveryFAMQueryService;
 
-        public DateOfBirth_13Rule(IValidationDataService validationDataService, IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler) 
+        public DateOfBirth_13Rule(IValidationDataService validationDataService, IDateTimeQueryService dateTimeQueryService, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService, IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
             _validationDataService = validationDataService;
@@ -41,7 +41,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
             return hasSOFOne
                 && fundModel.HasValue
                 && fundModel.Value == 99
-                && dateOfBirth.HasValue                
+                && dateOfBirth.HasValue
                 && _dateTimeQueryService.YearsBetween(dateOfBirth.Value, academicYearEnd) < 16;
         }
     }

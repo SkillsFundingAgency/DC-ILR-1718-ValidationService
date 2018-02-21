@@ -1,7 +1,7 @@
-﻿using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ESFA.DC.ILR.Model.Interface;
+using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Query
 {
@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
                 return false;
             }
 
-            return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType && famCodes.Contains(ldfam.LearnDelFAMCode));            
+            return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType && famCodes.Contains(ldfam.LearnDelFAMCode));
         }
 
         public bool HasLearningDeliveryFAMCodeForType(IEnumerable<ILearningDeliveryFAM> learningDeliveryFAMs, string famType, string famCode)
@@ -35,6 +35,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Query
             }
 
             return learningDeliveryFAMs.Any(ldfam => ldfam.LearnDelFAMType == famType);
-        }        
+        }
     }
 }

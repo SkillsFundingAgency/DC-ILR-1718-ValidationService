@@ -1,11 +1,11 @@
-﻿using ESFA.DC.ILR.Tests.Model;
+﻿using System;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
@@ -23,7 +23,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         public void ConditionMet_True(long fundModel, int age)
         {
             var dateOfBirth = new DateTime(1988, 12, 25);
-            var learnStartDate= new DateTime(2017, 8, 1);
+            var learnStartDate = new DateTime(2017, 8, 1);
 
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
 
@@ -126,8 +126,8 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
                     new TestLearningDelivery()
                 }
             };
-                       
-            NewRule().Validate(learner);            
+
+            NewRule().Validate(learner);
         }
     }
 }

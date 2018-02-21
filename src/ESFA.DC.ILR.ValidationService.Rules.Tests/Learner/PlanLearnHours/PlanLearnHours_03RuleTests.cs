@@ -1,12 +1,9 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
-using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
@@ -16,22 +13,22 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         [Theory]
         [InlineData(25)]
         [InlineData(82)]
-      
+
         public void ConditionMet_True(long? fundModel)
         {
             var rule = new PlanLearnHours_03Rule(null);
-            rule.ConditionMet(0,0,fundModel).Should().BeTrue();
+            rule.ConditionMet(0, 0, fundModel).Should().BeTrue();
         }
 
         [Theory]
-        [InlineData(null,null,null)]
-        [InlineData(null, 35,null)]
-        [InlineData(0,10, 1000)]
-        [InlineData(0,10, 35)]
-        public void ConditionMet_False(long? planLearnHours,long? planEeepHours, long? fundModel)
+        [InlineData(null, null, null)]
+        [InlineData(null, 35, null)]
+        [InlineData(0, 10, 1000)]
+        [InlineData(0, 10, 35)]
+        public void ConditionMet_False(long? planLearnHours, long? planEeepHours, long? fundModel)
         {
             var rule = new PlanLearnHours_03Rule(null);
-            rule.ConditionMet(planLearnHours,planEeepHours,fundModel).Should().BeFalse();
+            rule.ConditionMet(planLearnHours, planEeepHours, fundModel).Should().BeFalse();
         }
 
         [Theory]
@@ -46,7 +43,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         [Theory]
         [InlineData(25)]
         [InlineData(82)]
-       
+
         public void ConditionMet_FundModel_True(long? fundModel)
         {
             var rule = new PlanLearnHours_03Rule(null);
@@ -56,7 +53,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         [Fact]
         public void Validate_Error()
         {
-            var learner = SetupLearner(0,0,25);
+            var learner = SetupLearner(0, 0, 25);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanLearnHours_03", null, null, null);
@@ -69,7 +66,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         [Fact]
         public void Validate_NoError()
         {
-            var learner = SetupLearner(0,10,25);
+            var learner = SetupLearner(0, 10, 25);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanLearnHours_03", null, null, null);
@@ -78,7 +75,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
-
-       
     }
 }

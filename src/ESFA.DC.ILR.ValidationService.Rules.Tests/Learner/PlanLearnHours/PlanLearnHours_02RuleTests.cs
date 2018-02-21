@@ -1,12 +1,9 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.PlanLearnHours;
-using ESFA.DC.ILR.ValidationService.Rules.Learner.PriorAttain;
-using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
@@ -24,18 +21,18 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         public void ConditionMet_True(long? fundModel)
         {
             var rule = new PlanLearnHours_02Rule(null);
-            rule.ConditionMet(0,fundModel).Should().BeTrue();
+            rule.ConditionMet(0, fundModel).Should().BeTrue();
         }
 
         [Theory]
-        [InlineData(null,null)]
+        [InlineData(null, null)]
         [InlineData(null, 35)]
         [InlineData(0, 1000)]
         [InlineData(10, 35)]
         public void ConditionMet_False(long? planHours, long? fundModel)
         {
             var rule = new PlanLearnHours_02Rule(null);
-            rule.ConditionMet(planHours,fundModel).Should().BeFalse();
+            rule.ConditionMet(planHours, fundModel).Should().BeFalse();
         }
 
         [Theory]
@@ -64,7 +61,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         [Fact]
         public void Validate_Error()
         {
-            var learner = SetupLearner(0,null,35);
+            var learner = SetupLearner(0, null, 35);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanLearnHours_02", null, null, null);
@@ -77,7 +74,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
         [Fact]
         public void Validate_NoError()
         {
-            var learner = SetupLearner(10,null,35);
+            var learner = SetupLearner(10, null, 35);
 
             var validationErrorHandlerMock = new Mock<IValidationErrorHandler>();
             Expression<Action<IValidationErrorHandler>> handle = veh => veh.Handle("PlanLearnHours_02", null, null, null);
@@ -86,7 +83,5 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.PlanLearnHours
             rule.Validate(learner);
             validationErrorHandlerMock.Verify(handle, Times.Never);
         }
-
-       
     }
 }

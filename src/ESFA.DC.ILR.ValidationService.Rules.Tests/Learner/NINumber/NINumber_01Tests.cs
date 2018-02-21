@@ -1,21 +1,16 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.NiNumber;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
 {
-
-   
     public class NINumber_01Tests
     {
         [Theory]
@@ -64,7 +59,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [Fact]
         public void ConditionMet_True_LastCharacter()
         {
-            
             var rule = new NINumber_01Rule(null);
 
             for (char letter = 'E'; letter <= 'Z'; letter++)
@@ -72,8 +66,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
                 var niNumber = $"AX123456{letter}";
                 rule.ConditionMet(niNumber).Should().BeTrue();
             }
-            
-
         }
 
         [Theory]
@@ -84,14 +76,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         {
             var rule = new NINumber_01Rule(null);
             rule.ConditionMet(niNumber).Should().BeTrue();
-
         }
 
         [Fact]
         public void ConditionMet_FalseFirstLetter()
         {
-            var notAllowed = new List<char>() { 'D','F','I','Q','U','V' };
-            char[] eToZ = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (Char)i).Where(x=> !notAllowed.Contains(x)).ToArray();
+            var notAllowed = new List<char>() { 'D', 'F', 'I', 'Q', 'U', 'V' };
+            char[] eToZ = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i).Where(x => !notAllowed.Contains(x)).ToArray();
 
             var rule = new NINumber_01Rule(null);
 
@@ -100,15 +91,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
                 var niNumber = $"{letter}X123456C";
                 rule.ConditionMet(niNumber).Should().BeFalse();
             }
-
         }
-
 
         [Fact]
         public void ConditionMet_FalseSecondLetter()
         {
-            var notAllowed = new List<char>() { 'D', 'F', 'I','O', 'Q', 'U', 'V' };
-            char[] eToZ = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (Char)i).Where(x => !notAllowed.Contains(x)).ToArray();
+            var notAllowed = new List<char>() { 'D', 'F', 'I', 'O', 'Q', 'U', 'V' };
+            char[] eToZ = Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i).Where(x => !notAllowed.Contains(x)).ToArray();
 
             var rule = new NINumber_01Rule(null);
 
@@ -117,13 +106,12 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
                 var niNumber = $"A{letter}123456B";
                 rule.ConditionMet(niNumber).Should().BeFalse();
             }
-
         }
 
         [Fact]
         public void ConditionMet_FalseLastLetter()
         {
-            var allowed = new List<char>() { 'A', 'B', 'C', 'D',' '};
+            var allowed = new List<char>() { 'A', 'B', 'C', 'D', ' ' };
             var rule = new NINumber_01Rule(null);
 
             foreach (char letter in allowed)
@@ -131,7 +119,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
                 var niNumber = $"AX123456{letter}";
                 rule.ConditionMet(niNumber).Should().BeFalse();
             }
-
         }
 
         [Theory]
@@ -143,15 +130,13 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
         [InlineData("AX12345{0}C")]
         public void ConditionMet_FalseNumbers(string niTemplate)
         {
-            
             var rule = new NINumber_01Rule(null);
 
-            for (var i=0; i < 10;i++ )
+            for (var i = 0; i < 10; i++)
             {
                 var niNumber = string.Format(niTemplate, i);
                 rule.ConditionMet(niNumber).Should().BeFalse();
             }
-
         }
 
         [Fact]
@@ -183,7 +168,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.NINumber
 
             rule.Validate(learner.Object);
             validationErrorHandlerMock.Verify(handle, Times.Never);
-
         }
 
         [Fact]

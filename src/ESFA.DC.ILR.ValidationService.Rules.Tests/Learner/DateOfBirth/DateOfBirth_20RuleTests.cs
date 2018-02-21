@@ -1,23 +1,17 @@
-﻿using ESFA.DC.ILR.Model;
+﻿using System;
+using System.Linq.Expressions;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Linq.Expressions;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 {
     public class DateOfBirth_20RuleTests
     {
-        private DateOfBirth_20Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
-        {
-            return new DateOfBirth_20Rule(validationDataService, dateTimeQueryService, learningDeliveryFAMQueryService, validationErrorHandler);
-        }
-
         [Fact]
         public void Exclude_True()
         {
@@ -44,9 +38,9 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(1990, 1, 1);
             var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
-            
+
             var dateTimeQueryServiceMock = new Mock<IDateTimeQueryService>();
-            
+
             dateTimeQueryServiceMock.Setup(qs => qs.YearsBetween(dateOfBirth, academicYearAugustThirtyFirst)).Returns(18);
 
             var rule = NewRule(dateTimeQueryService: dateTimeQueryServiceMock.Object);
@@ -59,7 +53,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
         {
             var dateOfBirth = new DateTime(1990, 1, 1);
             var academicYearAugustThirtyFirst = new DateTime(2017, 8, 31);
-                        
+
             var rule = NewRule();
 
             rule.ConditionMet(null, dateOfBirth, academicYearAugustThirtyFirst, false).Should().BeFalse();
@@ -155,7 +149,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
 
             rule.Validate(learner);
 
-            validationErrorHandlerMock.Verify(handle, Times.Once);            
+            validationErrorHandlerMock.Verify(handle, Times.Once);
         }
 
         [Fact]
@@ -187,6 +181,11 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Learner.DateOfBirth
             var rule = NewRule(validationDataServiceMock.Object, learningDeliveryFAMQueryService: learningDeliveryFAMQueryServiceMock.Object);
 
             rule.Validate(learner);
+        }
+
+        private DateOfBirth_20Rule NewRule(IValidationDataService validationDataService = null, IDateTimeQueryService dateTimeQueryService = null, ILearningDeliveryFAMQueryService learningDeliveryFAMQueryService = null, IValidationErrorHandler validationErrorHandler = null)
+        {
+            return new DateOfBirth_20Rule(validationDataService, dateTimeQueryService, learningDeliveryFAMQueryService, validationErrorHandler);
         }
     }
 }

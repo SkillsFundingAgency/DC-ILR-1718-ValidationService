@@ -1,6 +1,6 @@
-﻿using ESFA.DC.ILR.ValidationService.Rules.Query;
+﻿using System;
+using ESFA.DC.ILR.ValidationService.Rules.Query;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Tests.Query

@@ -1,8 +1,8 @@
-﻿using ESFA.DC.ILR.Model.Interface;
+﻿using System;
+using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
-using System;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 {
@@ -14,7 +14,7 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
         }
 
         public void Validate(ILearner objectToValidate)
-        {            
+        {
             if (ConditionMet(objectToValidate.ULNNullable, objectToValidate.DateOfBirthNullable))
             {
                 HandleValidationError(RuleNameConstants.DateOfBirth_24, objectToValidate.LearnRefNumber);
