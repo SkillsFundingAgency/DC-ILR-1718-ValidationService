@@ -1,6 +1,6 @@
 ﻿using ESFA.DC.ILR.ValidationService.Interface;
 
-namespace ESFA.DC.ILR.ValidationService.Console.Stubs
+namespace ESFA.DC.ILR.ValidationService.Modules.Stubs
 {
     public class ValidationContextStub : IValidationContext
     {

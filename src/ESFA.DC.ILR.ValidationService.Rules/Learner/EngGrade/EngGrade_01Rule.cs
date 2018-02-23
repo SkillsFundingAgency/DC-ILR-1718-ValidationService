@@ -17,11 +17,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.EngGrade
 
         public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDeliveries)
+            if (objectToValidate.LearningDeliveries != null)
             {
-                if (ConditionMet(objectToValidate.EngGrade, learningDelivery.FundModelNullable))
+                foreach (var learningDelivery in objectToValidate.LearningDeliveries)
                 {
-                    HandleValidationError(RuleNameConstants.EngGrade_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    if (ConditionMet(objectToValidate.EngGrade, learningDelivery.FundModelNullable))
+                    {
+                        HandleValidationError(RuleNameConstants.EngGrade_01Rule, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    }
                 }
             }
         }

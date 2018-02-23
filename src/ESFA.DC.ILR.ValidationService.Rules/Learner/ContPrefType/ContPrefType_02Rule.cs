@@ -23,11 +23,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
 
         public void Validate(ILearner objectToValidate)
         {
-            foreach (var contactPreference in objectToValidate.ContactPreferences)
+            if (objectToValidate.ContactPreferences != null)
             {
-                if (ConditionMet(contactPreference.ContPrefType, contactPreference.ContPrefCodeNullable, objectToValidate.ContactPreferences))
+                foreach (var contactPreference in objectToValidate.ContactPreferences)
                 {
-                    HandleValidationError(RuleNameConstants.ContPrefType_02Rule, objectToValidate.LearnRefNumber);
+                    if (ConditionMet(contactPreference.ContPrefType, contactPreference.ContPrefCodeNullable, objectToValidate.ContactPreferences))
+                    {
+                        HandleValidationError(RuleNameConstants.ContPrefType_02Rule, objectToValidate.LearnRefNumber);
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@ using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Rules.Abstract;
 using ESFA.DC.ILR.ValidationService.Rules.Constants;
+using ESFA.DC.ILR.ValidationService.Rules.Extensions;
 using ESFA.DC.ILR.ValidationService.Rules.Query.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
@@ -25,11 +26,14 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
 
         public void Validate(ILearner objectToValidate)
         {
-            foreach (var learningDelivery in objectToValidate.LearningDeliveries)
+            if (objectToValidate.LearningDeliveries != null)
             {
-                if (ConditionMet(objectToValidate.DateOfBirthNullable, _validationDataService.AcademicYearAugustThirtyFirst, learningDelivery.FundModelNullable))
+                foreach (var learningDelivery in objectToValidate.LearningDeliveries)
                 {
-                    HandleValidationError(RuleNameConstants.DateOfBirth_06, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    if (ConditionMet(objectToValidate.DateOfBirthNullable, _validationDataService.AcademicYearAugustThirtyFirst, learningDelivery.FundModelNullable))
+                    {
+                        HandleValidationError(RuleNameConstants.DateOfBirth_06, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    }
                 }
             }
         }

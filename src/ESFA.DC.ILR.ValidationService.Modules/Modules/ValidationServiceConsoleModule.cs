@@ -2,7 +2,7 @@
 using ESFA.DC.ILR.ValidationService.RuleSet.Modules;
 using ESFA.DC.ILR.ValidationService.RuleSet.Modules.Common;
 
-namespace ESFA.DC.ILR.ValidationService.Console.Modules
+namespace ESFA.DC.ILR.ValidationService.Modules.Modules
 {
     public class ValidationServiceConsoleModule : Module
     {
@@ -11,6 +11,7 @@ namespace ESFA.DC.ILR.ValidationService.Console.Modules
             builder.RegisterModule<ValidationOrchestrationModule>();
             builder.RegisterModule<DataModule>();
             builder.RegisterModule<QueryServiceModule>();
+            builder.RegisterModule<DerivedDataModule>();
             builder.RegisterModule<ConsoleRuleSetModule>();
         }
     }

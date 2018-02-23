@@ -31,15 +31,20 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.DateOfBirth
                 return;
             }
 
-            var sixteenthBirthday = BirthdayAt(objectToValidate.DateOfBirthNullable, 16);
-            var lastFridayJuneAcademicYearLearnerSixteen = _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
-
-            foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld => !Exclude(ld.ProgTypeNullable)))
+            if (objectToValidate.LearningDeliveries != null)
             {
-                if (DD07ConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable))
-                    && DD04ConditionMet(_dd04.Derive(objectToValidate.LearningDeliveries, learningDelivery), _validationDataService.ApprencticeProgAllowedStartDate, lastFridayJuneAcademicYearLearnerSixteen))
+                var sixteenthBirthday = BirthdayAt(objectToValidate.DateOfBirthNullable, 16);
+                var lastFridayJuneAcademicYearLearnerSixteen =
+                    _academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(sixteenthBirthday.Value);
+
+                foreach (var learningDelivery in objectToValidate.LearningDeliveries.Where(ld =>
+                    !Exclude(ld.ProgTypeNullable)))
                 {
-                    HandleValidationError(RuleNameConstants.DateOfBirth_48, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    if (DD07ConditionMet(_dd07.Derive(learningDelivery.ProgTypeNullable))
+                        && DD04ConditionMet(_dd04.Derive(objectToValidate.LearningDeliveries, learningDelivery), _validationDataService.ApprencticeProgAllowedStartDate, lastFridayJuneAcademicYearLearnerSixteen))
+                    {
+                        HandleValidationError(RuleNameConstants.DateOfBirth_48, objectToValidate.LearnRefNumber, learningDelivery.AimSeqNumberNullable);
+                    }
                 }
             }
         }

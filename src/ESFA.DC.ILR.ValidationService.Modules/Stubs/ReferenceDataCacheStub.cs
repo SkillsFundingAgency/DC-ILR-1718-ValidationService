@@ -2,7 +2,7 @@
 using ESFA.DC.ILR.ValidationService.ExternalData.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.LARS.Model;
 
-namespace ESFA.DC.ILR.ValidationService.Console.Stubs
+namespace ESFA.DC.ILR.ValidationService.Modules.Stubs
 {
     public class ReferenceDataCacheStub : IReferenceDataCache
     {

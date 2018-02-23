@@ -3,23 +3,26 @@ using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.Tests.Model;
 using ESFA.DC.ILR.ValidationService.Interface;
 
-namespace ESFA.DC.ILR.ValidationService.Console.Stubs
+namespace ESFA.DC.ILR.ValidationService.Modules.Stubs
 {
     public class ValidationItemProviderServiceStub : IValidationItemProviderService<ILearner>
     {
         public IEnumerable<ILearner> Provide(IValidationContext validationContext)
         {
-            return new List<TestLearner>()
+            var learnerList = new List<ILearner>();
+
+
+            for (var i = 0; i < 20000; i++)
             {
-                new TestLearner()
+                learnerList.Add(new TestLearner()
                 {
-                    AccomNullable = 1
-                },
-                new TestLearner()
-                {
-                    AccomNullable = 5
-                }
-            };
+                    AccomNullable = i,
+                    ULNNullable = i,
+                    ALSCostNullable = i
+                });
+            }
+
+            return learnerList;
         }
     }
 }

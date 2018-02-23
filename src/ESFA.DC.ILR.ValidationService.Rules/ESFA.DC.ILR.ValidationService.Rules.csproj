@@ -51,6 +51,7 @@
     <Compile Include="Derived\Interface\IDD04.cs" />
     <Compile Include="Derived\Interface\IDD06.cs" />
     <Compile Include="Derived\Interface\IDD07.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Constants\LearnerFamTypeConstants.cs" />
     <Compile Include="Learner\Accom\Accom_01Rule.cs" />
