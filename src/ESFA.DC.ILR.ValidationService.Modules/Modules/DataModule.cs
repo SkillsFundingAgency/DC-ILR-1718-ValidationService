@@ -14,6 +14,7 @@ using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
 using ESFA.DC.ILR.ValidationService.InternalData.PriorAttain;
 using ESFA.DC.ILR.ValidationService.Modules.Stubs;
 using ESFA.DC.ILR.ValidationService.Service.AcademicYearCalendarService;
+using ESFA.DC.ILR.ValidationService.Service.DateTimeProvider;
 using ESFA.DC.ILR.ValidationService.Service.ValidationDataService;
 
 namespace ESFA.DC.ILR.ValidationService.Modules.Modules
@@ -35,6 +36,7 @@ namespace ESFA.DC.ILR.ValidationService.Modules.Modules
 
             builder.RegisterType<ValidationDataService>().As<IValidationDataService>();
             builder.RegisterType<AcademicYearCalendarService>().As<IAcademicYearCalendarService>();
+            builder.RegisterType<DateTimeProvider>().As<IDateTimeProvider>();
         }
     }
 }

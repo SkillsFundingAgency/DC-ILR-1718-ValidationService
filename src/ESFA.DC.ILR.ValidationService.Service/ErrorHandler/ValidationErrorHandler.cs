@@ -7,9 +7,9 @@ namespace ESFA.DC.ILR.ValidationService.Service.ErrorHandler
 {
     public class ValidationErrorHandler : IValidationErrorHandler
     {
-        private readonly ConcurrentBag<ValidationError> _errorbag = new ConcurrentBag<ValidationError>();
+        private readonly ConcurrentBag<IValidationError> _errorbag = new ConcurrentBag<IValidationError>();
 
-        public ConcurrentBag<ValidationError> ErrorBag
+        public virtual ConcurrentBag<IValidationError> ErrorBag
         {
             get
             {

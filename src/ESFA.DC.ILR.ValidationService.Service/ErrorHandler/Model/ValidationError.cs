@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using ESFA.DC.ILR.ValidationService.Interface;
 
 namespace ESFA.DC.ILR.ValidationService.Service.ErrorHandler.Model
 {
-    public struct ValidationError
+    public struct ValidationError : IValidationError
     {
         public ValidationError(string ruleName, string learnerRefernenceNumber, long? aimSequenceNumber = null,  IEnumerable<string> errorMessageParameters = null)
         {
@@ -12,12 +13,12 @@ namespace ESFA.DC.ILR.ValidationService.Service.ErrorHandler.Model
             ErrorMessageParameters = errorMessageParameters;
         }
 
-        public string LearnerReferenceNumber { get; private set; }
+        public string LearnerReferenceNumber { get; }
 
-        public long? AimSequenceNumber { get; private set; }
+        public long? AimSequenceNumber { get; }
 
-        public string RuleName { get; private set; }
+        public string RuleName { get; }
 
-        public IEnumerable<string> ErrorMessageParameters { get; private set; }
+        public IEnumerable<string> ErrorMessageParameters { get; }
     }
 }

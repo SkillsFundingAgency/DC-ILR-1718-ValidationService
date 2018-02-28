@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\AbstractRule.cs" />
+    <Compile Include="Constants\ContPrefTypeConstants.cs" />
     <Compile Include="Derived\DD01.cs" />
     <Compile Include="Derived\DD06.cs" />
     <Compile Include="Derived\DD04.cs" />
@@ -169,7 +170,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ESFA.DC.ILR.ValidationService.Rules.ruleset" />
+    <None Include="ESFA.DC.ILR.ValidationService.Rules.ruleset">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

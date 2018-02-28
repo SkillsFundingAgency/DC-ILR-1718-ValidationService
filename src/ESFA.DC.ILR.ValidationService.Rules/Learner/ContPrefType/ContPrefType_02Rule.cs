@@ -13,9 +13,6 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
     /// </summary>
     public class ContPrefType_02Rule : AbstractRule, IRule<ILearner>
     {
-        private const string ContactTypeRUI = "RUI";
-        private const string ContactTypePMC = "PMC";
-
         public ContPrefType_02Rule(IValidationErrorHandler validationErrorHandler)
             : base(validationErrorHandler)
         {
@@ -45,21 +42,21 @@ namespace ESFA.DC.ILR.ValidationService.Rules.Learner.ContPrefType
         {
             return !string.IsNullOrWhiteSpace(contactPreferenceType)
                    && contPrefCode.HasValue &&
-                   (contactPreferenceType == ContactTypeRUI &&
+                   (contactPreferenceType == ContPrefTypeConstants.RUI &&
                     (contPrefCode == 3 || contPrefCode == 4 || contPrefCode == 5));
         }
 
         public bool ConditionMetContactRUI(IReadOnlyCollection<IContactPreference> contactPreferences)
         {
             return contactPreferences.Any(
-                x => (x.ContPrefType == ContactTypeRUI && x.ContPrefCodeNullable.HasValue &&
+                x => (x.ContPrefType == ContPrefTypeConstants.RUI && x.ContPrefCodeNullable.HasValue &&
                        (x.ContPrefCodeNullable.Value == 1 || x.ContPrefCodeNullable.Value == 2)));
         }
 
         public bool ConditionMetContactPMC(IReadOnlyCollection<IContactPreference> contactPreferences)
         {
             return contactPreferences.Any(x =>
-                (x.ContPrefType == ContactTypePMC && x.ContPrefCodeNullable.HasValue &&
+                (x.ContPrefType == ContPrefTypeConstants.PMC && x.ContPrefCodeNullable.HasValue &&
                  (x.ContPrefCodeNullable.Value == 1 || x.ContPrefCodeNullable.Value == 2 ||
                   x.ContPrefCodeNullable.Value == 3)));
         }

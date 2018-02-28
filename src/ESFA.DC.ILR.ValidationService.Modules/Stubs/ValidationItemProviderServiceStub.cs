@@ -16,9 +16,9 @@ namespace ESFA.DC.ILR.ValidationService.Modules.Stubs
             {
                 learnerList.Add(new TestLearner()
                 {
-                    AccomNullable = i,
-                    ULNNullable = i,
-                    ALSCostNullable = i
+                    //AccomNullable = i,
+                    //ULNNullable = i,
+                    //ALSCostNullable = i
                 });
             }
 

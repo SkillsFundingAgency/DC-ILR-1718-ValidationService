@@ -20,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Console
         {
             RunValidation();
 
-            //RunActor();
+            RunActor();
             
             System.Console.ReadLine();
         }
@@ -33,11 +33,9 @@ namespace ESFA.DC.ILR.ValidationService.Console
 
             using (var scope = container.BeginLifetimeScope())
             {
-                var ruleSetOrchestrationService = scope.Resolve<IRuleSetOrchestrationService<ILearner>>();
+                var ruleSetOrchestrationService = scope.Resolve<IRuleSetOrchestrationService<ILearner, IValidationError>>();
 
-                ruleSetOrchestrationService.Execute(validationContext);
-
-                var validationErrorHandler = scope.Resolve<IValidationErrorHandler>();
+                var result = ruleSetOrchestrationService.Execute(validationContext);
             }
         }
         
@@ -54,20 +52,17 @@ namespace ESFA.DC.ILR.ValidationService.Console
         {
             var tasks = new List<Task<int>>();
 
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 200; i++)
             {
-                ILearnerValidationActor actor = ActorProxy.Create<ILearnerValidationActor>(ActorId.CreateRandom(),
-                    new Uri("fabric:/ESFA.DC.ILR.ValidationService.Application/LearnerValidationActorService"));
-                var cancellationToken = new CancellationToken();
-                Task<int> retval = actor.Validate(cancellationToken);
+                ILearnerValidationActor actor = ActorProxy.Create<ILearnerValidationActor>(ActorId.CreateRandom(), new Uri("fabric:/ESFA.DC.ILR.ValidationService.Application/LearnerValidationActorService"));
 
-                tasks.Add(retval);
+                var cancellationToken = new CancellationToken();
+                tasks.Add(actor.Validate(cancellationToken));
             }
 
             Task.WaitAll(tasks.ToArray());
 
             var total = tasks.Sum(t => t.Result);
-            //var value = await retval;
         }
     }
 }

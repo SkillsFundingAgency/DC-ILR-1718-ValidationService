@@ -1,7 +1,10 @@
-﻿namespace ESFA.DC.ILR.ValidationService.Interface
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace ESFA.DC.ILR.ValidationService.Interface
 {
-    public interface IRuleSetOrchestrationService<T> where T : class
+    public interface IRuleSetOrchestrationService<T, out U> where T : class
     {
-        void Execute(IValidationContext validationContext);
+        IEnumerable<U> Execute(IValidationContext validationContext);
     }
 }

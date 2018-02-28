@@ -45,8 +45,6 @@ namespace ESFA.DC.ILR.ValidationService.LearnerValidationActor
         /// </summary>
         protected override Task OnActivateAsync()
         {
-            //register autofac
-
             ActorEventSource.Current.ActorMessage(this, "Actor activated.");
 
             // The StateManager is this actor's private state store.
@@ -61,13 +59,11 @@ namespace ESFA.DC.ILR.ValidationService.LearnerValidationActor
         {
             using (var childLifetimeScope = _lifetimeScope.BeginLifetimeScope())
             {
-                var validationOrchestrationService = childLifetimeScope.Resolve<IRuleSetOrchestrationService<ILearner>>();
+                var validationOrchestrationService = childLifetimeScope.Resolve<IRuleSetOrchestrationService<ILearner, IValidationError>>();
 
-                validationOrchestrationService.Execute(new ValidationContextStub());
-
-                var validationErrorHandler = childLifetimeScope.Resolve<IValidationErrorHandler>();
-
-                return Task.FromResult(1);
+                var errors = validationOrchestrationService.Execute(new ValidationContextStub());
+                
+                return Task.FromResult(errors.Count());
             }
         }
     }

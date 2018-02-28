@@ -2,8 +2,8 @@
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="ESFA.DC.ILR.ValidationService.ApplicationType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="LearnerValidationActorService_PartitionCount" DefaultValue="10" />
-    <Parameter Name="LearnerValidationActorService_MinReplicaSetSize" DefaultValue="3" />
-    <Parameter Name="LearnerValidationActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="LearnerValidationActorService_MinReplicaSetSize" DefaultValue="5" />
+    <Parameter Name="LearnerValidationActorService_TargetReplicaSetSize" DefaultValue="5" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
