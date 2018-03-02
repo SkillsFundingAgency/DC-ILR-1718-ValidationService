@@ -3,7 +3,7 @@ using ESFA.DC.ILR.Model.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
 using ESFA.DC.ILR.ValidationService.Modules.Stubs;
 using ESFA.DC.ILR.ValidationService.RuleSet;
-using ESFA.DC.ILR.ValidationService.Service.ErrorHandler;
+using ESFA.DC.ILR.ValidationService.RuleSet.ErrorHandler;
 
 namespace ESFA.DC.ILR.ValidationService.Modules.Modules
 {

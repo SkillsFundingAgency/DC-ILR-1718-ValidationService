@@ -1,7 +1,7 @@
 ﻿using System;
 using ESFA.DC.ILR.ValidationService.Interface;
 
-namespace ESFA.DC.ILR.ValidationService.Service.DateTimeProvider
+namespace ESFA.DC.ILR.ValidationService.RuleSet
 {
     public class DateTimeProvider : IDateTimeProvider
     {

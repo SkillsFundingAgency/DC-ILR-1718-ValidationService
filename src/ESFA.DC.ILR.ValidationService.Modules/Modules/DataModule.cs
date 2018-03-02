@@ -8,14 +8,14 @@ using ESFA.DC.ILR.ValidationService.ExternalData.Organisation.Interface;
 using ESFA.DC.ILR.ValidationService.ExternalData.ULN;
 using ESFA.DC.ILR.ValidationService.ExternalData.ULN.Interface;
 using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.InternalData.AcademicYearCalendarService;
 using ESFA.DC.ILR.ValidationService.InternalData.ContPrefType;
 using ESFA.DC.ILR.ValidationService.InternalData.LearnFAMTypeCode;
 using ESFA.DC.ILR.ValidationService.InternalData.LLDDCat;
 using ESFA.DC.ILR.ValidationService.InternalData.PriorAttain;
+using ESFA.DC.ILR.ValidationService.InternalData.ValidationDataService;
 using ESFA.DC.ILR.ValidationService.Modules.Stubs;
-using ESFA.DC.ILR.ValidationService.Service.AcademicYearCalendarService;
-using ESFA.DC.ILR.ValidationService.Service.DateTimeProvider;
-using ESFA.DC.ILR.ValidationService.Service.ValidationDataService;
+using ESFA.DC.ILR.ValidationService.RuleSet;
 
 namespace ESFA.DC.ILR.ValidationService.Modules.Modules
 {

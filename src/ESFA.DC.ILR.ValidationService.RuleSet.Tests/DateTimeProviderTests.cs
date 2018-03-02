@@ -1,15 +1,15 @@
-﻿using FluentAssertions;
-using System;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
-namespace ESFA.DC.ILR.ValidationService.Service.Tests.DateTimeProvider
+namespace ESFA.DC.ILR.ValidationService.RuleSet.Tests
 {
     public class DateTimeProviderTests
     {
         [Fact]
         public void UtcNow()
         {
-            var dateTimeProvider = new Service.DateTimeProvider.DateTimeProvider();
+            var dateTimeProvider = new RuleSet.DateTimeProvider();
 
             dateTimeProvider.UtcNow.Should().BeCloseTo(DateTime.UtcNow, 50);
         }

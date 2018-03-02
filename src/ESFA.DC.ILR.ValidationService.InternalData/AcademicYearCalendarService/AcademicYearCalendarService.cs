@@ -1,7 +1,7 @@
 ﻿using System;
 using ESFA.DC.ILR.ValidationService.Interface;
 
-namespace ESFA.DC.ILR.ValidationService.Service.AcademicYearCalendarService
+namespace ESFA.DC.ILR.ValidationService.InternalData.AcademicYearCalendarService
 {
     public class AcademicYearCalendarService : IAcademicYearCalendarService
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ESFA.DC.ILR.ValidationService.Service.ValidationDataService
+namespace ESFA.DC.ILR.ValidationService.InternalData.ValidationDataService
 {
     public class ValidationDataService : IValidationDataService
     {
@@ -16,7 +16,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.ValidationDataService
 
         public ValidationDataService(IDateTimeProvider dateTimeProvider)
         {
-            _validationStartDateTime = dateTimeProvider != null ? dateTimeProvider.UtcNow : DateTime.UtcNow;
+            _validationStartDateTime = dateTimeProvider?.UtcNow ?? DateTime.UtcNow;
         }
 
         public DateTime AcademicYearAugustThirtyFirst {  get { return _academicYearAugustThirtyFirst;  } }

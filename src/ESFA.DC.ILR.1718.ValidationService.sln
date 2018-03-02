@@ -7,10 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.Rules.Tests", "ESFA.DC.ILR.ValidationService.Rules.Tests\ESFA.DC.ILR.ValidationService.Rules.Tests.csproj", "{754EEC2F-826D-46CC-80C0-A0A006CA7CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.Service", "ESFA.DC.ILR.ValidationService.Service\ESFA.DC.ILR.ValidationService.Service.csproj", "{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.Service.Tests", "ESFA.DC.ILR.ValidationService.Service.Tests\ESFA.DC.ILR.ValidationService.Service.Tests.csproj", "{780816ED-CA62-43E3-87FB-784D1FF08500}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.ExternalData", "ESFA.DC.ILR.ValidationService.ExternalData\ESFA.DC.ILR.ValidationService.ExternalData.csproj", "{991F0564-9702-4B47-8B5F-7C5794563F05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.ILR.ValidationService.ExternalData.Tests", "ESFA.DC.ILR.ValidationService.ExternalData.Tests\ESFA.DC.ILR.ValidationService.ExternalData.Tests.csproj", "{D6D7C486-D85A-46C7-8414-B51ECB17DBF8}"
@@ -73,22 +69,6 @@ Global
 		{754EEC2F-826D-46CC-80C0-A0A006CA7CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{754EEC2F-826D-46CC-80C0-A0A006CA7CE9}.Release|x64.ActiveCfg = Release|Any CPU
 		{754EEC2F-826D-46CC-80C0-A0A006CA7CE9}.Release|x64.Build.0 = Release|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Debug|x64.Build.0 = Debug|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Release|x64.ActiveCfg = Release|Any CPU
-		{1EEFB28A-073A-4A53-864D-7FA8ECFAC37A}.Release|x64.Build.0 = Release|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Debug|x64.Build.0 = Debug|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Release|Any CPU.Build.0 = Release|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Release|x64.ActiveCfg = Release|Any CPU
-		{780816ED-CA62-43E3-87FB-784D1FF08500}.Release|x64.Build.0 = Release|Any CPU
 		{991F0564-9702-4B47-8B5F-7C5794563F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{991F0564-9702-4B47-8B5F-7C5794563F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{991F0564-9702-4B47-8B5F-7C5794563F05}.Debug|x64.ActiveCfg = Debug|Any CPU

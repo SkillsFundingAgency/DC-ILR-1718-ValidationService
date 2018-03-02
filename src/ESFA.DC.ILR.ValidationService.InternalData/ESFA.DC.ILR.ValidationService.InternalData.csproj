@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcademicYearCalendarService\AcademicYearCalendarService.cs" />
     <Compile Include="ContPrefType\ContactPreferenceInternalDataService.cs" />
     <Compile Include="ContPrefType\IContactPreferenceInternalDataService.cs" />
     <Compile Include="ContPrefType\Models\ContactPreferenceInternalData.cs" />
@@ -52,7 +53,13 @@
     <Compile Include="PriorAttain\IPriorAttainInternalDataService.cs" />
     <Compile Include="PriorAttain\PriorAttainInternalDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationDataService\ValidationDataService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ESFA.DC.ILR.ValidationService.Interface\ESFA.DC.ILR.ValidationService.Interface.csproj">
+      <Project>{513c4f05-55f4-4aef-b3eb-427c024da043}</Project>
+      <Name>ESFA.DC.ILR.ValidationService.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

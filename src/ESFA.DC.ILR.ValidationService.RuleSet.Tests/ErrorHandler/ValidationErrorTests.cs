@@ -1,10 +1,10 @@
-﻿using ESFA.DC.ILR.ValidationService.Service.ErrorHandler;
-using FluentAssertions;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using ESFA.DC.ILR.ValidationService.RuleSet.ErrorHandler;
+using FluentAssertions;
 using Xunit;
 
-namespace ESFA.DC.ILR.ValidationService.Service.Tests.ErrorHandler
+namespace ESFA.DC.ILR.ValidationService.RuleSet.Tests.ErrorHandler
 {
     public class ValidationErrorHandlerTests
     {

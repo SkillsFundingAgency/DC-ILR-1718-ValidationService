@@ -1,8 +1,8 @@
-﻿using FluentAssertions;
-using System;
+﻿using System;
+using FluentAssertions;
 using Xunit;
 
-namespace ESFA.DC.ILR.ValidationService.Service.Tests.AcademicYearCalendarService
+namespace ESFA.DC.ILR.ValidationService.InternalData.Tests.AcademicYearCalendarService
 {
     public class AcademicYearCalendarServiceTests
     {
@@ -20,7 +20,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.Tests.AcademicYearCalendarServic
             var date = new DateTime(year, month, 1);
             var expectedValue = DateTime.Parse(expectedDate);
 
-            var academicYearCalendarService = new Service.AcademicYearCalendarService.AcademicYearCalendarService();
+            var academicYearCalendarService = new InternalData.AcademicYearCalendarService.AcademicYearCalendarService();
 
             while (date.Month == month)
             {
@@ -38,7 +38,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.Tests.AcademicYearCalendarServic
             var inputDateTime = DateTime.Parse(inputDate);
             var expectedDateTime = DateTime.Parse(expectedDate);
 
-            var academicYearCalendarService = new Service.AcademicYearCalendarService.AcademicYearCalendarService();
+            var academicYearCalendarService = new InternalData.AcademicYearCalendarService.AcademicYearCalendarService();
 
             academicYearCalendarService.LastFridayInJuneForDateInAcademicYear(inputDateTime).Should().Be(expectedDateTime);
         }
@@ -53,7 +53,7 @@ namespace ESFA.DC.ILR.ValidationService.Service.Tests.AcademicYearCalendarServic
             var inputDateTime = DateTime.Parse(inputDate);
             var expectedDateTime = DateTime.Parse(expectedDate);
 
-            var academicYearCalendarService = new Service.AcademicYearCalendarService.AcademicYearCalendarService();
+            var academicYearCalendarService = new InternalData.AcademicYearCalendarService.AcademicYearCalendarService();
 
             academicYearCalendarService.FirstSeptemberForDateInAcademicYear(inputDateTime).Should().Be(expectedDateTime);
         }        

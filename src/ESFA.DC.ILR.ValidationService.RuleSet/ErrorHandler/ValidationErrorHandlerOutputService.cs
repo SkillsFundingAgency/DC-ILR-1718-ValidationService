@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ESFA.DC.ILR.ValidationService.Interface;
 
-namespace ESFA.DC.ILR.ValidationService.Service.ErrorHandler
+namespace ESFA.DC.ILR.ValidationService.RuleSet.ErrorHandler
 {
     public class ValidationErrorHandlerOutputService : IValidationOutputService<IValidationError>
     {

@@ -1,9 +1,9 @@
-﻿using ESFA.DC.ILR.ValidationService.Interface;
-using ESFA.DC.ILR.ValidationService.Service.ErrorHandler.Model;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using ESFA.DC.ILR.ValidationService.Interface;
+using ESFA.DC.ILR.ValidationService.RuleSet.ErrorHandler.Model;
 
-namespace ESFA.DC.ILR.ValidationService.Service.ErrorHandler
+namespace ESFA.DC.ILR.ValidationService.RuleSet.ErrorHandler
 {
     public class ValidationErrorHandler : IValidationErrorHandler
     {
